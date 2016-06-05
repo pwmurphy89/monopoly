@@ -21,6 +21,7 @@ myApp.config(function($routeProvider, $locationProvider){
 
 
 myApp.controller('myController',function($scope, $http,$location, $cookies, $sce){
+
 	$scope.$watch(function() { 
 	    return $location.path(); 
 	    },
@@ -83,8 +84,96 @@ myApp.controller('myController',function($scope, $http,$location, $cookies, $sce
 });
 
 myApp.controller('gameController',function($scope, $http,$location){
-	$scope.message = "HELLOOOOO";
+	var playerOne = true;
+	var playerTwo = false;
+	var playerOnePosition = 0;
+	var playerTwoPosition = 0;
+	var playerOneBank = 500;
+	var playerTwoBank = 500;
+
+	$scope.message = "Lets Play Monopoly! Player One First";
+	$scope.playerOneBank = playerOneBank;
+	$scope.playerTwoBank = playerTwoBank;
+
+	var changePlayer = function(){
+		if(playerOne){
+			$scope.message = "Player Two Turn";
+			playerOne = false;
+			playerTwo = true;
+		}else{
+			$scope.message = "Player One Turn";
+			playerTwo = false;
+			playerOne = true;
+		}
+	}
+
+	var passGo = function(player){
+		if(player == 1){
+			playerOneBank += 200;
+		}else{
+			playerTwoBank += 200;
+		}
+		$scope.playerOneBank = playerOneBank;
+		$scope.playerTwoBank = playerTwoBank;
+	}
+
+	var updatePosition = function(player, diceTotal){
+		if (player == 1){
+			document.getElementById(playerOnePosition).innerHTML = playerOnePosition;
+			playerOnePosition += diceTotal;
+			if(playerOnePosition > 39){
+				passGo(1);
+				playerOnePosition -= 40;
+			}
+			document.getElementById(playerOnePosition).innerHTML += 'Player One';
+			$scope.position = "Player One rolled a " + diceTotal;
+			checkCell(1, playerOnePosition);
+		}else{
+			document.getElementById(playerTwoPosition).innerHTML = playerTwoPosition;
+			playerTwoPosition += diceTotal;
+			if(playerTwoPosition > 39){
+				passGo(2);
+				playerTwoPosition -= 40;
+			}
+			document.getElementById(playerTwoPosition).innerHTML += 'Player Two';
+			$scope.position = "Player Two rolled a " + diceTotal;
+			checkCell(2, playerTwoPosition);
+		}
+	}
+
+	$scope.rollDice = function(){
+		var dice1 = Math.floor(Math.random() * 6 + 1);
+		var dice2 = Math.floor(Math.random() * 6 + 1);
+		var diceTotal = dice1 + dice2;
+		if(playerOne){
+			updatePosition(1,diceTotal);
+		}else{
+			updatePosition(2, diceTotal)
+		}
+		changePlayer();
+	}
+
+	var checkCell = function(player, position){
+		if(player == 1){
+			console.log(position);
+		}else{
+			console.log(position);
+		}
+	}
+
+
+
+
+
 });
+
+
+
+
+
+
+
+
 myApp.controller('infoController',function($scope, $http,$location){
 	$scope.message = "HELLOOOOO";
 });

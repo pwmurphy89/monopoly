@@ -13,6 +13,9 @@
 	#logo{
 		height: 100%;
 	}
+	#monopoly{
+	height: 100%;
+	}
 	img{
 		width: 100%;
 		height: 100%;
@@ -29,8 +32,7 @@
 	}
 }
 
-#background{
-	height: 1000px;
-	background-repeat: no-repeat;
-	background-image: url('images/volopoly.jpg');
+.cell{
+	border: 1px solid black;
+	height: 80px;
 }

@@ -17,27 +17,30 @@
   height: 100%;
 }
 /* line 16, ../compass/sass/style.scss */
+#header #monopoly {
+  height: 100%;
+}
+/* line 19, ../compass/sass/style.scss */
 #header img {
   width: 100%;
   height: 100%;
 }
-/* line 20, ../compass/sass/style.scss */
+/* line 23, ../compass/sass/style.scss */
 #header h1 {
   color: white;
   font-size: 90px;
 }
-/* line 24, ../compass/sass/style.scss */
+/* line 27, ../compass/sass/style.scss */
 #header #action-bar {
   margin-top: 50px;
 }
-/* line 26, ../compass/sass/style.scss */
+/* line 29, ../compass/sass/style.scss */
 #header #action-bar h4 {
   color: white;
 }
 
-/* line 32, ../compass/sass/style.scss */
-#background {
-  height: 1000px;
-  background-repeat: no-repeat;
-  background-image: url("images/volopoly.jpg");
+/* line 35, ../compass/sass/style.scss */
+.cell {
+  border: 1px solid black;
+  height: 80px;
 }
