@@ -16,12 +16,13 @@ myApp.config(function($routeProvider, $locationProvider){
 	}).when('/login',{
 		templateUrl: 'views/login.html',
 		controller: 'myController'
+	}).when('/start',{
+		templateUrl: 'views/start.html',
+		controller: 'gameController'
 	})
 });
 
-
 myApp.controller('myController',function($scope, $http,$location, $cookies, $sce){
-
 	$scope.$watch(function() { 
 	    return $location.path(); 
 	    },
@@ -47,7 +48,7 @@ myApp.controller('myController',function($scope, $http,$location, $cookies, $sce
 				$scope.message = "Please re-enter password.";
 			}else{
 				$cookies.put('username', $scope.username);
-				$location.path('/game')
+				$location.path('/start')
 			}
 		},function errorCallback(response){
 			console.log("error");
@@ -67,7 +68,7 @@ myApp.controller('myController',function($scope, $http,$location, $cookies, $sce
 					$scope.message = "Username already in use.  Please choose another username.";
 				}else{
 					$cookies.put('username', username);
-					$location.path('/game');
+					$location.path('/start');
 				}
 			},function errorCallback(response){
 				console.log("error");
@@ -84,26 +85,61 @@ myApp.controller('myController',function($scope, $http,$location, $cookies, $sce
 });
 
 myApp.controller('gameController',function($scope, $http,$location){
-	var playerOne = true;
-	var playerTwo = false;
 	var playerOnePosition = 0;
 	var playerTwoPosition = 0;
 	var playerOneBank = 500;
 	var playerTwoBank = 500;
+	var onePlayer;
+	var twoPlayer;
 
-	$scope.message = "Lets Play Monopoly! Player One First";
+	$scope.message = "Lets Play Monopoly!";
 	$scope.playerOneBank = playerOneBank;
 	$scope.playerTwoBank = playerTwoBank;
 
+	$scope.onePlayerGame = function(){
+		onePlayer = true;
+		twoPlayer = false;
+		$scope.whoRollsFirst = "Please roll to see who's first";
+		whosFirst();
+		console.log("playing with the computer");
+	}
+
+	$scope.twoPlayerGame = function(){
+		onePlayer = false;
+		twoPlayer = true;
+		$scope.roll = true;
+	}
+
+	$scope.whosFirst = function(){
+		var playerOneTotal =  Math.floor(Math.random() * 6 + 1) + Math.floor(Math.random() * 6 + 1);
+		var playerTwoTotal =  Math.floor(Math.random() * 6 + 1) + Math.floor(Math.random() * 6 + 1);
+		$scope.total = true;
+		$scope.playerOneTotal = playerOneTotal;
+		$scope.playerTwoTotal = playerTwoTotal;
+
+		if(playerOneTotal > playerTwoTotal){
+			playerOneTurn = true;
+			playerTwoTurn = false;
+			$scope.message = "Player One rolls first!";
+		}else{
+			playerOneTurn = false;
+			playerTwoTurn = true;
+			$scope.message = "Player Two rolls first!";
+		}
+		$scope.play = true;
+	}
+	$scope.playNow = function(){
+		$location.path('/game');
+	}
 	var changePlayer = function(){
-		if(playerOne){
+		if(playerOneTurn){
 			$scope.message = "Player Two Turn";
-			playerOne = false;
-			playerTwo = true;
+			playerOneTurn = false;
+			playerTwoTurn = true;
 		}else{
 			$scope.message = "Player One Turn";
-			playerTwo = false;
-			playerOne = true;
+			playerTwoTurn = false;
+			playerOneTurn = true;
 		}
 	}
 
@@ -143,36 +179,31 @@ myApp.controller('gameController',function($scope, $http,$location){
 
 	$scope.rollDice = function(){
 		var dice1 = Math.floor(Math.random() * 6 + 1);
+		var imageName1 = "d" + dice1 + ".gif";
+        document.images['dieOne'].src = "css/images/" + imageName1;
+
 		var dice2 = Math.floor(Math.random() * 6 + 1);
+		var imageName2 = "d" + dice2 + ".gif";
+        document.images['dieTwo'].src = "css/images/" + imageName2;
+
 		var diceTotal = dice1 + dice2;
-		if(playerOne){
+		
+		if(playerOneTurn){
 			updatePosition(1,diceTotal);
 		}else{
-			updatePosition(2, diceTotal)
+			updatePosition(2, diceTotal);
 		}
 		changePlayer();
 	}
 
 	var checkCell = function(player, position){
 		if(player == 1){
-			console.log(position);
+			console.log(cells[position]);
 		}else{
-			console.log(position);
+			console.log(cells[position]);
 		}
 	}
-
-
-
-
-
 });
-
-
-
-
-
-
-
 
 myApp.controller('infoController',function($scope, $http,$location){
 	$scope.message = "HELLOOOOO";

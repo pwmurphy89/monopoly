@@ -1,0 +1,10 @@
+<h1>Please choose how many players</h1>
+<button ng-click="onePlayerGame()">One Player</button>
+<button ng-click="twoPlayerGame()">Two Player</button>
+
+THEN
+
+<div ng-show="roll"><h2>Roll to see who goes first</h2><button ng-click="whosFirst()">Roll</button></div>
+<div ng-show="total"><h1>Player one rolled a {{playerOneTotal}}</h1></div>
+<div ng-show="total"><h1>Player two rolled a {{playerTwoTotal}}</h1></div>
+<div ng-show="play"><button ng-click="playNow()">Let's Play!</button></div>
