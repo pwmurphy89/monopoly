@@ -1,3 +1,5 @@
+@import "backgrounds";
+
 #front-container{
 	background-image: url('images/board.jpg');
 	background-size: 100%;
@@ -7,7 +9,7 @@
 }
 
 #header{
-	height: 125px;
+	height: 100px;
 	margin-bottom: 0px;
 	background-color:#5982A7;
 	#logo{
@@ -33,6 +35,46 @@
 }
 
 .cell{
+	font-size: 8px;
 	border: 1px solid black;
-	height: 80px;
+	height: 55px;
+	padding: 0px;
 }
+
+
+.red{
+	background-color: red;
+}
+.blue{
+	background-color: blue;
+}
+#gameInfo{
+
+}
+#board{
+	img{
+		height: 44px;
+		display: inline-block;
+	}
+	button{
+		margin-bottom: -30px;
+	}
+	h1{
+		font-size: 10px;
+	}
+	#purchaseInfo{
+		margin-top: 20px;
+	}
+}
+.playerOneBorder{
+	border: 3px solid red;
+}
+.playerTwoBorder{
+	border: 3px solid blue;
+}
+.sameBorder{
+	border-width: 3px;
+	border-style: solid;
+	border-color: red blue;
+}
+
