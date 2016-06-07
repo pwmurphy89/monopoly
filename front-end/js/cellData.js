@@ -5,7 +5,7 @@ var cells = [
 	{name: "Baltic Ave.", position: 3, price: 60, rent: 4, group: "Purple",status: "vacant" },
 	{name: "Income Tax", position: 4, price: 0, rent: 0, group: "Tax", status: "public"},
 	{name: "Reading Railroad" , position: 5, price: 200, rent: 25, group: "Railroad", status: "vacant" },
-	{name: "Oriental Ave." , position: 6, price: 0, rent: 0, group: "Light-Green", status: "vacant"},
+	{name: "Oriental Ave." , position: 6, price: 100, rent: 6, group: "Light-Green", status: "vacant"},
 	{name: "Chance", position: 7, price: 0, rent: 0, group:"Chance", status: "public"},
 	{name:"Vermont Ave.", position: 8, price: 100, rent: 6, group: "Light-Green", status: "vacant"},
 	{name: "Connecticut Ave.", position: 9, price: 120, rent: 8, group:"Light-Green", status: "vacant"},

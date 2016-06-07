@@ -43,13 +43,41 @@
 
 
 .red{
-	background-color: red;
+	border: 3px solid red;
 }
 .blue{
-	background-color: blue;
+	border: 3px solid blue;
+}
+.redText{
+	color: red;
+}
+.blueText{
+	color: blue;
 }
 #gameInfo{
+	h2{
+		display: inline;
+	}
+	div{
+		margin-top: 18px;
+	}
+}
 
+#playerOneInfo{
+	img{
+		height:70px;
+	}
+	h4{
+		margin-top: -15px;
+	}
+}
+#playerTwoInfo{
+	img{
+		height:50px;
+	}
+	h4{
+		margin-top: -5px;
+	}
 }
 #board{
 	img{
@@ -77,4 +105,5 @@
 	border-style: solid;
 	border-color: red blue;
 }
+
 

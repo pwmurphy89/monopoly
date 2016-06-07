@@ -1,4 +1,5 @@
 <div class="container">
+
 	<div id="board" class="col-sm-8">
 		<div id="row1" class="col-sm-12">
 			<div id="20" class="cell col-sm-1 twenty">
@@ -35,7 +36,10 @@
 			</div>
 			<div class="col-sm-9">
 				<div id="rollInfo" class="text-center" ng-show="rollInfo">
-					Player {{whichPlayer}} landed on {{cellName}}
+					Player {{whichPlayer}} landed on {{cell.name}}
+				</div>
+				<div id="chestInfo" class="text-center" ng-show="specialMessage"> 
+					{{message}}
 				</div>
 			</div>
 			<div id="32" class="cell col-sm-1 thirty-two">
@@ -45,7 +49,7 @@
 			<div id="17" class="cell col-sm-1 seventeen">
 			</div>
 			<div class="col-sm-3 col-sm-offset-3 text-center">
-				<button class="btn btn-primary" ng-click="rollDice()">Roll Dice</button>
+				<button id="rollButton" class="btn btn-primary" ng-click="rollDice()">Roll Dice</button>
 			</div>
 			<div id="33" class="cell col-sm-1 col-sm-offset-3 thirty-three">
 			</div>
@@ -65,7 +69,10 @@
 			</div>
 			<div class="col-sm-9">
 				<div id="purchaseInfo" class="text-center" ng-show="purchase">
-					Would you like to purchase {{cellName}}?
+					Player {{whichPlayer}} {{purchaseMessage}} {{cell.name}} for ${{cell.price}}
+				</div>
+				<div id="rentInfo" class="text-center" ng-show="rent">
+					Player {{whichPlayer}} must pay rent of ${{cell.rent}}
 				</div>
 			</div>
 			<div id="35" class="cell col-sm-1 thirty-five">
@@ -76,7 +83,7 @@
 			</div>
 
 			<div class="col-sm-5 col-sm-offset-2 text-center">
-				<div ng-show="purchase">
+				<div ng-show="purchaseButtons">
 					<button class="btn btn-success" ng-click="purchaseProperty()">Purchase</button>
 					<button class="btn btn-danger" ng-click="notPurchase()">Decline</button>
 				</div>
@@ -128,18 +135,23 @@
 			</div>
 		</div>
 	</div>
-	<div id="gameInfo" class="col-sm-2">
-		<div class="col-sm-12">
-			<h3>Player One Cash:</h3>
+	<div id="gameInfo" class="col-sm-4">
+		<div class="text-center" id="playerOneInfo">
+			<img src="../css/images/token-ship.png">
+			<h2><span class="redText"> Player One </span>${{playerOneBank}} </h2>
+			<h4>Properties:</h4>
+			<div ng-repeat="property in playerOneProperties">
+				<h5>{{property.name}} -- Rent: ${{property.rent}}</h5>
+			</div>
 		</div>
-		<div class="col-sm-6">
-			<h5>${{playerOneBank}}</h5>
-		</div>
-		<div class="col-sm-12">
-			<h3>Player Two Cash:</h3>
-		</div>
-		<div class="col-sm-6">
-			<h5>${{playerTwoBank}}</h5>
+		<div class="text-center" id="playerTwoInfo">
+			<img src="../css/images/token-car.png">
+			<h2><span class="blueText"> Player Two </span> ${{playerTwoBank}}</h2>
+
+			<h4>Properties:</h4>
+			<div ng-repeat="property in playerTwoProperties">
+				<h5>{{property.name}} -- Rent: ${{property.rent}}</h5>
+			</div>
 		</div>
 	</div>
 </div>

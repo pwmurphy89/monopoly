@@ -290,43 +290,80 @@
 
 /* line 45, ../compass/sass/style.scss */
 .red {
-  background-color: red;
+  border: 3px solid red;
 }
 
 /* line 48, ../compass/sass/style.scss */
 .blue {
-  background-color: blue;
+  border: 3px solid blue;
 }
 
-/* line 55, ../compass/sass/style.scss */
+/* line 51, ../compass/sass/style.scss */
+.redText {
+  color: red;
+}
+
+/* line 54, ../compass/sass/style.scss */
+.blueText {
+  color: blue;
+}
+
+/* line 58, ../compass/sass/style.scss */
+#gameInfo h2 {
+  display: inline;
+}
+/* line 61, ../compass/sass/style.scss */
+#gameInfo div {
+  margin-top: 18px;
+}
+
+/* line 67, ../compass/sass/style.scss */
+#playerOneInfo img {
+  height: 70px;
+}
+/* line 70, ../compass/sass/style.scss */
+#playerOneInfo h4 {
+  margin-top: -15px;
+}
+
+/* line 75, ../compass/sass/style.scss */
+#playerTwoInfo img {
+  height: 50px;
+}
+/* line 78, ../compass/sass/style.scss */
+#playerTwoInfo h4 {
+  margin-top: -5px;
+}
+
+/* line 83, ../compass/sass/style.scss */
 #board img {
   height: 44px;
   display: inline-block;
 }
-/* line 59, ../compass/sass/style.scss */
+/* line 87, ../compass/sass/style.scss */
 #board button {
   margin-bottom: -30px;
 }
-/* line 62, ../compass/sass/style.scss */
+/* line 90, ../compass/sass/style.scss */
 #board h1 {
   font-size: 10px;
 }
-/* line 65, ../compass/sass/style.scss */
+/* line 93, ../compass/sass/style.scss */
 #board #purchaseInfo {
   margin-top: 20px;
 }
 
-/* line 69, ../compass/sass/style.scss */
+/* line 97, ../compass/sass/style.scss */
 .playerOneBorder {
   border: 3px solid red;
 }
 
-/* line 72, ../compass/sass/style.scss */
+/* line 100, ../compass/sass/style.scss */
 .playerTwoBorder {
   border: 3px solid blue;
 }
 
-/* line 75, ../compass/sass/style.scss */
+/* line 103, ../compass/sass/style.scss */
 .sameBorder {
   border-width: 3px;
   border-style: solid;
