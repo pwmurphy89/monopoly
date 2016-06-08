@@ -2,7 +2,7 @@ var chanceCards = [
 {name: "go", message: 'Advance to GO! Collect $200!'},
 {name: "illinois", message: 'Advance to Illinois Ave.'},
 {name: "stCharles", message: 'Advance to St. Charles Place.  If you pass GO, collect $200'},
-{name: "school", message: 'Pay School Fees of $75', action: +75},
+{name: "gotojail", message: 'Go to Jail. Do not pass GO.'},
 {name: "holiday", message: 'Holiday Fund Matures, Collect $100', action: +100}
 ];
 
@@ -16,16 +16,16 @@ var chanceCard = function(player,position){
 		go(player);
 	}
 	if(randomChanceCard.name == "illinois"){
-		illinois(player, position, randomChanceCard);
+		illinois(player);
 	}
 	if(randomChanceCard.name == "stCharles"){
-		stCharles(player, position, randomChanceCard);
+		stCharles(player);
 	}
-	if(randomChanceCard.name == "school"){
-		school(player, position, randomChanceCard);
+	if(randomChanceCard.name == "gotojail"){
+		gotojail(player);
 	}
 	if(randomChanceCard.name == "holiday"){
-		holiday(player, position, randomChanceCard);
+		holiday(player);
 	}
 	window.message = randomChanceCard.message;
 }
@@ -60,9 +60,17 @@ var stCharles = function(player){
 		}
 	}
 }
+var gotojail = function(player){
+	if(player == 1){
+		window.playerOneInJail = true;
+		movePiece(1, 10);
+	}else if(player == 2){
+		window.playerTwoInJail = true;
+		movePiece(2, 10);
+	}
+}
 		
 var movePiece = function(player, position){
-	console.log("weere moving the piece!");
 	if(player == 1){
 		document.getElementById(playerOnePosition).innerHTML = "";
 		window.playerOnePosition = position;

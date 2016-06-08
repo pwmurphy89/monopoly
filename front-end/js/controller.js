@@ -89,8 +89,12 @@ myApp.controller('gameController',function($scope, $http,$location){
 	window.playerTwoPosition = 0;
 	window.playerOneBank = 500;
 	window.playerTwoBank = 500;
+	window.playerOneInJail = false;
+	window.playerTwoInJail = false;
 	var onePlayer;
 	var twoPlayer;
+	var playerOneCounter = 0;
+	var playerTwoCounter = 0;
 	//for development
 	var playerOneTurn;
 	var playerTwoTurn;
@@ -184,31 +188,81 @@ myApp.controller('gameController',function($scope, $http,$location){
 	}
 
 	$scope.rollDice = function(){
+
 		$scope.specialMessage = false;
 		$scope.playerOneBank = playerOneBank;
 		$scope.playerTwoBank = playerTwoBank;
 		var dice1 = Math.floor(Math.random() * 6 + 1);
 		var imageName1 = "d" + dice1 + ".gif";
-        document.images['dieOne'].src = "css/images/" + imageName1;
+	    document.images['dieOne'].src = "css/images/" + imageName1;
 
 		var dice2 = Math.floor(Math.random() * 6 + 1);
 		var imageName2 = "d" + dice2 + ".gif";
-        document.images['dieTwo'].src = "css/images/" + imageName2;
+	    document.images['dieTwo'].src = "css/images/" + imageName2;
 
 		// var diceTotal = dice1 + dice2;
-		var diceTotal =22;
+		var diceTotal = 10;
+
 		//for development
 		if(playerOneTurn == undefined || playerTwoTurn == undefined){
 			playerOneTurn = true;
 		}
-
 		if(playerOneTurn){
-			updatePosition(1,diceTotal);
-		}else{
-			updatePosition(2, diceTotal);
+			if(playerOneInJail){
+				window.message =  "Player One is in Jail. Leave after three rolls or roll doubles to get out.";
+				jailFunction(1, dice1, dice2, diceTotal);
+			}else{
+				updatePosition(1,diceTotal);
+			}
+		}else if(playerTwoTurn){
+			if(playerTwoInJail){
+				window.message =  "Player Two is in Jail. Leave after three rolls or roll doubles to get out.";
+				jailFunction(2, dice1, dice2, diceTotal);
+			}else{
+				updatePosition(2, diceTotal);
+			}
 		}
 		changePlayer();
 	}
+
+	var jailFunction = function(player, dice1, dice2, diceTotal){
+		if(player == 1){
+			if (dice1 === dice2){
+				window.message = "Player One rolled doubles and got out!";
+				updatePosition(1, diceTotal);
+				playerOneInJail = false;
+				playerOneCounter = 0;
+			}else{
+				if (playerOneCounter == 3){
+					window.message = "Player One has rolled three times and can leave jail next turn.";
+					playerOneInJail = false;
+					playerOneCounter = 0;
+				}else{
+					window.message = "Player One has rolled " + playerOneCounter + " times while in Jail"; 
+					playerOneCounter += 1;
+				}
+			}
+			checkCell(1, 10);
+		}else if(player ==2){
+			if (dice1 === dice2){
+				window.message = "Player Two rolled doubles and got out!";
+				updatePosition(2, diceTotal);
+				playerTwoInJail = false;
+				playerTwoCounter = 0;
+			}else{
+				if(playerTwoCounter == 3){
+					window.message = "Player Two has rolled three times and can leave jail next turn.";
+					playerTwoInJail = false;
+					playerTwoCounter = 0;
+				}else{
+					window.message = "Player Two has rolled " + playerTwoCounter + " times while in Jail";
+					playerTwoCounter += 1;
+				}
+			}
+			checkCell(2, 10);
+		}
+	}
+
 	$scope.purchaseProperty = function(){
 		$scope.purchaseMessage = " purchased ";
 		cells[$scope.playerPosition].status = "owned";
@@ -267,6 +321,7 @@ myApp.controller('gameController',function($scope, $http,$location){
 	}
 
 	var specialSpace = function(player, position){
+		$scope.cell = position;
 		var position = position.position;
 		var player = player;
 		if(position == 0){
@@ -301,17 +356,17 @@ myApp.controller('gameController',function($scope, $http,$location){
 			//Free Parking
 		}
 		if(position == 30){
-			//Go to jail
+			gotojail(player);
+			message = "Go to Jail. Do not pass GO!";
 		}
 		if(position == 10){
 			//Visiting Jail
 		}
+
 		$scope.playerOneBank = playerOneBank;
 		$scope.playerTwoBank = playerTwoBank;
 		$scope.message = window.message;
 		$scope.specialMessage = true;
-		console.log(playerOnePosition);
-
 	}
 
 	var checkGroup = function(){
@@ -321,7 +376,6 @@ myApp.controller('gameController',function($scope, $http,$location){
 	}
 
 });
-
 
 myApp.controller('infoController',function($scope, $http,$location){
 	$scope.message = "HELLOOOOO";
