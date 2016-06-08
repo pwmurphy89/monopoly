@@ -369,3 +369,18 @@
   border-style: solid;
   border-color: red blue;
 }
+
+/* line 109, ../compass/sass/style.scss */
+#chanceCardSpot img, #chestCardSpot img {
+  height: 54px;
+}
+
+/* line 114, ../compass/sass/style.scss */
+#freeParkingBank h6 {
+  margin-top: 0px;
+  margin-bottom: 2px;
+}
+/* line 118, ../compass/sass/style.scss */
+#freeParkingBank img {
+  height: 40px;
+}

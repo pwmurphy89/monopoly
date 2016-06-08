@@ -89,12 +89,15 @@ myApp.controller('gameController',function($scope, $http,$location){
 	window.playerTwoPosition = 0;
 	window.playerOneBank = 500;
 	window.playerTwoBank = 500;
+	window.freeParkingBank = 200;
 	window.playerOneInJail = false;
 	window.playerTwoInJail = false;
+	window.chanceImage  = "chance-back.png";
+	window.chestImage = "chest-back.png";
 	var onePlayer;
 	var twoPlayer;
-	var playerOneCounter = 0;
-	var playerTwoCounter = 0;
+	var playerOneCounter = 1;
+	var playerTwoCounter = 1;
 	//for development
 	var playerOneTurn;
 	var playerTwoTurn;
@@ -104,6 +107,9 @@ myApp.controller('gameController',function($scope, $http,$location){
 	$scope.playerTwoProperties = playerTwoProperties;
 	$scope.playerOneBank = playerOneBank;
 	$scope.playerTwoBank = playerTwoBank;
+	$scope.freeParkingBank = freeParkingBank;
+	$scope.chanceImage = chanceImage;
+	$scope.chestImage = chestImage;
 
 	$scope.onePlayerGame = function(){
 		onePlayer = true;
@@ -188,10 +194,12 @@ myApp.controller('gameController',function($scope, $http,$location){
 	}
 
 	$scope.rollDice = function(){
-
 		$scope.specialMessage = false;
 		$scope.playerOneBank = playerOneBank;
 		$scope.playerTwoBank = playerTwoBank;
+		$scope.chanceImage = "chance-back.png";
+		$scope.chestImage = "chest-back.png";
+
 		var dice1 = Math.floor(Math.random() * 6 + 1);
 		var imageName1 = "d" + dice1 + ".gif";
 	    document.images['dieOne'].src = "css/images/" + imageName1;
@@ -201,7 +209,7 @@ myApp.controller('gameController',function($scope, $http,$location){
 	    document.images['dieTwo'].src = "css/images/" + imageName2;
 
 		// var diceTotal = dice1 + dice2;
-		var diceTotal = 10;
+		var diceTotal = 2;
 
 		//for development
 		if(playerOneTurn == undefined || playerTwoTurn == undefined){
@@ -209,14 +217,13 @@ myApp.controller('gameController',function($scope, $http,$location){
 		}
 		if(playerOneTurn){
 			if(playerOneInJail){
-				window.message =  "Player One is in Jail. Leave after three rolls or roll doubles to get out.";
 				jailFunction(1, dice1, dice2, diceTotal);
 			}else{
 				updatePosition(1,diceTotal);
 			}
 		}else if(playerTwoTurn){
 			if(playerTwoInJail){
-				window.message =  "Player Two is in Jail. Leave after three rolls or roll doubles to get out.";
+				window.message =  "Player Two is in Jail.";
 				jailFunction(2, dice1, dice2, diceTotal);
 			}else{
 				updatePosition(2, diceTotal);
@@ -229,37 +236,38 @@ myApp.controller('gameController',function($scope, $http,$location){
 		if(player == 1){
 			if (dice1 === dice2){
 				window.message = "Player One rolled doubles and got out!";
-				updatePosition(1, diceTotal);
 				playerOneInJail = false;
-				playerOneCounter = 0;
+				updatePosition(1, diceTotal);
+				playerOneCounter = 1;
 			}else{
 				if (playerOneCounter == 3){
 					window.message = "Player One has rolled three times and can leave jail next turn.";
 					playerOneInJail = false;
-					playerOneCounter = 0;
+					playerOneCounter = 1;
 				}else{
 					window.message = "Player One has rolled " + playerOneCounter + " times while in Jail"; 
 					playerOneCounter += 1;
 				}
+				checkCell(1, 10);
 			}
-			checkCell(1, 10);
+		
 		}else if(player ==2){
 			if (dice1 === dice2){
 				window.message = "Player Two rolled doubles and got out!";
-				updatePosition(2, diceTotal);
 				playerTwoInJail = false;
-				playerTwoCounter = 0;
+				updatePosition(2, diceTotal);
+				playerTwoCounter = 1;
 			}else{
 				if(playerTwoCounter == 3){
 					window.message = "Player Two has rolled three times and can leave jail next turn.";
 					playerTwoInJail = false;
-					playerTwoCounter = 0;
+					playerTwoCounter = 1;
 				}else{
 					window.message = "Player Two has rolled " + playerTwoCounter + " times while in Jail";
 					playerTwoCounter += 1;
 				}
+				checkCell(2, 10);
 			}
-			checkCell(2, 10);
 		}
 	}
 
@@ -322,18 +330,19 @@ myApp.controller('gameController',function($scope, $http,$location){
 
 	var specialSpace = function(player, position){
 		$scope.cell = position;
+		console.log(position);
 		var position = position.position;
 		var player = player;
 		if(position == 0){
-			//THis is a go
-			//Do nothing
+			window.message = "Collect $200";
 		}
 		if(position == 2 || position == 17 || position == 33){
 			chestCard(player, position);
+			$scope.chestImage = chestImage;
 		}
 		if(position == 7 || position == 22 || position == 36){
 			chanceCard(player, position);
-
+			$scope.chanceImage = chanceImage;
 		}
 		if(position == 4){
 			if(player == 1){
@@ -351,22 +360,34 @@ myApp.controller('gameController',function($scope, $http,$location){
 			}
 			window.message = "Luxury Tax: Pay $100";
 		}
-
 		if(position == 20){
-			//Free Parking
+			window.message = 'Free Parking';
+			freeParking(player);
+			message = "Player " + player + " collects Free Parking Bank!";
 		}
 		if(position == 30){
 			gotojail(player);
-			message = "Go to Jail. Do not pass GO!";
+			message = "Do not pass GO! Do not collect $200! Get out after three rolls or roll doubles.";
 		}
 		if(position == 10){
-			//Visiting Jail
+
 		}
 
 		$scope.playerOneBank = playerOneBank;
 		$scope.playerTwoBank = playerTwoBank;
+		$scope.freeParkingBank = freeParkingBank;
 		$scope.message = window.message;
 		$scope.specialMessage = true;
+	}
+
+	var freeParking = function(player){
+		if (player == 1){
+			playerOneBank += freeParkingBank;
+		}else if (player == 2){
+			playerTwoBank += freeParkingBank;
+		}
+		freeParkingBank = 200;
+		$scope.freeParkingBank = freeParkingBank;
 	}
 
 	var checkGroup = function(){

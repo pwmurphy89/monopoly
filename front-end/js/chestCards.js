@@ -1,9 +1,9 @@
 var chestCards = [
-{name: "doctor", message: 'Pay Doctor Fees of $50'},
-{name: "bank", message: 'Bank Error, Collect $75', action: +75 },
-{name: "inherit", message: 'You inherit $100', action: +100},
-{name: "school", message: 'Pay School Fees of $75', action: +75},
-{name: "holiday", message: 'Holiday Fund Matures, Collect $100', action: +100}
+{name: "doctor", message: 'Pay Doctor Fees of $50', image: 'doctor.png'},
+{name: "bank", message: 'Bank Error, Collect $75', image: 'bank.png' },
+{name: "inherit", message: 'You inherit $100', image: 'inherit.png'},
+{name: "school", message: 'Pay School Fees of $75', image: 'school.png'},
+{name: "holiday", message: 'Christmas Fund Matures, Collect $100', image: 'holiday.png'}
 ];
 
 
@@ -11,7 +11,7 @@ var chestCard = function(player, position){
 	var player = player;
 	var position = position;
 	var randomChestCard = chestCards[Math.floor(Math.random() * 5)];
-
+	// var randomChestCard = chestCards[3];
 	if(randomChestCard.name == "doctor"){
 		doctor(player);
 	}
@@ -28,6 +28,7 @@ var chestCard = function(player, position){
 		holiday(player);
 	}
 	window.message = randomChestCard.message;
+	window.chestImage = randomChestCard.image;
 }
 
 var doctor = function(player){
@@ -36,6 +37,7 @@ var doctor = function(player){
 	 }else if(player == 2){
 	 	window.playerTwoBank -= 50;
 	 }
+	window.freeParkingBank += 50;
 }
 
 var bank = function(player){
@@ -59,6 +61,7 @@ var school = function(player){
 	 }else if(player == 2){
 	 	window.playerTwoBank -= 75;
 	 }
+	 window.freeParkingBank += 75;
 }
 var holiday = function(player){
 	if(player == 1){
