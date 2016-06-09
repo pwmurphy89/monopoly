@@ -71,6 +71,10 @@
 				<div id="purchaseInfo" class="text-center" ng-show="purchase">
 					Player {{whichPlayer}} {{purchaseMessage}} {{cell.name}} for ${{cell.price}}
 				</div>
+				<div id="utilityChanceInfo" class="text-center" ng-show="utilityChanceInfo">
+					Player {{whichPlayer}} must roll dice and pay owner ten times amount thrown.
+					<button ng-click="utilityRoll()">Roll</button>{{diceThrow}}
+				</div> 
 				<div id="rentInfo" class="text-center" ng-show="rent">
 					Player {{whichPlayer}} must pay rent of ${{cell.rent}}
 				</div>

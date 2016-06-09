@@ -96,6 +96,7 @@ myApp.controller('gameController',function($scope, $http,$location){
 	window.chestImage = "chest-back.png";
 	window.jailFreeOne = false;
 	window.jailFreeTwo = false;
+	window.utilityChance = false;
 	var onePlayer;
 	var twoPlayer;
 	var playerOneCounter = 1;
@@ -167,7 +168,8 @@ myApp.controller('gameController',function($scope, $http,$location){
 		$scope.playerTwoBank = playerTwoBank;
 	}
 
-	var updatePosition = function(player, diceTotal){
+	window.updatePosition = function(player, diceTotal, utilityChance){
+		var utilityChance = utilityChance;
 		if (player == 1){
 			document.getElementById(playerOnePosition).innerHTML = '';
 			if(playerTwoPosition == playerOnePosition){
@@ -179,7 +181,7 @@ myApp.controller('gameController',function($scope, $http,$location){
 				playerOnePosition -= 40;
 			}
 			document.getElementById(playerOnePosition).innerHTML += "<img src='../css/images/token-ship.png'>";
-			checkCell(1, playerOnePosition);
+			checkCell(1, playerOnePosition, utilityChance);
 		}else{
 			document.getElementById(playerTwoPosition).innerHTML = '';
 			if(playerOnePosition==playerTwoPosition){
@@ -191,7 +193,7 @@ myApp.controller('gameController',function($scope, $http,$location){
 				playerTwoPosition -= 40;
 			}
 			document.getElementById(playerTwoPosition).innerHTML +="<img src='../css/images/token-car.png'>";
-			checkCell(2, playerTwoPosition);
+			checkCell(2, playerTwoPosition, utilityChance);
 		}
 	}
 
@@ -202,6 +204,7 @@ myApp.controller('gameController',function($scope, $http,$location){
 		$scope.playerTwoBank = playerTwoBank;
 		$scope.chanceImage = "chance-back.png";
 		$scope.chestImage = "chest-back.png";
+		$scope.utilityChanceInfo = false;
 
 		var dice1 = Math.floor(Math.random() * 6 + 1);
 		var imageName1 = "d" + dice1 + ".gif";
@@ -267,12 +270,25 @@ myApp.controller('gameController',function($scope, $http,$location){
 		}
 	}
 
-	var checkCell = function(player, position){
+	// window.vacantFunction = function(player, position){
+	// 	$scope.rollInfo = true;
+	// 	$scope.playerPosition = position;
+	// 	$scope.whichPlayer = player;
+	// 	$scope.cell = cells[position];
+	// 	$scope.purchaseMessage = " has the option to purchase ";
+	// 	$scope.purchase = true;
+	// 	$scope.purchaseButtons = true;
+	// 	$scope.rent = false;
+	// 	document.getElementById("rollButton").disabled = true;
+	// }
+	window.checkCell = function(player, position, utilityChance){
 		$scope.rollInfo = true;
 		$scope.playerPosition = position;
+		console.log(position);
 		$scope.whichPlayer = player;
 		$scope.cell = cells[position];
 		if(cells[position].status == "vacant"){
+			// vacantFuntion(player, position);
 			$scope.purchaseMessage = " has the option to purchase ";
 			$scope.purchase = true;
 			$scope.purchaseButtons = true;
@@ -281,14 +297,26 @@ myApp.controller('gameController',function($scope, $http,$location){
 		}else if(cells[position].status == "owned"){
 			$scope.purchase = false;
 			$scope.purchaseButtons = false;
+			
+			if(utilityChance){
+				utilityFunction();
+			}
+
+
+			else{
 			$scope.rent = true;
 			payRent(player, position);
+			}
 		}else if(cells[position].status == "public"){
 			$scope.purchase = false;
 			$scope.purchaseButtons = false;
 			$scope.rent = false;
 			specialSpace(player, cells[position]);
 		}
+	}
+	var utilityFunction = function(){
+		$scope.utilityChanceInfo = true;
+		utilityChance = false;
 	}
 
 	var specialSpace = function(player, position){
@@ -424,6 +452,20 @@ myApp.controller('gameController',function($scope, $http,$location){
 		// to check if player has all spots of same group//
 		//if so, do something
 	}
+$scope.utilityRoll = function(){
+	var diceThrow = (Math.floor(Math.random() * 6 + 1) + Math.floor(Math.random() * 6 + 1));
+	var utilityPaymentTotal = diceThrow * 10;
+	$scope.diceThrow = "You rolled a " + diceThrow + " and must now pay " + utilityPaymentTotal;
+	if(playerOneTurn){
+		playerTwoBank -= utilityPaymentTotal;
+		playerOneBank += utilityPaymentTotal;
+	}else{
+		playerTwoBank += utilityPaymentTotal;
+		playerOneBank -= utilityPaymentTotal;
+	}
+	$scope.playerOneBank = playerOneBank;
+	$scope.playerTwoBank = playerTwoBank;
+}
 
 });
 

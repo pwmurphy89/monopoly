@@ -5,7 +5,10 @@ var chanceCards = [
 {name: "gotojail", message: 'Go to Jail. Do not pass GO.', image: 'gotojail.png'},
 {name: "backThree", message: 'Go back 3 Spaces.', image: 'back.png'},
 {name: "jailfree", message: 'Get Out of Jail Free!', image:'jailfree.png'},
-{name: "boardwalk", message: 'Advance to Boardwalk!', image:'boardwalk.png'}
+{name: "boardwalk", message: 'Advance to Boardwalk!', image:'boardwalk.png'},
+{name: "chairman", message: 'Elected Chairman of the Board! Pay each player $50', image:'chairman.png'},
+{name: "building", message: 'Building Loan matures! Collect $150!', image:'building.png'},
+{name: "utilities" , message: "Chance: Advanced to the nearest Utility. If owned, throw dice and pay owner a total ten times the amount thrown.", image:'utility.png'}
 
 ];
 
@@ -13,7 +16,7 @@ var chanceCard = function(player,position){
 	var player = player;
 	var position = position;
 	// var randomChanceCard = chanceCards[Math.floor(Math.random() * 5)];
-	var randomChanceCard = chanceCards[6];
+	var randomChanceCard = chanceCards[9];
 
 	if(randomChanceCard.name == "go"){
 		go(player);
@@ -35,6 +38,15 @@ var chanceCard = function(player,position){
 	}
 	if(randomChanceCard.name == "boardwalk"){
 		boardwalk(player, position);
+	}
+	if(randomChanceCard.name == "chairman"){
+		chairman(player);
+	}
+	if(randomChanceCard.name == "building"){
+		building(player);
+	}
+	if(randomChanceCard.name == "utilities"){
+		utilities(player,position);
 	}
 	window.message = randomChanceCard.message;
 	window.chanceImage = randomChanceCard.image;
@@ -93,6 +105,22 @@ var boardwalk = function(player,position){
 		movePiece(2, 39);
 		}
 }
+var chairman = function(player){
+	if(player == 1){
+		window.playerOneBank -= 50;
+		window.playerTwoBank += 50;
+	}else{
+		window.playerOneBank += 50;
+		window.playerTwoBank -= 50;
+	}
+}
+var building = function(player){
+	if(player == 1){
+		window.playerOneBank += 150;
+	}else{
+		window.playerTwoBank += 150;
+	}
+}
 var movePiece = function(player, position){
 	if(player == 1){
 		document.getElementById(playerOnePosition).innerHTML = "";
@@ -113,18 +141,25 @@ var jailFree = function(player){
 	}
 }
 
+var utilities = function(player,position){
+	var player = player;
+	var position = position;
+	window.utilityChance = true;
+	if (position == 7){
+		window.updatePosition(player, 5, utilityChance);
+	}else if(position == 22){
+		window.updatePosition(player, 6, utilityChance);
+	}else{
+		window.updatePosition(player, 5, utilityChance);
+		if(player == 1){
+			window.playerOneBank += 200;
+		}else{
+			window.playerTwoBank += 200;
+		}
+	}
+}
+
 
 // Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown. 
 // Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank. (There are two of these.) 
-// =======Advance to St. Charles Place – if you pass Go, collect $200 
-// Bank pays you dividend of $50 
-// ==========Get out of Jail free – this card may be kept until needed, or traded/sold 
-// ========Go back 3 spaces 
-// ===========Go directly to Jail – do not pass Go, do not collect $200 
-// Make general repairs on all your property – for each house pay $25 – for each hotel $100 
-// Pay poor tax of $15 
-// Take a trip to Reading Railroad – if you pass Go collect $200 
-// Take a walk on the Boardwalk – advance token to Boardwalk 
-// You have been elected chairman of the board – pay each player $50 
-// Your building loan matures – collect $150 
-// You have won a crossword competition - collect $100
+
