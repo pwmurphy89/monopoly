@@ -3,14 +3,17 @@ var chanceCards = [
 {name: "illinois", message: 'Advance to Illinois Ave.', image:'illinois.png'},
 {name: "stCharles", message: 'Advance to St. Charles Place.  If you pass GO, collect $200', image:'charles.png'},
 {name: "gotojail", message: 'Go to Jail. Do not pass GO.', image: 'gotojail.png'},
-{name: "backThree", message: 'Go back 3 Spaces.', image: 'back.png'}
+{name: "backThree", message: 'Go back 3 Spaces.', image: 'back.png'},
+{name: "jailfree", message: 'Get Out of Jail Free!', image:'jailfree.png'},
+{name: "boardwalk", message: 'Advance to Boardwalk!', image:'boardwalk.png'}
+
 ];
 
 var chanceCard = function(player,position){
 	var player = player;
 	var position = position;
-	var randomChanceCard = chanceCards[Math.floor(Math.random() * 5)];
-	// var randomChanceCard = chanceCards[3];
+	// var randomChanceCard = chanceCards[Math.floor(Math.random() * 5)];
+	var randomChanceCard = chanceCards[6];
 
 	if(randomChanceCard.name == "go"){
 		go(player);
@@ -26,6 +29,12 @@ var chanceCard = function(player,position){
 	}
 	if(randomChanceCard.name == "backThree"){
 		backThree(player, position);
+	}
+	if(randomChanceCard.name == "jailfree"){
+		jailFree(player);
+	}
+	if(randomChanceCard.name == "boardwalk"){
+		boardwalk(player, position);
 	}
 	window.message = randomChanceCard.message;
 	window.chanceImage = randomChanceCard.image;
@@ -76,6 +85,14 @@ var backThree = function(player, position){
 	movePiece(player,newPosition);
 }	
 
+var boardwalk = function(player,position){
+	if(player == 1){
+		movePiece(1, 39);
+		}
+	else if (player == 2){
+		movePiece(2, 39);
+		}
+}
 var movePiece = function(player, position){
 	if(player == 1){
 		document.getElementById(playerOnePosition).innerHTML = "";
@@ -88,17 +105,22 @@ var movePiece = function(player, position){
 	}
 }
 
-
-// Chance list: 
+var jailFree = function(player){
+	if(player == 1){
+		window.jailFreeOne = true;
+	}else{
+		window.jailFreeTwo = true;
+	}
+}
 
 
 // Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown. 
 // Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank. (There are two of these.) 
-// Advance to St. Charles Place – if you pass Go, collect $200 
+// =======Advance to St. Charles Place – if you pass Go, collect $200 
 // Bank pays you dividend of $50 
-// Get out of Jail free – this card may be kept until needed, or traded/sold 
-// Go back 3 spaces 
-// Go directly to Jail – do not pass Go, do not collect $200 
+// ==========Get out of Jail free – this card may be kept until needed, or traded/sold 
+// ========Go back 3 spaces 
+// ===========Go directly to Jail – do not pass Go, do not collect $200 
 // Make general repairs on all your property – for each house pay $25 – for each hotel $100 
 // Pay poor tax of $15 
 // Take a trip to Reading Railroad – if you pass Go collect $200 

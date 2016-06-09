@@ -370,17 +370,39 @@
   border-color: red blue;
 }
 
-/* line 109, ../compass/sass/style.scss */
+/* line 108, ../compass/sass/style.scss */
+#chanceCardSpot, #chestCardSpot {
+  position: relative;
+}
+/* line 110, ../compass/sass/style.scss */
 #chanceCardSpot img, #chestCardSpot img {
-  height: 54px;
+  position: absolute;
+  height: 90px;
+  left: 30px;
 }
 
-/* line 114, ../compass/sass/style.scss */
-#freeParkingBank h6 {
-  margin-top: 0px;
-  margin-bottom: 2px;
+/* line 116, ../compass/sass/style.scss */
+#freeParkingBank {
+  position: relative;
 }
 /* line 118, ../compass/sass/style.scss */
+#freeParkingBank h6 {
+  position: absolute;
+  top: -50px;
+  left: 128px;
+}
+/* line 123, ../compass/sass/style.scss */
 #freeParkingBank img {
-  height: 40px;
+  position: absolute;
+  height: 75px;
+  top: -25px;
+}
+
+/* line 131, ../compass/sass/style.scss */
+#jailFreeCard img {
+  height: 50px;
+}
+/* line 134, ../compass/sass/style.scss */
+#jailFreeCard h5 {
+  display: inline-block;
 }

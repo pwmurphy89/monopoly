@@ -106,17 +106,33 @@
 	border-color: red blue;
 }
 #chanceCardSpot, #chestCardSpot{
+	position: relative;
 	img{
-		height: 54px;
+		position: absolute;
+		height: 90px;
+		left: 30px;
 	}
 }
 #freeParkingBank{
+	position: relative;
 	h6{
-		margin-top: 0px;
-		margin-bottom: 2px;
+		position: absolute;
+		top: -50px;
+		left: 128px;
 	}
 	img{
-		height: 40px;
+		position: absolute;
+		height: 75px;
+		top: -25px;
+
+	}
+}
+#jailFreeCard{
+	img{
+		height: 50px;
+	}
+	h5{
+		display: inline-block;
 	}
 }
 

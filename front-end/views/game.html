@@ -94,17 +94,17 @@
 		<div id="row8" class="col-sm-12">
 			<div id="13" class="cell col-sm-1 thirteen">
 			</div>
-			<div id="freeParkingBank" class="col-sm-9 text-center">
+			<div id="freeParkingBank" class="col-sm-4 col-sm-offset-1 text-center">
 				<h6>Free Parking: ${{freeParkingBank}}</h6>
 				<img src="css/images/money.png">
 			</div>
-			<div id="37" class="cell col-sm-1 thirty-seven">
+			<div id="37" class="cell col-sm-1 col-sm-offset-4 thirty-seven">
 			</div>
 		</div>
 		<div id="row9" class="col-sm-12">
 			<div id="12" class="cell col-sm-1 twelve">
 			</div>
-			<div id="chanceCardSpot" class="col-sm-3 col-sm-offset-1">
+			<div id="chanceCardSpot" class="col-sm-3 col-sm-offset">
 <!-- 				<img src="css/images/chance/chance-back.png"> -->
 				<img src="css/images/chance/{{chanceImage}}">
 			</div>
@@ -112,7 +112,7 @@
 		<!-- 		<img src="css/images/chest/chest-back.png"> -->
 				<img src = "css/images/chest/{{chestImage}}">
 			</div>
-			<div id="38" class="cell col-sm-1 thirty-eight">
+			<div id="38" class="cell col-sm-1 col-sm-offset-1 thirty-eight">
 			</div>
 		</div>
 		<div id="row10" class="col-sm-12">
@@ -150,7 +150,7 @@
 	<div id="gameInfo" class="col-sm-4">
 		<div class="text-center" id="playerOneInfo">
 			<img src="../css/images/token-ship.png">
-			<h2><span class="redText"> Player One </span>${{playerOneBank}} </h2>
+			<h2><span class="redText"> Player One </span>${{playerOneBank}}</h2>
 			<h4>Properties:</h4>
 			<div ng-repeat="property in playerOneProperties">
 				<h5>{{property.name}} -- Rent: ${{property.rent}}</h5>
@@ -164,6 +164,14 @@
 			<div ng-repeat="property in playerTwoProperties">
 				<h5>{{property.name}} -- Rent: ${{property.rent}}</h5>
 			</div>
+		</div>
+		<div id="jailFreeCard" ng-show="jailFreeCardOne" class="col-sm-6 text-center">
+			<h5>Player One -- Get Out of Jail Free</h5>
+			<img src="../css/images/chest/jailfree.png">
+		</div>
+		<div id="jailFreeCard" ng-show="jailFreeCardTwo" class="col-sm-6 text-center">
+			<h5>Player Two -- Get Out of Jail Free</h5>
+			<img src="../css/images/chest/jailfree.png">
 		</div>
 	</div>
 </div>
