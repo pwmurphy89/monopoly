@@ -16,7 +16,7 @@ var chanceCard = function(player,position){
 	var player = player;
 	var position = position;
 	// var randomChanceCard = chanceCards[Math.floor(Math.random() * 5)];
-	var randomChanceCard = chanceCards[9];
+	var randomChanceCard = chanceCards[8];
 
 	if(randomChanceCard.name == "go"){
 		go(player);

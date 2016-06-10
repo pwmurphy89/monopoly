@@ -40,3 +40,13 @@ var cells = [
 	{name:  "Luxury Tax", position: 38, price: 0, rent: 0, group:"Tax", status: "public"},
 	{name: "Boardwalk", position: 39, price: 400, rent: 50, group:"Blue", status: "vacant"}
 	];
+var byGroup = [];
+var thisGroup;
+    for(i=0; i<cells.length; i++){
+        thisGroup = cells[i].group;
+        byGroup[thisGroup] = 0;
+    }
+    for(i=0; i<cells.length; i++){
+        thisGroup = cells[i].group;
+        byGroup[thisGroup]++;
+    }
