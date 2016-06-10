@@ -105,25 +105,39 @@
 	border-style: solid;
 	border-color: red blue;
 }
-#chanceCardSpot, #chestCardSpot{
+#chanceCardSpot{
 	position: relative;
+	-webkit-transform: rotate(-38deg);
 	img{
 		position: absolute;
-		height: 90px;
-		left: 30px;
+		height: 67px;
+		width: 120px;
+		top: -50px;
+		left: -5px;
+	}
+}
+#chestCardSpot{
+	position: relative;
+	-webkit-transform: rotate(-38deg);
+	img{
+		position: absolute;
+		height: 67px;
+	    top: 25px;
+	    left: -31px
 	}
 }
 #freeParkingBank{
 	position: relative;
 	h6{
 		position: absolute;
-		top: -50px;
-		left: 128px;
+		top: 65px;
+		font-size: 17px;
+
 	}
 	img{
 		position: absolute;
-		height: 75px;
-		top: -25px;
+		height: 70px;
+
 
 	}
 }

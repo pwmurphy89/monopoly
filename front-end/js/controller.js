@@ -214,7 +214,7 @@ myApp.controller('gameController',function($scope, $http,$location){
 	    document.images['dieTwo'].src = "css/images/" + imageName2;
 
 		// var diceTotal = dice1 + dice2;
-		var diceTotal = 1;
+		var diceTotal = 15;
 
 		//for development
 		if(playerOneTurn == undefined || playerTwoTurn == undefined){
@@ -328,7 +328,7 @@ function checkMonopoly(player, color){
 		if(player == 1){
 			playerOneBank -= cells[position].rent;
 			playerTwoBank += cells[position].rent;
-		}else{
+		}else if(player == 2){
 			playerTwoBank -= cells[position].rent;
 			playerOneBank += cells[position].rent;
 		}
@@ -411,7 +411,7 @@ function checkMonopoly(player, color){
 			message = "Player " + player + " collects Free Parking Bank!";
 		}
 		if(position == 30){
-			gotojail(player);
+			// gotojail(player);
 			message = "Do not pass GO! Do not collect $200! Get out after three rolls or roll doubles.";
 		}
 		if(position == 10){
