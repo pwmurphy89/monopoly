@@ -273,7 +273,7 @@ myApp.controller('gameController',function($scope, $http,$location){
 	};
 
 function checkMonopoly(player, color){
-	 if(player == 1){
+	if(player == 1){
 		var propertyOneGroup = [];
 		var groupOne;
 	    for(i=0; i<playerOneProperties.length; i++){
@@ -283,19 +283,12 @@ function checkMonopoly(player, color){
 	    for(i=0; i<playerOneProperties.length; i++){
 	        groupOne = playerOneProperties[i].group;
 	       	propertyOneGroup[groupOne]++;
-	    }
-	    if(propertyOneGroup[color] == byGroup[color]){
-	    	for (var i = 0; i <playerOneProperties.length; i++){
-	    		if(playerOneProperties[i].group == color){
-	    			playerOneProperties[i].rent = playerOneProperties[i].rent * 2;
-	    			$scope.specialMessage = true;
-	    			$scope.message = " Player One now has a Monopoly! Rent is doubled!";
-	    			document.getElementById(playerOneProperties[i].position).classList.add(color + "one");
-	    		}
-	    	}
-	    }
-	}
-	else if(player == 2){
+		    if(groupOne == "Railroad"){
+	    		playerOneProperties[i].rent = playerOneProperties[i].rent * Math.pow(2, propertyOneGroup[groupOne] -1);
+		    	document.getElementById(playerOneProperties[i].position).classList.add(color + "one")
+		    }
+		}
+	}else if(player == 2){
 		var propertyTwoGroup = [];
 		var groupTwo;
 	    for(i=0; i<playerTwoProperties.length; i++){
