@@ -49,6 +49,22 @@ router.post('/register', function(req, res, next) {
 		}
 	});
 });
+// router.post('/logout', function(req, res, next) {
+// 	var username = req.body.username;
+// 	var bank = req.body.bank;
+// 	var turn = req.body.turn;
+// 	var property = req.body.property;
+// 	var position = req.body.position;
+// 	var query = 'UPDATE users SET bank="' + bank + '"WHERE username="' + username +'"'; 
+
+// 	connection.query(query, function(err, rows, fields){
+// 		if(err){
+// 			res.json("error");
+// 		}else{
+// 			res.json("updated");
+// 		}
+// 	});
+// });
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

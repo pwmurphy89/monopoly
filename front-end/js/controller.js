@@ -23,6 +23,7 @@ myApp.config(function($routeProvider, $locationProvider){
 });
 
 myApp.controller('myController',function($scope, $http,$location, $cookies, $sce){
+	
 	$scope.$watch(function() { 
 	    return $location.path(); 
 	    },
@@ -35,12 +36,12 @@ myApp.controller('myController',function($scope, $http,$location, $cookies, $sce
 	         	$scope.loggedIn = true;
 	         	$scope.username = $cookies.get('username');
 	        }
-   		});
+   	});
 
 	$scope.loginForm = function(){
 		$http.post('http://localhost:3000/login', {
 			username: $scope.username,
-			password: $scope.password,
+			password: $scope.password
 		}).then(function successCallback(response){
 			if(response.data == "nouser"){
 				$scope.message = "No user found.  Please register.";
@@ -78,10 +79,51 @@ myApp.controller('myController',function($scope, $http,$location, $cookies, $sce
 		}
 	}
 
+		var oneProperty = [];
+		var twoProperty = [];
+		var bank;
+		var turn;
+
 	$scope.logOut = function(){
-		$cookies.remove('username');
-        $location.path('/');
-	}
+		for(var i = 0; i<playerOneProperties.length; i++){
+			oneProperty.push(playerOneProperties[i].name);
+		}
+		for(var j = 0; j<playerTwoProperties.length; j++){
+			twoProperty.push(playerTwoProperties[j].name);
+		}
+		if(playerOneTurn){
+			turn = 1;
+			bank = playerOneBank;
+			property = oneProperty;
+			position = playerOnePosition;
+
+		}else{
+			turn = 2;
+			bank = playerTwoBank;
+			property = twoProperty;
+			position = playerTwoPosition;
+		}
+
+
+		// $cookies.remove('username');
+        // $location.path('/');
+        // $http.post('http://localhost:3000/logout', {
+        // 	username: $scope.username,
+        // 	turn: turn,
+        // 	bank: bank,
+        // 	property: property,
+        // 	position: position
+        // }).then(function successCallback(response){
+        // 		if(response.data == "error"){
+        // 			console.log("ERROR");
+        // 		}else if(response.data == "updated"){
+        // 			console.log("We added player one bank into SQL");
+        // 		}
+        // }, function errorCallback(response){
+        // 	console.log("ERRORCALLBACK");
+        // });
+    }
+    
 });
 
 myApp.controller('gameController',function($scope, $http,$location){
@@ -102,10 +144,10 @@ myApp.controller('gameController',function($scope, $http,$location){
 	var playerOneCounter = 1;
 	var playerTwoCounter = 1;
 	//for development
-	var playerOneTurn;
-	var playerTwoTurn;
-	var playerOneProperties = [];
-	var playerTwoProperties = [];
+	window.playerOneTurn = true;
+	window.playerTwoTurn = false;
+	window.playerOneProperties = [];
+	window.playerTwoProperties = [];
 	$scope.playerOneProperties = playerOneProperties;
 	$scope.playerTwoProperties = playerTwoProperties;
 	$scope.playerOneBank = playerOneBank;
@@ -337,12 +379,12 @@ function checkMonopoly(player, color){
 				$scope.message = '';
 			}
 	    }
-	    if(propertyTwoGroup[color] == byGroup[color]){
+	    if((propertyTwoGroup[color] == byGroup[color]) && (groupTwo != "Utility") && (groupTwo != "Railroad")){
 	    	for (var i = 0; i <playerTwoProperties.length; i++){
 	    		if(playerTwoProperties[i].group == color){
 	    			playerTwoProperties[i].rent = playerTwoProperties[i].rent * 2;
 	    			$scope.specialMessage = true;
-	    			$scope.message = " Player One now has a Monopoly! Rent is doubled!";
+	    			$scope.message = " Player 2 now has a Monopoly! Rent is doubled!";
 	    			document.getElementById(playerTwoProperties[i].position).classList.add(color + "two");
 	    		}
 	    	}
