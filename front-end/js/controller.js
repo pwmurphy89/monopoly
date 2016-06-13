@@ -23,7 +23,6 @@ myApp.config(function($routeProvider, $locationProvider){
 });
 
 myApp.controller('myController',function($scope, $http,$location, $cookies, $sce){
-	
 	$scope.$watch(function() { 
 	    return $location.path(); 
 	    },
@@ -105,23 +104,23 @@ myApp.controller('myController',function($scope, $http,$location, $cookies, $sce
 		}
 
 
-		// $cookies.remove('username');
-        // $location.path('/');
-        // $http.post('http://localhost:3000/logout', {
-        // 	username: $scope.username,
-        // 	turn: turn,
-        // 	bank: bank,
-        // 	property: property,
-        // 	position: position
-        // }).then(function successCallback(response){
-        // 		if(response.data == "error"){
-        // 			console.log("ERROR");
-        // 		}else if(response.data == "updated"){
-        // 			console.log("We added player one bank into SQL");
-        // 		}
-        // }, function errorCallback(response){
-        // 	console.log("ERRORCALLBACK");
-        // });
+		$cookies.remove('username');
+        $location.path('/');
+        $http.post('http://localhost:3000/logout', {
+        	username: $scope.username,
+        	turn: turn,
+        	bank: bank,
+        	property: property,
+        	position: position
+        }).then(function successCallback(response){
+        		if(response.data == "error"){
+        			console.log("ERROR");
+        		}else if(response.data == "updated"){
+        			console.log("We added player one bank into SQL");
+        		}
+        }, function errorCallback(response){
+        	console.log("ERRORCALLBACK");
+        });
     }
     
 });
@@ -155,6 +154,7 @@ myApp.controller('gameController',function($scope, $http,$location){
 	$scope.freeParkingBank = freeParkingBank;
 	$scope.chanceImage = chanceImage;
 	$scope.chestImage = chestImage;
+
 
 	$scope.onePlayerGame = function(){
 		onePlayer = true;
