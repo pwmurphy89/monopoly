@@ -12,8 +12,30 @@
 	<script type="text/javascript" src="js/chestCards.js"></script>
 	<script type="text/javascript" src="js/cellData.js"></script>
 	<script type="text/javascript" src="js/chanceCards.js"></script>
-</head>
+	<script type="text/javascript" src="js/controller.js"></script>
+	<script type="text/javascript" src="http://127.0.0.1:3001/socket.io/socket.io.js"></script>
 
+	<script>
+		
+		var socketio = io.connect('http://127.0.0.1:3001');
+		socketio.on('message_to_client', function(data){
+			console.log('received message from server....');
+
+			showData(data.message);
+		})
+
+		window.sendMessage = function(value){
+			socketio.emit('message_to_server', {
+				message: value
+			});
+			// event.preventDefault();
+		}
+		window.showData = function(data){
+			window.dataMessage = data;
+		}
+
+	</script>
+</head>
 <body ng-controller="myController">
 	<div id="header" class="navbar navbar-default">
 			<div id="logo" class="col-sm-2 text-left">
