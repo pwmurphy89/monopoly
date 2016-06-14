@@ -135,6 +135,8 @@ var imageName1;
 var imageName2;
 var playerOneTurn;
 var playerTwoTurn;
+var playerOneProperties = [];
+var playerTwoProperties = [];
 
 	socketio.on('dice_to_client', function(data){
 		document.getElementById(playerOnePosition).innerHTML = "";
@@ -157,9 +159,16 @@ var playerTwoTurn;
 
 	});
 
-	// socketio.on('position_to_client', function(data){
+	socketio.on('purchase_to_client', function(data){
 
-	// });
+		$scope.$apply(function(){
+			$scope.playerOneBank =  data.playerOneBank;
+			$scope.playerTwoBank = data.playerTwoBank;
+			$scope.playerOneProperties = data.playerOneProperties;
+			$scope.playerTwoProperties = data.playerTwoProperties;
+			updatePurchase();
+		});
+	});
 
 var updateView = function(){
 		document.getElementById(playerOnePosition).innerHTML += "<img src='../css/images/token-ship.png'>";
@@ -171,6 +180,26 @@ var updateView = function(){
 		$scope.chanceImage = "chance-back.png";
 		$scope.chestImage = "chest-back.png";
 		$scope.utilityChanceInfo = false;
+}
+
+var updatePurchase = function(){
+	$scope.purchaseMessage = " purchased ";
+	document.getElementById("rollButton").disabled = false;
+	$scope.purchaseButtons = false;
+	if (playerOneTurn){
+		document.getElementById(playerOnePosition).className += " red";
+	}else{
+		document.getElementById(playerTwoPosition).className += " blue";
+	}
+
+// 		
+// 		
+// 		
+// 			
+// 			
+// 			
+// 			
+// 			checkMonopoly(2, cells[$scope.playerPosition].group);
 }
 var checkCell = function(utilityChance){
 	if(playerOneTurn){
@@ -187,7 +216,7 @@ var checkCell = function(utilityChance){
 		$scope.purchase = true;
 		$scope.purchaseButtons = true;
 		$scope.rent = false;
-		// document.getElementById("rollButton").disabled = true;
+		document.getElementById("rollButton").disabled = true;
 	}else if(cells[position].status == "owned"){
 		$scope.purchase = false;
 		$scope.purchaseButtons = false;
@@ -337,51 +366,68 @@ var checkCell = function(utilityChance){
 
 		socketio.emit('dice_to_server',{
 		});
-		console.log(playerOnePosition);
-
-
-		// document.getElementById(playerOnePosition).innerHTML = '';
-		// if(playerTwoPosition == playerOnePosition){
-		// 	document.getElementById(playerOnePosition).innerHTML = "<img src='../css/images/token-car.png'>";
-		// }
 	}
 
 
 	$scope.purchaseProperty = function(){
 		if(playerOneTurn){
 			if($scope.playerOneBank<cells[playerOnePosition].price){
-                document.getElementById("rollButton").disabled = false;
+	            document.getElementById("rollButton").disabled = false;
 				$scope.purchaseMessage = "has insufficent funds to purchase";
 			}else{
-				$scope.purchaseMessage = " purchased ";
+				var price = cells[playerOnePosition].price;
 				cells[playerOnePosition].status = "owned";
-				$scope.purchaseButtons = false;
-				document.getElementById("rollButton").disabled = false;
 				playerOneProperties.push(cells[playerOnePosition]);
-				document.getElementById(playerOnePosition).className += " red";
-				playerOneBank -= cells[playerOnePosition].price;
-				$scope.playerOneBank = playerOneBank;
-				// checkMonopoly(1, cells[playerOnePosition].group);
 			}
-		}
-		if($scope.whichPlayer == 2){
-			if($scope.playerTwoBank<cells[$scope.playerPosition].price){
+		}else{
+			if($scope.playerTwoBank<cells[playerTwoPosition].price){
 				document.getElementById("rollButton").disabled = false;
 				$scope.purchaseMessage = "has insufficent funds to purchase";
 			}else{
-				$scope.purchaseMessage = " purchased ";
-				cells[$scope.playerPosition].status = "owned";
-				$scope.purchaseButtons = false;
-				document.getElementById("rollButton").disabled = false;
-				playerTwoProperties.push(cells[$scope.playerPosition]);
-				document.getElementById($scope.playerPosition).className += " blue";
-				playerTwoBank -= cells[$scope.playerPosition].price;
-				$scope.playerTwoBank = playerTwoBank;
-				checkMonopoly(2, cells[$scope.playerPosition].group);
+				var price = cells[playerTwoPosition].price;
+				cells[playerTwoPosition].status = "owned";
+				playerTwoProperties.push(cells[playerTwoPosition]);
 			}
 		}
-	sendDice();
-	};
+		socketio.emit('purchase_to_server',{
+			playerOneProperties: playerOneProperties,
+			playerTwoProperties: playerTwoProperties,
+			price: price
+		});
+	}
+	// 		if($scope.playerOneBank<cells[playerOnePosition].price){
+ //                document.getElementById("rollButton").disabled = false;
+	// 			$scope.purchaseMessage = "has insufficent funds to purchase";
+	// 		}else{
+	// 			$scope.purchaseMessage = " purchased ";
+	// 			cells[playerOnePosition].status = "owned";
+	// 			$scope.purchaseButtons = false;
+	// 			document.getElementById("rollButton").disabled = false;
+	// 			playerOneProperties.push(cells[playerOnePosition]);
+	// 			document.getElementById(playerOnePosition).className += " red";
+	// 			playerOneBank -= cells[playerOnePosition].price;
+	// 			$scope.playerOneBank = playerOneBank;
+	// 			// checkMonopoly(1, cells[playerOnePosition].group);
+	// 		}
+	// 	}
+	// 	if(playerOneTurn){
+	// 		if($scope.playerTwoBank<cells[$scope.playerPosition].price){
+	// 			document.getElementById("rollButton").disabled = false;
+	// 			$scope.purchaseMessage = "has insufficent funds to purchase";
+	// 		}else{
+	// 			$scope.purchaseMessage = " purchased ";
+	// 			cells[$scope.playerPosition].status = "owned";
+	// 			$scope.purchaseButtons = false;
+	// 			document.getElementById("rollButton").disabled = false;
+	// 			playerTwoProperties.push(cells[$scope.playerPosition]);
+	// 			document.getElementById($scope.playerPosition).className += " blue";
+	// 			playerTwoBank -= cells[$scope.playerPosition].price;
+	// 			$scope.playerTwoBank = playerTwoBank;
+	// 			checkMonopoly(2, cells[$scope.playerPosition].group);
+	// 		}
+	// 	}
+	// sendDice();
+	// };
 
 function checkMonopoly(player, color){
 	if(player == 1){

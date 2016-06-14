@@ -6,8 +6,8 @@ server.listen(3001);
 console.log("Listening on 3001");
 var io = require('socket.io').listen(server);
 
-playerOneBank = 3500;
-playerTwoBank = 2500;
+playerOneBank = 2000;
+playerTwoBank = 2000;
 playerOneTurn = true;
 playerTwoTurn = false;
 playerOnePosition = 0;
@@ -16,6 +16,7 @@ playerTwoOldPosition = 0;
 playerOneOldPosition = 0;
 playerOneInJail = false;
 playerTwoInJail = false;
+price = 0;
 io.sockets.on('connect', function(socket){
 	console.log('someone connected...');
 
@@ -48,13 +49,23 @@ io.sockets.on('connect', function(socket){
 		changePlayer();
 	});
 
-	// socket.on('position_to_server', function(data){
+	socket.on('purchase_to_server', function(data){
+		playerOneProperties = data.playerOneProperties;
+		playerTwoProperties = data.playerTwoProperties;
+		price = data.price;
 
-
-	// 	io.sockets.emit('position_to_client',{
-
-	// 	});
-	// });
+		if(playerOneTurn){
+			playerTwoBank -= price;
+		}else{
+			playerOneBank -= price;
+		}
+		io.sockets.emit('purchase_to_client',{
+			playerOneProperties: playerOneProperties,
+			playerTwoProperties: playerTwoProperties,
+			playerOneBank: playerOneBank,
+			playerTwoBank: playerTwoBank
+		});
+	});
 });
 var updatePosition = function(){
 	if(playerOneTurn){
