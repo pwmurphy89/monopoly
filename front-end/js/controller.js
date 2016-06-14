@@ -137,6 +137,11 @@ var playerOneTurn;
 var playerTwoTurn;
 var playerOneProperties = [];
 var playerTwoProperties = [];
+var playerOneInJail;
+var playerTwoInJail;
+var jailFreeOne;
+var jailFreeTwo;
+
 
 	socketio.on('dice_to_client', function(data){
 		document.getElementById(playerOnePosition).innerHTML = "";
@@ -153,6 +158,11 @@ var playerTwoProperties = [];
 			playerTwoPosition = data.playerTwoPosition;
 			$scope.playerOneBank =  data.playerOneBank;
 			$scope.playerTwoBank = data.playerTwoBank;
+			playerOneInJail = data.playerOneInJail;
+			playerTwoInJail = data.playerTwoInJail;
+			jailFreeOne = data.jailFreeOne;
+			jailFreeTwo = data.jailFreeTwo;
+
 			updateView();
 			checkCell();
 		});
@@ -166,6 +176,7 @@ var playerTwoProperties = [];
 			$scope.playerTwoBank = data.playerTwoBank;
 			$scope.playerOneProperties = data.playerOneProperties;
 			$scope.playerTwoProperties = data.playerTwoProperties;
+			console.log(playerOneProperties);
 			updatePurchase();
 		});
 	});
@@ -188,16 +199,46 @@ var playerTwoProperties = [];
 		});
 	});
 
+	socketio.on('specialSpace_to_client', function(data){
+		$scope.$apply(function(){
+			$scope.playerOneBank = data.playerOneBank;
+			$scope.playerTwoBank = data.playerTwoBank;
+			$scope.freeParkingBank = data.freeParkingBank;
+			$scope.message = data.message;
+			playerOnePosition = data.playerOnePosition;
+			playerTwoPosition = data.playerTwoPosition;
+			updateSpecialView();
+		});
+	});
 var updateView = function(){
-		document.getElementById(playerOnePosition).innerHTML += "<img src='../css/images/token-ship.png'>";
-		document.getElementById(playerTwoPosition).innerHTML +="<img src='../css/images/token-car.png'>";
-		document.images['dieOne'].src = imageName1;
-		document.images['dieTwo'].src = imageName2;
-		message = '';
-		$scope.specialMessage = false;	
-		$scope.chanceImage = "chance-back.png";
-		$scope.chestImage = "chest-back.png";
-		$scope.utilityChanceInfo = false;
+	document.getElementById(playerOnePosition).innerHTML = "<img src='../css/images/token-ship.png'>";
+	document.getElementById(playerTwoPosition).innerHTML = "<img src='../css/images/token-car.png'>";
+	document.images['dieOne'].src = imageName1;
+	document.images['dieTwo'].src = imageName2;
+	message = '';
+	$scope.specialMessage = false;	
+	$scope.chanceImage = "chance-back.png";
+	$scope.chestImage = "chest-back.png";
+	$scope.utilityChanceInfo = false;
+	if(jailFreeOne){
+		$scope.jailFreeCardOne = true;
+	}else{
+		$scope.jailFreeCardOne = false;
+	}
+	if(jailFreeTwo){
+		$scope.jailFreeCardTwo = true;
+	}else{
+		$scope.jailFreeCardTwo = false;
+	}
+}
+
+var updateSpecialView = function(){
+		document.getElementById(playerOnePosition).innerHTML = "<img src='../css/images/token-ship.png'>";
+		document.getElementById(playerTwoPosition).innerHTML = "<img src='../css/images/token-car.png'>";
+		$scope.specialMessage = true;	
+		// $scope.chanceImage = "chance-back.png";
+		// $scope.chestImage = "chest-back.png";
+		// $scope.utilityChanceInfo = false;
 }
 
 var updatePurchase = function(){
@@ -230,17 +271,17 @@ var checkCell = function(utilityChance){
 		$scope.rent = false;
 		document.getElementById("rollButton").disabled = true;
 	}else if(cells[position].status == "owned"){
-		if(utilityChance){
-			// utilityFunction();
-		}else{
+		// if(utilityChance){
+		// 	// utilityFunction();
+		// }else{
 			$scope.rent = true;
 			payRent(position);
-		}
+		// }
 	}else if(cells[position].status == "public"){
 		$scope.purchase = false;
 		$scope.purchaseButtons = false;
 		$scope.rent = false;
-		// specialSpace(player, cells[position]);
+		specialSpace(cells[position]);
 	}
 }
 
@@ -250,14 +291,6 @@ var checkCell = function(utilityChance){
 			property: cells[position]
 		});
 	}
-	// 		playerOneBank -= cells[position].rent;
-	// 		playerTwoBank += cells[position].rent;
-	// 	}else if(player == 2){
-	// 		playerTwoBank -= cells[position].rent;
-	// 		playerOneBank += cells[position].rent;
-	// 	}
-	// }
-
 
 
 	// window.playerOneBank = 3500;
@@ -387,9 +420,9 @@ var checkCell = function(utilityChance){
 	// }
 
 	$scope.rollDice = function(){
-
 		socketio.emit('dice_to_server',{
 		});
+		checkCell();
 	}
 
 
@@ -544,129 +577,132 @@ function checkMonopoly(player, color){
 		utilityChance = false;
 	}
 
-	var specialSpace = function(player, position){
-		$scope.cell = position;
-		var position = position.position;
-		var player = player;
-		if(position == 0){
-			window.message = "Collect $200";
-		}
-		if(position == 2 || position == 17 || position == 33){
-			chestCard(player, position);
-			$scope.chestImage = chestImage;
-			if(jailFreeOne){
-				$scope.jailFreeCardOne = true;
-			}if(jailFreeTwo){
-				$scope.jailFreeCardTwo = true;
-			}
-		}
-		if(position == 7 || position == 22 || position == 36){
-			chanceCard(player, position);
-			$scope.chanceImage = chanceImage;
-		}
-		if(position == 4){
-			if(player == 1){
-				playerOneBank -= Math.floor(playerOneBank * .1);
-				freeParkingBank += Math.floor(playerOneBank * .1);
-			}else{
-				playerTwoBank -= Math.floor(playerTwoBank * .1);
-				freeParkingBank += Math.floor(playerTwoBank * .1);
-			}
-			window.message = "Income Tax: Pay 10%";
-		}
-		if(position == 38){
-			if(player == 1){
-				playerOneBank -= 100;
-			}else{
-				playerTwoBank -= 100;
-			}
-			freeParkingBank += 100;
-			window.message = "Luxury Tax: Pay $100";
-		}
-		if(position == 20){
-			window.message = 'Free Parking';
-			freeParking(player);
-			message = "Player " + player + " collects Free Parking Bank!";
-		}
-		if(position == 30){
-			// gotojail(player);
-			message = "Do not pass GO! Do not collect $200! Get out after three rolls or roll doubles.";
-		}
-		if(position == 10){
-			//visiting jail
-		}
-		$scope.playerOneBank = playerOneBank;
-		$scope.playerTwoBank = playerTwoBank;
-		$scope.freeParkingBank = freeParkingBank;
-		$scope.message = window.message;
-		$scope.specialMessage = true;
-	}
-		
-	var jailFunction = function(player, dice1, dice2, diceTotal){
-		if(playerOneTurn){
-			if(jailFreeOne){
-				window.message = "Player One has Get Out of Jail Free Card. Can leave Jail next Turn";
-				updatePosition(1, 0);
-				playerOneInJail = false;
-				jailFreeOne = false;
-				$scope.jailFreeCardOne = false;
-
-			}else{
-				if (dice1 === dice2){
-					window.message = "Player One rolled doubles and got out!";
-					updatePosition(1, 0);
-					playerOneInJail = false;
-					playerOneCounter = 1;
-				}else{
-					if (playerOneCounter == 3){
-						window.message = "Player One has rolled three times and can leave jail next turn.";
-						playerOneInJail = false;
-						playerOneCounter = 1;
-					}else{
-						window.message = "Player One has rolled " + playerOneCounter + " times while in Jail"; 
-						playerOneCounter += 1;
-					}
-					checkCell(1, 10);
-				}
-			}
-		
-		}else{
-			if(jailFreeTwo){
-				window.message = "Player Two has Get Out of Jail Free Card. Can leave Jail next Turn";
-				playerTwoInJail = false;
-				updatePosition(2, 0);
-				jailFreeTwo = false;
-				$scope.jailFreeCardTwo = false;
-			}else{
-				if (dice1 === dice2){
-					window.message = "Player Two rolled doubles and got out!";
-					playerTwoInJail = false;
-					updatePosition(2, diceTotal);
-					playerTwoCounter = 1;
-				}else{
-					if(playerTwoCounter == 3){
-						window.message = "Player Two has rolled three times and can leave jail next turn.";
-						playerTwoInJail = false;
-						playerTwoCounter = 1;
-					}else{
-						window.message = "Player Two has rolled " + playerTwoCounter + " times while in Jail";
-						playerTwoCounter += 1;
-					}
-					checkCell(2, 10);
-				}
-			}
-		}
+	var specialSpace = function(cell){
+		socketio.emit('specialSpace_to_server',{
+			cell: cell
+		});
 	}
 
-	var freeParking = function(player){
-		if (player == 1){
-			playerOneBank += freeParkingBank;
-		}else if (player == 2){
-			playerTwoBank += freeParkingBank;
-		}
-		freeParkingBank = 200;
-		$scope.freeParkingBank = freeParkingBank;
-	}
+	// 	var position = cell.position;
+	// 	if(position == 0){
+	// 		window.message = "Collect $200";
+	// 	}
+	// 	if(position == 2 || position == 17 || position == 33){
+	// 		chestCard(player, position);
+	// 		$scope.chestImage = chestImage;
+	// 		if(jailFreeOne){
+	// 			$scope.jailFreeCardOne = true;
+	// 		}if(jailFreeTwo){
+	// 			$scope.jailFreeCardTwo = true;
+	// 		}
+	// 	}
+	// 	if(position == 7 || position == 22 || position == 36){
+	// 		chanceCard(player, position);
+	// 		$scope.chanceImage = chanceImage;
+	// 	}
+	// 	if(position == 4){
+	// 		if(player == 1){
+	// 			playerOneBank -= Math.floor(playerOneBank * .1);
+	// 			freeParkingBank += Math.floor(playerOneBank * .1);
+	// 		}else{
+	// 			playerTwoBank -= Math.floor(playerTwoBank * .1);
+	// 			freeParkingBank += Math.floor(playerTwoBank * .1);
+	// 		}
+	// 		window.message = "Income Tax: Pay 10%";
+	// 	}
+	// 	if(position == 38){
+	// 		if(player == 1){
+	// 			playerOneBank -= 100;
+	// 		}else{
+	// 			playerTwoBank -= 100;
+	// 		}
+	// 		freeParkingBank += 100;
+	// 		window.message = "Luxury Tax: Pay $100";
+	// 	}
+	// 	if(position == 20){
+	// 		window.message = 'Free Parking';
+	// 		freeParking(player);
+	// 		message = "Player " + player + " collects Free Parking Bank!";
+	// 	}
+	// 	if(position == 30){
+	// 		// gotojail(player);
+	// 		message = "Do not pass GO! Do not collect $200! Get out after three rolls or roll doubles.";
+	// 	}
+	// 	if(position == 10){
+	// 		//visiting jail
+	// 	}
+	// 	$scope.playerOneBank = playerOneBank;
+	// 	$scope.playerTwoBank = playerTwoBank;
+	// 	$scope.freeParkingBank = freeParkingBank;
+	// 	$scope.message = window.message;
+	// 	$scope.specialMessage = true;
+	// }
+		
+	// var jailFunction = function(player, dice1, dice2, diceTotal){
+	// 	if(playerOneTurn){
+	// 		if(jailFreeOne){
+	// 			window.message = "Player One has Get Out of Jail Free Card. Can leave Jail next Turn";
+	// 			updatePosition(1, 0);
+	// 			playerOneInJail = false;
+	// 			jailFreeOne = false;
+	// 			$scope.jailFreeCardOne = false;
+
+	// 		}else{
+	// 			if (dice1 === dice2){
+	// 				window.message = "Player One rolled doubles and got out!";
+	// 				updatePosition(1, 0);
+	// 				playerOneInJail = false;
+	// 				playerOneCounter = 1;
+	// 			}else{
+	// 				if (playerOneCounter == 3){
+	// 					window.message = "Player One has rolled three times and can leave jail next turn.";
+	// 					playerOneInJail = false;
+	// 					playerOneCounter = 1;
+	// 				}else{
+	// 					window.message = "Player One has rolled " + playerOneCounter + " times while in Jail"; 
+	// 					playerOneCounter += 1;
+	// 				}
+	// 				checkCell(1, 10);
+	// 			}
+	// 		}
+		
+	// 	}else{
+	// 		if(jailFreeTwo){
+	// 			window.message = "Player Two has Get Out of Jail Free Card. Can leave Jail next Turn";
+	// 			playerTwoInJail = false;
+	// 			updatePosition(2, 0);
+	// 			jailFreeTwo = false;
+	// 			$scope.jailFreeCardTwo = false;
+	// 		}else{
+	// 			if (dice1 === dice2){
+	// 				window.message = "Player Two rolled doubles and got out!";
+	// 				playerTwoInJail = false;
+	// 				updatePosition(2, diceTotal);
+	// 				playerTwoCounter = 1;
+	// 			}else{
+	// 				if(playerTwoCounter == 3){
+	// 					window.message = "Player Two has rolled three times and can leave jail next turn.";
+	// 					playerTwoInJail = false;
+	// 					playerTwoCounter = 1;
+	// 				}else{
+	// 					window.message = "Player Two has rolled " + playerTwoCounter + " times while in Jail";
+	// 					playerTwoCounter += 1;
+	// 				}
+	// 				checkCell(2, 10);
+	// 			}
+	// 		}
+	// 	}
+	// }
+
+	// var freeParking = function(player){
+	// 	if (player == 1){
+	// 		playerOneBank += freeParkingBank;
+	// 	}else if (player == 2){
+	// 		playerTwoBank += freeParkingBank;
+	// 	}
+	// 	freeParkingBank = 200;
+	// 	$scope.freeParkingBank = freeParkingBank;
+	// }
 
 	$scope.utilityRoll = function(){
 		var diceThrow = (Math.floor(Math.random() * 6 + 1) + Math.floor(Math.random() * 6 + 1));
