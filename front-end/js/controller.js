@@ -170,6 +170,24 @@ var playerTwoProperties = [];
 		});
 	});
 
+	socketio.on('notPurchase_to_client', function(data){
+		$scope.$apply(function(){
+			$scope.purchase = false;
+			$scope.purchaseButtons = false;
+			document.getElementById("rollButton").disabled = false;
+		});
+	});
+
+	socketio.on('rent_to_client', function(data){
+		$scope.$apply(function(){
+			$scope.purchase = false;
+			$scope.purchaseButtons = false;
+			$scope.playerOneBank = data.playerOneBank;
+			$scope.playerTwoBank = data.playerTwoBank;
+			$scope.rent = data.rent;
+		});
+	});
+
 var updateView = function(){
 		document.getElementById(playerOnePosition).innerHTML += "<img src='../css/images/token-ship.png'>";
 		document.getElementById(playerTwoPosition).innerHTML +="<img src='../css/images/token-car.png'>";
@@ -190,17 +208,11 @@ var updatePurchase = function(){
 		document.getElementById(playerOnePosition).className += " red";
 	}else{
 		document.getElementById(playerTwoPosition).className += " blue";
-	}
-
-// 		
-// 		
-// 		
-// 			
-// 			
-// 			
-// 			
-// 			checkMonopoly(2, cells[$scope.playerPosition].group);
+	}		
+// 	checkMonopoly(2, cells[$scope.playerPosition].group);
 }
+
+
 var checkCell = function(utilityChance){
 	if(playerOneTurn){
 		$scope.whichPlayer = 1;
@@ -218,13 +230,11 @@ var checkCell = function(utilityChance){
 		$scope.rent = false;
 		document.getElementById("rollButton").disabled = true;
 	}else if(cells[position].status == "owned"){
-		$scope.purchase = false;
-		$scope.purchaseButtons = false;
 		if(utilityChance){
-			utilityFunction();
+			// utilityFunction();
 		}else{
 			$scope.rent = true;
-			// payRent(player, position);
+			payRent(position);
 		}
 	}else if(cells[position].status == "public"){
 		$scope.purchase = false;
@@ -233,6 +243,20 @@ var checkCell = function(utilityChance){
 		// specialSpace(player, cells[position]);
 	}
 }
+
+
+	var payRent = function(position){
+		socketio.emit('rent_to_server',{
+			property: cells[position]
+		});
+	}
+	// 		playerOneBank -= cells[position].rent;
+	// 		playerTwoBank += cells[position].rent;
+	// 	}else if(player == 2){
+	// 		playerTwoBank -= cells[position].rent;
+	// 		playerOneBank += cells[position].rent;
+	// 	}
+	// }
 
 
 
@@ -395,6 +419,11 @@ var checkCell = function(utilityChance){
 			price: price
 		});
 	}
+
+	$scope.notPurchase = function(){
+		socketio.emit('notPurchase_to_server',{
+		});
+	}
 	// 		if($scope.playerOneBank<cells[playerOnePosition].price){
  //                document.getElementById("rollButton").disabled = false;
 	// 			$scope.purchaseMessage = "has insufficent funds to purchase";
@@ -508,20 +537,6 @@ function checkMonopoly(player, color){
 	}
 }
 
-	$scope.notPurchase = function(){
-		$scope.purchase = false;
-		$scope.purchaseButtons = false;
-		document.getElementById("rollButton").disabled = false;
-	}
-	var payRent = function(player, position){
-		if(player == 1){
-			playerOneBank -= cells[position].rent;
-			playerTwoBank += cells[position].rent;
-		}else if(player == 2){
-			playerTwoBank -= cells[position].rent;
-			playerOneBank += cells[position].rent;
-		}
-	}
 
 
 	var utilityFunction = function(){

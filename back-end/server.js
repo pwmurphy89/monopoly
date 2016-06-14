@@ -25,7 +25,7 @@ io.sockets.on('connect', function(socket){
 		imageName1 = "css/images/d" + dice1 + ".gif";
 		dice2 = Math.floor(Math.random() * 6 + 1);
 		imageName2 = "css/images/d" + dice2 + ".gif";
-		diceTotal = dice1 + dice2;
+		diceTotal = 2;
 
 		if(playerOneInJail || playerTwoInJail){
 			// jailFunction();
@@ -64,6 +64,26 @@ io.sockets.on('connect', function(socket){
 			playerTwoProperties: playerTwoProperties,
 			playerOneBank: playerOneBank,
 			playerTwoBank: playerTwoBank
+		});
+	});
+
+	socket.on('notPurchase_to_server', function(data){
+		io.sockets.emit('notPurchase_to_client',{
+		});
+	});
+
+	socket.on('rent_to_server', function(data){
+		if(playerOneTurn){
+			playerTwoBank -= data.property.rent;
+			playerOneBank += data.property.rent;
+		}else{
+			playerOneBank -= data.property.rent;
+			playerTwoBank += data.property.rent;
+		}
+		io.sockets.emit('rent_to_client',{
+			playerOneBank: playerOneBank,
+			playerTwoBank: playerTwoBank,
+			rent: data.property.rent
 		});
 	});
 });
