@@ -26,17 +26,20 @@ io.sockets.on('connect', function(socket){
 	console.log('someone connected...');
 
 	socket.on('dice_to_server', function(data){
+
 		dice1 = Math.floor(Math.random() * 6 + 1);
 		imageName1 = "css/images/d" + dice1 + ".gif";
 		dice2 = Math.floor(Math.random() * 6 + 1);
 		imageName2 = "css/images/d" + dice2 + ".gif";
-		diceTotal = 3;
+		diceTotal = dice1 + dice2;
 
-		if((playerOneInJail && playerTwoTurn) || (playerTwoInJail && playerOneTurn)){
+		if((playerOneInJail && playerOneTurn) || (playerTwoInJail && playerTwoTurn)){
 			jailFunction();
 		}else{
 			updatePosition();
 		}
+		console.log("plyr ONE position: ", playerOnePosition, playerOneTurn);
+		console.log("plyr TWO position: ", playerTwoPosition, playerTwoTurn);
 		io.sockets.emit('dice_to_client',{
 			dice1: dice1,
 			dice2: dice2,
@@ -55,7 +58,9 @@ io.sockets.on('connect', function(socket){
 			jailFreeTwo : jailFreeTwo
 
 		});
-		changePlayer();
+	
+		console.log("plyr ONE position: ", playerOnePosition, playerOneTurn);
+		console.log("plyr TWO position: ", playerTwoPosition, playerTwoTurn);
 	});
 
 	socket.on('purchase_to_server', function(data){
@@ -64,9 +69,9 @@ io.sockets.on('connect', function(socket){
 		price = data.price;
 
 		if(playerOneTurn){
-			playerTwoBank -= price;
-		}else{
 			playerOneBank -= price;
+		}else{
+			playerTwoBank -= price;
 		}
 		io.sockets.emit('purchase_to_client',{
 			playerOneProperties: playerOneProperties,
@@ -74,26 +79,30 @@ io.sockets.on('connect', function(socket){
 			playerOneBank: playerOneBank,
 			playerTwoBank: playerTwoBank
 		});
+		changePlayer();
 	});
 
 	socket.on('notPurchase_to_server', function(data){
 		io.sockets.emit('notPurchase_to_client',{
 		});
+		changePlayer();
 	});
 
 	socket.on('rent_to_server', function(data){
+
 		if(playerOneTurn){
-			playerTwoBank -= data.property.rent;
-			playerOneBank += data.property.rent;
-		}else{
 			playerOneBank -= data.property.rent;
 			playerTwoBank += data.property.rent;
+		}else{
+			playerTwoBank -= data.property.rent;
+			playerOneBank += data.property.rent;
 		}
 		io.sockets.emit('rent_to_client',{
 			playerOneBank: playerOneBank,
 			playerTwoBank: playerTwoBank,
 			rent: data.property.rent
 		});
+		changePlayer();
 	});
 
 	socket.on('specialSpace_to_server', function(data){
@@ -134,11 +143,12 @@ io.sockets.on('connect', function(socket){
 			playerTwoInJail: playerTwoInJail
 		});
 	});
+	changePlayer();
 
 });
 
 var gotojail = function(){
-	if(playerTwoTurn){
+	if(playerOneTurn){
 		playerOnePosition = 10;
 		playerOneInJail = true;
 	}else{
@@ -150,7 +160,7 @@ var gotojail = function(){
 
 var freeParking = function(){
 
-	if (playerTwoTurn){
+	if (playerOneTurn){
 		playerOneBank += freeParkingBank;
 
 	}else{
@@ -161,7 +171,7 @@ var freeParking = function(){
 }
 
 var incomeTax = function(){
-	if(playerTwoTurn){
+	if(playerOneTurn){
 		playerOneBank -= Math.floor(playerOneBank * .1);
 		freeParkingBank += Math.floor(playerOneBank * .1);
 	}else{
@@ -172,7 +182,7 @@ var incomeTax = function(){
 }
 
 var luxuryTax = function(){
-	if(playerTwoTurn){
+	if(playerOneTurn){
 		playerOneBank -= 100;
 	}else{
 		playerTwoBank -= 100;
@@ -182,7 +192,7 @@ var luxuryTax = function(){
 }
 
 var jailFunction = function(){
-	if(playerTwoTurn){
+	if(playerOneTurn){
 		if(jailFreeOne){
 			message = "Player One has Get Out of Jail Free Card. Can leave Jail next Turn";
 			playerOneInJail = false;
@@ -225,6 +235,7 @@ var jailFunction = function(){
 			}
 		}
 	}
+	changePlayer();
 }
 
 var updatePosition = function(){
@@ -242,7 +253,7 @@ var updatePosition = function(){
 }
 
 var passGo = function(player){
-	if(playerTwoTurn){
+	if(playerOneTurn){
 		playerOneBank += 200;
 		playerOnePosition -= 40;
 	}else{

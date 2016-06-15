@@ -133,8 +133,8 @@ var playerOnePosition = 0;
 var playerTwoPosition = 0;
 var imageName1;
 var imageName2;
-var playerOneTurn;
-var playerTwoTurn;
+var playerOneTurn = true;
+var playerTwoTurn = false;
 var playerOneProperties = [];
 var playerTwoProperties = [];
 var playerOneInJail;
@@ -142,8 +142,8 @@ var playerTwoInJail;
 var jailFreeOne;
 var jailFreeTwo;
 
-
 	socketio.on('dice_to_client', function(data){
+
 		document.getElementById(playerOnePosition).innerHTML = "";
 		document.getElementById(playerTwoPosition).innerHTML = "";
 		$scope.$apply(function(){
@@ -163,9 +163,9 @@ var jailFreeTwo;
 			jailFreeOne = data.jailFreeOne;
 			jailFreeTwo = data.jailFreeTwo;
 
-			updateView();
-			checkCell();
 		});
+			checkCell();
+			updateView();
 
 	});
 
@@ -176,9 +176,8 @@ var jailFreeTwo;
 			$scope.playerTwoBank = data.playerTwoBank;
 			$scope.playerOneProperties = data.playerOneProperties;
 			$scope.playerTwoProperties = data.playerTwoProperties;
-			console.log(playerOneProperties);
-			updatePurchase();
 		});
+			updatePurchase();
 	});
 
 	socketio.on('notPurchase_to_client', function(data){
@@ -207,9 +206,10 @@ var jailFreeTwo;
 			$scope.message = data.message;
 			playerOnePosition = data.playerOnePosition;
 			playerTwoPosition = data.playerTwoPosition;
-			updateSpecialView();
 		});
+			updateSpecialView();
 	});
+
 var updateView = function(){
 	document.getElementById(playerOnePosition).innerHTML = "<img src='../css/images/token-ship.png'>";
 	document.getElementById(playerTwoPosition).innerHTML = "<img src='../css/images/token-car.png'>";
@@ -274,8 +274,8 @@ var checkCell = function(utilityChance){
 		// if(utilityChance){
 		// 	// utilityFunction();
 		// }else{
-			$scope.rent = true;
-			payRent(position);
+		$scope.rent = true;
+		payRent(position);
 		// }
 	}else if(cells[position].status == "public"){
 		$scope.purchase = false;
@@ -287,8 +287,14 @@ var checkCell = function(utilityChance){
 
 
 	var payRent = function(position){
+		console.log(position);
 		socketio.emit('rent_to_server',{
 			property: cells[position]
+		});
+	}
+
+	$scope.rollDice = function(){
+		socketio.emit('dice_to_server',{
 		});
 	}
 
@@ -419,11 +425,7 @@ var checkCell = function(utilityChance){
 	// 	}
 	// }
 
-	$scope.rollDice = function(){
-		socketio.emit('dice_to_server',{
-		});
-		checkCell();
-	}
+
 
 
 	$scope.purchaseProperty = function(){

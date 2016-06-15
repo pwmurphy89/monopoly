@@ -50,5 +50,3 @@ var thisGroup;
         thisGroup = cells[i].group;
         byGroup[thisGroup]++;
     }
-
-    console.log(byGroup);
