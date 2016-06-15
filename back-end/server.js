@@ -1,5 +1,7 @@
 var http = require('http');
 var cells = require('./models/cellData');
+var chestCards = require('./models/chestCards');
+var chanceCards = require('./models/chanceCards');
 var server = http.createServer(function(req,res){
 
 });
@@ -32,6 +34,9 @@ freeParkingBank = 200;
 message = '';
 playerOneCounter = 1;
 playerTwoCounter = 1;
+chestImage = "chest-back.png";
+chanceImage = "chance-back.png";
+utilityChance = false;
 
 io.sockets.on('connect', function(socket){
 	console.log('someone connected...');
@@ -41,7 +46,7 @@ io.sockets.on('connect', function(socket){
 		imageName1 = "css/images/d" + dice1 + ".gif";
 		dice2 = Math.floor(Math.random() * 6 + 1);
 		imageName2 = "css/images/d" + dice2 + ".gif";
-		diceTotal = 10;
+		diceTotal = 7;
 		if((playerOneInJail && playerOneTurn) || (playerTwoInJail && playerTwoTurn)){
 			jailFunction();
 		}else{
@@ -69,6 +74,9 @@ io.sockets.on('connect', function(socket){
 			showRent: showRent,
 			message: message,
 			showSpecialMessage: showSpecialMessage,
+			chestImage: chestImage,
+			chanceImage: chanceImage,
+			utilityChance: utilityChance
 		});
 		if(showRent){
 			changePlayer();
@@ -78,6 +86,8 @@ io.sockets.on('connect', function(socket){
 			changePlayer();
 			showSpecialMessage = false;
 		}
+		chestImage = "chest-back.png";
+		chanceImage = "chance-back.png";
 	});
 
 	socket.on('purchase_to_server', function(data){
@@ -148,7 +158,7 @@ var updatePosition = function(){
 	checkPosition();
 }
 
-var passGo = function(player){
+var passGo = function(){
 	if(playerOneTurn){
 		playerOneBank += 200;
 		playerOnePosition -= 40;
@@ -191,24 +201,19 @@ var checkPosition = function(utilityChance){
 var specialPosition = function(){
 	if(playerOneTurn){
 		position = playerOnePosition;
+		var player = 1;
 	}else{
 		position = playerTwoPosition;
+		var player = 2;
 	}
 	if(position == 0){
 		message = "Collect $200";
 	}
 	if(position == 2 || position == 17 || position == 33){
-		// chestCard(player, position);
-		// $scope.chestImage = chestImage;
-		// if(jailFreeOne){
-		// 	$scope.jailFreeCardOne = true;
-		// }if(jailFreeTwo){
-		// 	$scope.jailFreeCardTwo = true;
-		// }
+		chestCard();
 	}
 	if(position == 7 || position == 22 || position == 36){
-		// chanceCard(player, position);
-		// $scope.chanceImage = chanceImage;
+		chanceCard();
 	}
 	if(position == 4){
 		incomeTax();
@@ -225,7 +230,6 @@ var specialPosition = function(){
 	if(position == 10){
 		message = "Just visiting";
 	}
-	// changePlayer();
 }
 
 var jailFunction = function(){
@@ -337,6 +341,255 @@ for(i=0; i<cells.length; i++){
 for(i=0; i<cells.length; i++){
     thisGroup = cells[i].group;
     byGroup[thisGroup]++;
+}
+
+var chestCard = function(){
+	var randomChestCard = chestCards[Math.floor(Math.random() * 10)];
+	if(randomChestCard.name == "doctor"){
+		doctor();
+	}
+	if(randomChestCard.name == "bank"){
+		bank();
+	}
+	if(randomChestCard.name == "inherit"){
+		inherit();
+	}
+	if(randomChestCard.name == "school"){
+		school();
+	}
+	if(randomChestCard.name == "holiday"){
+		holiday();
+	}
+	if(randomChestCard.name == "insurance"){
+		insurance();
+	}
+	if(randomChestCard.name == "gotojail"){
+		gotojail();
+	}	
+	if(randomChestCard.name == "go"){
+		go();
+	}
+	if(randomChestCard.name == "opera"){
+		opera();
+	}
+	if(randomChestCard.name == "jailfree"){
+		jailFree();
+	}
+	message = randomChestCard.message;
+	chestImage = randomChestCard.image;
+}
+
+var doctor = function(){
+	if(playerOneTurn){
+		playerOneBank -= 50;
+	 }else if(player == 2){
+	 	playerTwoBank -= 50;
+	 }
+	freeParkingBank += 50;
+}
+
+var bank = function(){
+	if(playerOneTurn){
+		playerOneBank += 75;
+	 }else if(player == 2){
+	 	playerTwoBank += 75;
+	 }
+}
+var inherit = function(){
+	if(playerOneTurn){
+		playerOneBank += 100;
+	 }else if(player == 2){
+	 	playerTwoBank += 100;
+	 }
+}
+
+var school = function(){
+	if(playerOneTurn){
+		playerOneBank -= 75;
+	 }else if(player == 2){
+	 	playerTwoBank -= 75;
+	 }
+	 freeParkingBank += 75;
+}
+var holiday = function(){
+	if(playerOneTurn){
+		playerOneBank += 100;
+	 }else if(player == 2){
+	 	playerTwoBank += 100;
+	 }
+}
+
+var insurance = function(){
+	if(playerOneTurn){
+		playerOneBank += 100;
+	 }else if(player == 2){
+	 	playerTwoBank += 100;
+	 }
+}
+
+var go = function(){
+	if(playerOneTurn){
+		playerOneBank += 200;
+		playerOnePosition = 0;
+	}else{
+		playerTwoBank += 200;
+		playerTwoPosition = 0;
+	}
+}
+var opera = function(){
+	if(playerOneTurn){
+		playerOneBank += 50;
+		playerTwoBank -= 50;
+	}else{
+		playerTwoBank += 50;
+		playerOneBank -= 50;
+	}
+}
+
+var jailFree = function(){
+	if(playerOneTurn){
+		jailFreeOne = true;
+	}else{
+		jailFreeTwo = true;
+	}
+}
+//Chance Cards ================
+var chanceCard = function(){
+
+	// var randomChanceCard = chanceCards[Math.floor(Math.random() * 10)];
+	var randomChanceCard = chanceCards[6];
+
+	if(randomChanceCard.name == "go"){
+		go();
+	}
+	if(randomChanceCard.name == "illinois"){
+		illinois();
+	}
+	if(randomChanceCard.name == "stCharles"){
+		stCharles();
+	}
+	if(randomChanceCard.name == "gotojail"){
+		gotojail();
+	}
+	if(randomChanceCard.name == "backThree"){
+		backThree();
+	}
+	if(randomChanceCard.name == "jailfree"){
+		jailFree();
+	}
+	if(randomChanceCard.name == "boardwalk"){
+		boardwalk();
+	}
+	if(randomChanceCard.name == "chairman"){
+		chairman();
+	}
+	if(randomChanceCard.name == "building"){
+		building();
+	}
+	if(randomChanceCard.name == "utilities"){
+		utilities();
+	}
+	message = randomChanceCard.message;
+	chanceImage = randomChanceCard.image;
+
+	if(playerOneTurn){
+		position = playerOnePosition;
+	}else{
+		position = playerTwoPosition;
+	}
+	if(cells[position].status == "vacant"){
+		showSpecialMessage = false;
+		purchaseOption = true;
+	}else if(cells[position].status == "owned"){
+		showSpecialMessage = false;
+		purchaseOption = false;
+		if(utilityChance){
+			// utilityFunction();
+		}else{
+			payRent(position);
+		}
+	}else if(cells[position].status == "public"){
+		purchaseOption = false;
+		showSpecialMessage = true;
+		specialPosition();
+	}
+}
+
+var illinois = function(){
+	if(playerOneTurn){
+		playerOnePosition = 24;
+	}else{
+		playerTwoPosition = 24;
+	}
+}
+var stCharles = function(){
+	if(playerOneTurn){
+		if(playerOnePosition !== 7){
+			playerOneBank += 200;
+		}
+		playerOnePosition = 11;
+	}else{
+		if(playerTwoPosition !== 7){
+			playerTwoBank += 200;
+		}
+		playerTwoPosition = 11;
+	}
+}
+
+var backThree = function(){
+	if(playerOneTurn){
+		playerOnePosition -= 3;
+	}else{
+		playerTwoPosition -= 3;
+	}
+}	
+
+var boardwalk = function(){
+	if(playerOneTurn){
+		playerOnePosition = 39;
+	}else{
+		playerTwoPosition = 39;
+	}
+}
+
+var chairman = function(){
+	if(playerOneTurn){
+		playerOneBank -= 50;
+		playerTwoBank += 50;
+	}else{
+		playerOneBank += 50;
+		playerTwoBank -= 50;
+	}
+}
+var building = function(){
+	if(playerOneTurn){
+		playerOneBank += 150;
+	}else{
+		playerTwoBank += 150;
+	}
+}
+
+var utilities = function(){
+	utilityChance = true;
+	if(playerOneTurn){
+		if(playerOnePosition == 7){
+			playerOnePosition = 12;
+		}else if(playerOnePosition == 22){
+			playerOnePosition = 28
+		}else{
+			playerOnePosition = 12;
+			playerOneBank += 200;
+		}
+	}else{
+		if(playerTwoPosition == 7){
+			playerTwoPosition = 12;
+		}else if(playerTwoPosition == 22){
+			playerTwoPosition = 28
+		}else{
+			playerTwoPosition = 12;
+			playerTwoBank += 200;
+		}
+	}
 }
 
 

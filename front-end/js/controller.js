@@ -139,7 +139,8 @@ var playerOneProperties = [];
 var playerTwoProperties = [];
 var purchaseOption = false;
 $scope.freeParkingBank = 200;
-
+$scope.chanceImage = "chance-back.png";
+$scope.chestImage = "chest-back.png";
 
 	socketio.on('dice_to_client', function(data){
 		document.getElementById(playerOnePosition).innerHTML = "";
@@ -165,6 +166,9 @@ $scope.freeParkingBank = 200;
 			$scope.rentInfo = data.showRent;
 			$scope.message = data.message;
 			$scope.specialMessage = data.showSpecialMessage;
+			$scope.chestImage = data.chestImage;
+			$scope.chanceImage = data.chanceImage;
+			$scope.utilityChanceInfo = data.utilityChance;
 
 			updateView();
 		});
@@ -214,8 +218,6 @@ var updateView = function(){
 		document.images['dieOne'].src = imageName1;
 		document.images['dieTwo'].src = imageName2;
 		$scope.rollInfo =true;
-		$scope.chanceImage = "chance-back.png";
-		$scope.chestImage = "chest-back.png";
 		$scope.utilityChanceInfo = false;
 		if(purchaseOption){	
 			$scope.purchaseMessage = " has the option to purchase ";
@@ -223,6 +225,10 @@ var updateView = function(){
 			$scope.purchaseButtons = true;
 			$scope.rent = false;
 			document.getElementById("rollButton").disabled = true;
+		}
+		if($scope.utilityChance){
+			$scope.utilityChanceInfo = true;
+			utilityChance = false;
 		}
 }
 
@@ -368,10 +374,10 @@ function checkMonopoly(player, color){
 
 
 
-	var utilityFunction = function(){
-		$scope.utilityChanceInfo = true;
-		utilityChance = false;
-	}
+	// var utilityFunction = function(){
+	// 	$scope.utilityChanceInfo = true;
+	// 	utilityChance = false;
+	// }
 
 	$scope.utilityRoll = function(){
 		var diceThrow = (Math.floor(Math.random() * 6 + 1) + Math.floor(Math.random() * 6 + 1));
