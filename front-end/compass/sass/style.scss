@@ -1,14 +1,23 @@
 @import "backgrounds";
 
 #front-container{
-	background-image: url('images/board.jpg');
-	background-size: 100%;
-	background-repeat: no-repeat;
-	height: 600px;
-
+    background-color: black;
+    h1{
+    	color: white;
+    }
+	#front-image {
+		background-color: black;
+	    width: 94%;
+	    height: 600px;
+	    background-image: url("images/monopbg.png");
+	    background-size: 60%;
+	    background-repeat: no-repeat;
+	    margin-left: 20%;
+	}
 }
 
 #header{
+
 	height: 100px;
 	margin-bottom: 0px;
 	background-color:#5982A7;
