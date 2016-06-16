@@ -49,7 +49,7 @@ $scope.loginForm = function(){
 			$scope.message = "Please re-enter password.";
 		}else{
 			$cookies.put('username', $scope.username);
-			$location.path('/start')
+			$location.path('/game')
 		}
 	},function errorCallback(response){
 		console.log("error");
@@ -69,7 +69,7 @@ $scope.registerForm = function(){
 				$scope.message = "Username already in use.  Please choose another username.";
 			}else{
 				$cookies.put('username', username);
-				$location.path('/start');
+				$location.path('/game');
 			}
 		},function errorCallback(response){
 			console.log("error");
@@ -143,6 +143,33 @@ $scope.freeParkingBank = 200;
 $scope.chanceImage = "chance-back.png";
 $scope.chestImage = "chest-back.png";
 var color = '';
+var railUtil = false;
+var playerOneWin = false;
+var playerTwoWin = false;
+var notEnough = false;
+var playerOneSocket = '';
+var playerTwoSocket = '';
+var playerIAm = 0;
+
+
+socketio.on('playerNumber', function(data){
+	$scope.$apply(function(){
+		playerIAm = data.pn;
+		console.log(playerIAm);
+	});
+});
+
+socketio.on('startingGame', function(data){
+	$scope.$apply(function(){;
+		playerOneTurn = data.playerOneTurn;
+		playerTwoTurn = data.playerTwoTurn;
+		if(playerOneTurn && playerIAm == 1){
+			$scope.playersTurn = true;
+		}
+	})
+});
+
+
 
 socketio.on('dice_to_client', function(data){
 	document.getElementById(playerOnePosition).innerHTML = "";
@@ -170,9 +197,35 @@ socketio.on('dice_to_client', function(data){
 		$scope.specialMessage = data.showSpecialMessage;
 		$scope.chestImage = data.chestImage;
 		$scope.chanceImage = data.chanceImage;
+		playerOneWin = data.playerOneWin;
+		playerTwoWin = data.playerTwoWin;
+		socketID = data.socketID;
+		
+
+			console.log(socketID);
+	
+
 		updateView();
 	});
 });
+
+socketio.on('changePlayer',function(data){
+	$scope.$apply(function(){
+		playerOneTurn = data.playerOneTurn;
+		playerTwoTurn = data.playerTwoTurn;
+		if(playerIAm == 1 && playerOneTurn){
+			$scope.playersTurn = true
+		}else{
+			$scope.playersTurn = false;
+		}
+		if(playerIAm == 2 && playerTwoTurn){
+			$scope.playersTurn = true;
+		}else{
+			$scope.playersTurn = false;
+		}
+	})
+		console.log("I am" , playerIAm, "poneTURN: ", playerOneTurn, 'pTWO', playerTwoTurn);
+})
 
 socketio.on('purchase_to_client', function(data){
 	$scope.$apply(function(){
@@ -188,7 +241,8 @@ socketio.on('purchase_to_client', function(data){
 		$scope.message = data.message;
 		$scope.specialMessage = data.showSpecialMessage;
 		color = data.color;
-
+		railUtil = data.railUtil;
+		notEnough = data.notEnough;
 		updatePurchase();
 	});
 });
@@ -223,7 +277,9 @@ var updateView = function(){
 		document.images['dieOne'].src = imageName1;
 		document.images['dieTwo'].src = imageName2;
 		$scope.rollInfo =true;
-		$scope.utilityChanceInfo = false;
+		if(playerOneWin || playerTwoWin){
+			endGame();
+		}
 		if(purchaseOption){	
 			$scope.purchaseMessage = " has the option to purchase ";
 			$scope.purchase = true;
@@ -232,16 +288,26 @@ var updateView = function(){
 			document.getElementById("rollButton").disabled = true;
 		}
 }
+var endGame = function(){
+	$scope.gameOver = true;
+	if(playerOneWin){
+	$scope.gameOverMessage = "Player One Wins!";
+	}else if(playerTwoWin){
+		$scope.gameOverMessage = "Player Two Wins!";
+	}
+}
 
 var updatePurchase = function(){
 	document.getElementById("rollButton").disabled = false;
 	$scope.purchaseButtons = false;
-	if (playerOneTurn){
+	if (playerOneTurn && !notEnough){
 		document.getElementById(playerOnePosition).className += " red";
-	}else{
+	}
+	if(playerTwoTurn && !notEnough){
 		document.getElementById(playerTwoPosition).className += " blue";
 	}
 	if(playerOneMonopoly){
+		$scope.specialMessage = true;
 		for (var i = 0; i <$scope.playerOneProperties.length; i++){
 			if($scope.playerOneProperties[i].group == color){
 				document.getElementById($scope.playerOneProperties[i].position).classList.add(color + "one");
@@ -249,12 +315,15 @@ var updatePurchase = function(){
 		}
 	}
 	if(playerTwoMonopoly){
-		console.log("yo");
+		$scope.specialMessage = true;
 		for (var i = 0; i <$scope.playerTwoProperties.length; i++){
 			if($scope.playerTwoProperties[i].group == color){
 				document.getElementById($scope.playerTwoProperties[i].position).classList.add(color + "two");
 			}
 		}
+	}
+	if(railUtil){
+		$scope.specialMessage = true;
 	}	
 }
 

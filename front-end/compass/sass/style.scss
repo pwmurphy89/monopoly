@@ -15,6 +15,26 @@
 	    margin-left: 20%;
 	}
 }
+#view{
+	background-color: beige;
+}
+#gameOver{
+	font-size: 40px;
+	text-align: center;
+	font-weight: bold;
+	height: 100px;
+	background-color: gray;
+}
+#loginpage{
+	height: 800px;
+	background-color: black;
+	color:white;
+}
+#registerpage{
+	height: 800px;
+	background-color: black;
+	color:white;
+}
 
 #header{
 
@@ -46,11 +66,14 @@
 .cell{
 	font-size: 8px;
 	border: 1px solid black;
-	height: 55px;
+	height: 75px;
+	/*width: 75px;*/
 	padding: 0px;
 }
 
-
+#row4{
+ 
+}
 .red{
 	border: 3px solid red;
 }
@@ -119,10 +142,10 @@
 	-webkit-transform: rotate(-38deg);
 	img{
 		position: absolute;
-		height: 67px;
-		width: 120px;
-		top: -50px;
-		left: -5px;
+	    height: 73px;
+	    width: 130px;
+	    top: -49px;
+	    left: -13px;
 	}
 }
 #chestCardSpot{
@@ -130,9 +153,9 @@
 	-webkit-transform: rotate(-38deg);
 	img{
 		position: absolute;
-		height: 67px;
-	    top: 25px;
-	    left: -31px
+		height: 73px;
+	    top: 27px;
+	    left: -35px
 	}
 }
 #freeParkingBank{
