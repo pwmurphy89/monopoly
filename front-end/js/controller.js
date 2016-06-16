@@ -138,9 +138,12 @@ var playerTwoTurn;
 var playerOneProperties = [];
 var playerTwoProperties = [];
 var purchaseOption = false;
+var playerOneMonopoly = false;
+var playerTwoMonopoly = false;
 $scope.freeParkingBank = 200;
 $scope.chanceImage = "chance-back.png";
 $scope.chestImage = "chest-back.png";
+var color = '';
 
 	socketio.on('dice_to_client', function(data){
 		document.getElementById(playerOnePosition).innerHTML = "";
@@ -175,7 +178,6 @@ $scope.chestImage = "chest-back.png";
 	});
 
 	socketio.on('purchase_to_client', function(data){
-
 		$scope.$apply(function(){
 			$scope.playerOneBank =  data.playerOneBank;
 			$scope.playerTwoBank = data.playerTwoBank;
@@ -184,6 +186,12 @@ $scope.chestImage = "chest-back.png";
 			playerOneTurn = data.playerOneTurn;
 			playerTwoTurn = data.playerTwoTurn;
 			$scope.purchaseMessage = data.purchaseMessage;
+			playerOneMonopoly = data.playerOneMonopoly;
+			playerTwoMonopoly = data.playerTwoMonopoly;
+			$scope.message = data.message;
+			$scope.specialMessage = data.showSpecialMessage;
+			color = data.color;
+
 			updatePurchase();
 		});
 	});
@@ -233,15 +241,28 @@ var updateView = function(){
 }
 
 var updatePurchase = function(){
-
 	document.getElementById("rollButton").disabled = false;
 	$scope.purchaseButtons = false;
 	if (playerOneTurn){
 		document.getElementById(playerOnePosition).className += " red";
 	}else{
 		document.getElementById(playerTwoPosition).className += " blue";
-	}		
-// 	checkMonopoly(2, cells[$scope.playerPosition].group);
+	}
+	if(playerOneMonopoly){
+		for (var i = 0; i <$scope.playerOneProperties.length; i++){
+			if($scope.playerOneProperties[i].group == color){
+				document.getElementById($scope.playerOneProperties[i].position).classList.add(color + "one");
+			}
+		}
+	}
+	if(playerTwoMonopoly){
+		console.log("yo");
+		for (var i = 0; i <$scope.playerTwoProperties.length; i++){
+			if($scope.playerTwoProperties[i].group == color){
+				document.getElementById($scope.playerTwoProperties[i].position).classList.add(color + "two");
+			}
+		}
+	}	
 }
 
 	$scope.onePlayerGame = function(){
@@ -292,87 +313,6 @@ var updatePurchase = function(){
 		socketio.emit('notPurchase_to_server',{
 		});
 	}
-
-function checkMonopoly(player, color){
-	if(player == 1){
-		var propertyOneGroup = [];
-		var groupOne;
-	    for(i=0; i<playerOneProperties.length; i++){
-	        groupOne = playerOneProperties[i].group;
-	        propertyOneGroup[groupOne] = 0;
-	    }
-	    for(i=0; i<playerOneProperties.length; i++){
-	        groupOne = playerOneProperties[i].group;
-	       	propertyOneGroup[groupOne]++;
-		    
-		    if(groupOne == "Railroad"){
-	    		playerOneProperties[i].rent = playerOneProperties[i].rent * Math.pow(2, propertyOneGroup[groupOne] -1);
-	    		$scope.specialMessage = true;
-                $scope.message = "Player 1 will collect $" + playerOneProperties[i].rent + " on all owned Railroads";
-		    	document.getElementById(playerOneProperties[i].position).classList.add(color + "one");
-		    }
-		    else if(groupOne == "Utility"){
-		    	var multiplier = (propertyOneGroup[groupOne]==1) ? 4 : 10;
-		    	playerOneProperties[i].rent = $scope.diceTotal * multiplier;
-		    	$scope.specialMessage = true;
-                $scope.message = " Rent is now  " + multiplier + " times amount shown on dice";
-		    	document.getElementById(playerOneProperties[i].position).classList.add(color + "one");
-			}else{
-				$scope.message = '';
-			}
-
-		}
-		if((propertyOneGroup[color] == byGroup[color]) && (groupOne != "Utility") && (groupOne != "Railroad")){
-            for (var i = 0; i <playerOneProperties.length; i++){
-                if(playerOneProperties[i].group == color){
-                    playerOneProperties[i].rent = playerOneProperties[i].rent * 2;
-                    $scope.specialMessage = true;
-                    $scope.message = " Player One now has a Monopoly! Rent is doubled!";
-                    document.getElementById(playerOneProperties[i].position).classList.add(color + "one");
-                }
-            }
-        }
-	}else if(player == 2){
-		var propertyTwoGroup = [];
-		var groupTwo;
-	    for(i=0; i<playerTwoProperties.length; i++){
-	        groupTwo = playerTwoProperties[i].group;
-	        propertyTwoGroup[groupTwo] = 0;
-	    }
-	    for(i=0; i<playerTwoProperties.length; i++){
-	        groupTwo = playerTwoProperties[i].group;
-	       	propertyTwoGroup[groupTwo]++;
-
-		    if(groupTwo == "Railroad"){
-	    		playerTwoProperties[i].rent = playerTwoProperties[i].rent * Math.pow(2, propertyTwoGroup[groupTwo] -1);
-	    		$scope.specialMessage = true;
-                $scope.message = "Player 2 will collect $" + playerTwoProperties[i].rent + " on all owned Railroads";
-		    	document.getElementById(playerTwoProperties[i].position).classList.add(color + "two");
-		    }
-		    else if(groupTwo == "Utility"){
-		    	var multiplier = (propertyTwoGroup[groupTwo]==1) ? 4 : 10;
-		    	playerTwoProperties[i].rent = $scope.diceTotal * multiplier;
-		    	$scope.specialMessage = true;
-                $scope.message = " Rent is now  " + multiplier + " times amount shown on dice";
-		    	document.getElementById(playerTwoProperties[i].position).classList.add(color + "two");
-			}else{
-				$scope.message = '';
-			}
-	    }
-	    if((propertyTwoGroup[color] == byGroup[color]) && (groupTwo != "Utility") && (groupTwo != "Railroad")){
-	    	for (var i = 0; i <playerTwoProperties.length; i++){
-	    		if(playerTwoProperties[i].group == color){
-	    			playerTwoProperties[i].rent = playerTwoProperties[i].rent * 2;
-	    			$scope.specialMessage = true;
-	    			$scope.message = " Player 2 now has a Monopoly! Rent is doubled!";
-	    			document.getElementById(playerTwoProperties[i].position).classList.add(color + "two");
-	    		}
-	    	}
-	    }
-	}
-}
-
-
 
 	// var utilityFunction = function(){
 	// 	$scope.utilityChanceInfo = true;

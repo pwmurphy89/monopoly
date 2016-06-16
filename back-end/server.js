@@ -37,6 +37,15 @@ playerTwoCounter = 1;
 chestImage = "chest-back.png";
 chanceImage = "chance-back.png";
 utilityChance = false;
+byGroup = [];
+thisGroup = '';
+propertyOneGroup = [];
+groupOne = '';
+playerOneMonopoly = false;
+color = '';
+propertyTwoGroup = [];
+groupTwo = '';
+playerTwoMonopoly = false;
 
 io.sockets.on('connect', function(socket){
 	console.log('someone connected...');
@@ -46,7 +55,7 @@ io.sockets.on('connect', function(socket){
 		imageName1 = "css/images/d" + dice1 + ".gif";
 		dice2 = Math.floor(Math.random() * 6 + 1);
 		imageName2 = "css/images/d" + dice2 + ".gif";
-		diceTotal = 7;
+		diceTotal = 12;
 		if((playerOneInJail && playerOneTurn) || (playerTwoInJail && playerTwoTurn)){
 			jailFunction();
 		}else{
@@ -86,6 +95,16 @@ io.sockets.on('connect', function(socket){
 			changePlayer();
 			showSpecialMessage = false;
 		}
+		if(playerOneMonopoly){
+			changePlayer();
+			showSpecialMessage = false;
+			playerOneMonopoly =false;
+		}
+		if(playerTwoMonopoly){
+			changePlayer();
+			showSpecialMessage = false;
+			playerTwoMonopoly =false;
+		}
 		chestImage = "chest-back.png";
 		chanceImage = "chance-back.png";
 	});
@@ -99,9 +118,15 @@ io.sockets.on('connect', function(socket){
 			playerTwoBank: playerTwoBank,
 			playerOneTurn: playerOneTurn,
 			playerTwoTurn: playerTwoTurn,
-			purchaseMessage: purchaseMessage
+			purchaseMessage: purchaseMessage,
+			playerOneMonopoly: playerOneMonopoly,
+			playerTwoMonopoly: playerTwoMonopoly,
+			color: color,
+			message: message,
+			showSpecialMessage: showSpecialMessage
 		});
 		changePlayer();
+		message = '';
 	});
 
 	socket.on('notPurchase_to_server', function(data){
@@ -140,7 +165,95 @@ var purchaseProperty = function(){
 			playerTwoBank -= cells[playerTwoPosition].price;
 			purchaseMessage = " purchased ";
 		}
-	}	
+	}
+	checkMonopoly();
+}
+
+for(i=0; i<cells.length; i++){
+    thisGroup = cells[i].group;
+    byGroup[thisGroup] = 0;
+}
+for(i=0; i<cells.length; i++){
+    thisGroup = cells[i].group;
+    byGroup[thisGroup]++;
+}
+
+function checkMonopoly(){
+	if(playerOneTurn){
+		color = cells[playerOnePosition].group;
+	    for(i=0; i<playerOneProperties.length; i++){
+	        groupOne = playerOneProperties[i].group;
+	        propertyOneGroup[groupOne] = 0;
+	    }
+	    for(i=0; i<playerOneProperties.length; i++){
+	        groupOne = playerOneProperties[i].group;
+	       	propertyOneGroup[groupOne]++;
+		    
+		    if(groupOne == "Railroad"){
+		    	playerOneMonopoly = true;
+	    		playerOneProperties[i].rent = playerOneProperties[i].rent * Math.pow(2, propertyOneGroup[groupOne] -1);
+	    		showSpecialMessage = true;
+                message = "Player 1 will collect $" + playerOneProperties[i].rent + " on all owned Railroads";
+		    }
+		    else if(groupOne == "Utility"){
+		    	playerOneMonopoly = true;
+		    	var multiplier = (propertyOneGroup[groupOne]==1) ? 4 : 10;
+		    	playerOneProperties[i].rent = diceTotal * multiplier;
+		    	showSpecialMessage = true;
+                message = " Rent is now  " + multiplier + " times amount shown on dice";
+			}else{
+				message = '';
+			}
+		}
+		if((propertyOneGroup[color] == byGroup[color]) && (groupOne != "Utility") && (groupOne != "Railroad")){
+            for (var i = 0; i <playerOneProperties.length; i++){
+                if(playerOneProperties[i].group == color){
+                    playerOneProperties[i].rent = playerOneProperties[i].rent * 2;
+                   	showSpecialMessage = true;
+                    message = " Player One now has a Monopoly! Rent is doubled!";
+                    playerOneMonopoly = true;
+                }
+            }
+        }
+	}
+	else{
+		color = cells[playerTwoPosition].group;
+	    for(i=0; i<playerTwoProperties.length; i++){
+	        groupTwo = playerTwoProperties[i].group;
+	        propertyTwoGroup[groupTwo] = 0;
+	    }
+	    for(i=0; i<playerTwoProperties.length; i++){
+	        groupTwo = playerTwoProperties[i].group;
+	       	propertyTwoGroup[groupTwo]++;
+
+		    if(groupTwo == "Railroad"){
+		    	playerTwoMonopoly = true;
+	    		playerTwoProperties[i].rent = playerTwoProperties[i].rent * Math.pow(2, propertyTwoGroup[groupTwo] -1);
+	    		showSpecialMessage = true;
+                message = "Player 2 will collect $" + playerTwoProperties[i].rent + " on all owned Railroads";
+		    }
+		    else if(groupTwo == "Utility"){
+		    	playerTwoMonopoly = true;
+		    	console.log(playerTwoMonopoly);
+		    	var multiplier = (propertyTwoGroup[groupTwo]==1) ? 4 : 10;
+		    	playerTwoProperties[i].rent = diceTotal * multiplier;
+		    	showSpecialMessage = true;
+                message = " Rent is now  " + multiplier + " times amount shown on dice";
+			}else{
+				message = '';
+			}
+	    }
+	    if((propertyTwoGroup[color] == byGroup[color]) && (groupTwo != "Utility") && (groupTwo != "Railroad")){
+	    	for (var i = 0; i <playerTwoProperties.length; i++){
+	    		if(playerTwoProperties[i].group == color){
+	    			playerTwoMonopoly = true;
+	    			playerTwoProperties[i].rent = playerTwoProperties[i].rent * 2;
+	    			showSpecialMessage = true;
+	    			message = " Player 2 now has a Monopoly! Rent is doubled!";
+	    		}
+	    	}
+	    }
+	}
 }
 
 var updatePosition = function(){
@@ -209,6 +322,9 @@ var specialPosition = function(){
 	if(position == 0){
 		message = "Collect $200";
 	}
+	if(position == 10){
+		message = "Just visiting";
+	}
 	if(position == 2 || position == 17 || position == 33){
 		chestCard();
 	}
@@ -226,9 +342,6 @@ var specialPosition = function(){
 	}
 	if(position == 30){
 		gotojail();
-	}
-	if(position == 10){
-		message = "Just visiting";
 	}
 }
 
@@ -332,19 +445,10 @@ var freeParking = function(){
 }
 
 
-var byGroup = [];
-var thisGroup;
-for(i=0; i<cells.length; i++){
-    thisGroup = cells[i].group;
-    byGroup[thisGroup] = 0;
-}
-for(i=0; i<cells.length; i++){
-    thisGroup = cells[i].group;
-    byGroup[thisGroup]++;
-}
 
 var chestCard = function(){
-	var randomChestCard = chestCards[Math.floor(Math.random() * 10)];
+	// var randomChestCard = chestCards[Math.floor(Math.random() * 10)];
+	var randomChestCard = chestCards[0];
 	if(randomChestCard.name == "doctor"){
 		doctor();
 	}
@@ -382,7 +486,7 @@ var chestCard = function(){
 var doctor = function(){
 	if(playerOneTurn){
 		playerOneBank -= 50;
-	 }else if(player == 2){
+	 }else{
 	 	playerTwoBank -= 50;
 	 }
 	freeParkingBank += 50;
@@ -391,14 +495,14 @@ var doctor = function(){
 var bank = function(){
 	if(playerOneTurn){
 		playerOneBank += 75;
-	 }else if(player == 2){
+	 }else{
 	 	playerTwoBank += 75;
 	 }
 }
 var inherit = function(){
 	if(playerOneTurn){
 		playerOneBank += 100;
-	 }else if(player == 2){
+	 }else{
 	 	playerTwoBank += 100;
 	 }
 }
@@ -406,7 +510,7 @@ var inherit = function(){
 var school = function(){
 	if(playerOneTurn){
 		playerOneBank -= 75;
-	 }else if(player == 2){
+	 }else{
 	 	playerTwoBank -= 75;
 	 }
 	 freeParkingBank += 75;
@@ -414,7 +518,7 @@ var school = function(){
 var holiday = function(){
 	if(playerOneTurn){
 		playerOneBank += 100;
-	 }else if(player == 2){
+	 }else{
 	 	playerTwoBank += 100;
 	 }
 }
@@ -422,7 +526,7 @@ var holiday = function(){
 var insurance = function(){
 	if(playerOneTurn){
 		playerOneBank += 100;
-	 }else if(player == 2){
+	 }else{
 	 	playerTwoBank += 100;
 	 }
 }
@@ -457,7 +561,7 @@ var jailFree = function(){
 var chanceCard = function(){
 
 	// var randomChanceCard = chanceCards[Math.floor(Math.random() * 10)];
-	var randomChanceCard = chanceCards[6];
+	var randomChanceCard = chanceCards[5];
 
 	if(randomChanceCard.name == "go"){
 		go();
@@ -511,7 +615,6 @@ var chanceCard = function(){
 	}else if(cells[position].status == "public"){
 		purchaseOption = false;
 		showSpecialMessage = true;
-		specialPosition();
 	}
 }
 
