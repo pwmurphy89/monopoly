@@ -36,7 +36,6 @@ playerOneCounter = 1;
 playerTwoCounter = 1;
 chestImage = "chest-back.png";
 chanceImage = "chance-back.png";
-utilityChance = false;
 byGroup = [];
 thisGroup = '';
 propertyOneGroup = [];
@@ -47,6 +46,7 @@ propertyTwoGroup = [];
 groupTwo = '';
 playerTwoMonopoly = false;
 
+
 io.sockets.on('connect', function(socket){
 	console.log('someone connected...');
 
@@ -55,7 +55,7 @@ io.sockets.on('connect', function(socket){
 		imageName1 = "css/images/d" + dice1 + ".gif";
 		dice2 = Math.floor(Math.random() * 6 + 1);
 		imageName2 = "css/images/d" + dice2 + ".gif";
-		diceTotal = 12;
+		diceTotal = 7;
 		if((playerOneInJail && playerOneTurn) || (playerTwoInJail && playerTwoTurn)){
 			jailFunction();
 		}else{
@@ -84,8 +84,7 @@ io.sockets.on('connect', function(socket){
 			message: message,
 			showSpecialMessage: showSpecialMessage,
 			chestImage: chestImage,
-			chanceImage: chanceImage,
-			utilityChance: utilityChance
+			chanceImage: chanceImage
 		});
 		if(showRent){
 			changePlayer();
@@ -444,8 +443,6 @@ var freeParking = function(){
 	message = "Collect Free Parking Bank!";
 }
 
-
-
 var chestCard = function(){
 	// var randomChestCard = chestCards[Math.floor(Math.random() * 10)];
 	var randomChestCard = chestCards[0];
@@ -557,11 +554,10 @@ var jailFree = function(){
 		jailFreeTwo = true;
 	}
 }
-//Chance Cards ================
-var chanceCard = function(){
 
-	// var randomChanceCard = chanceCards[Math.floor(Math.random() * 10)];
-	var randomChanceCard = chanceCards[5];
+var chanceCard = function(){
+	// var randomChanceCard = chanceCards[Math.floor(Math.random() * 9)];
+	var randomChanceCard = chanceCards[9];
 
 	if(randomChanceCard.name == "go"){
 		go();
@@ -589,9 +585,6 @@ var chanceCard = function(){
 	}
 	if(randomChanceCard.name == "building"){
 		building();
-	}
-	if(randomChanceCard.name == "utilities"){
-		utilities();
 	}
 	message = randomChanceCard.message;
 	chanceImage = randomChanceCard.image;
@@ -672,28 +665,6 @@ var building = function(){
 	}
 }
 
-var utilities = function(){
-	utilityChance = true;
-	if(playerOneTurn){
-		if(playerOnePosition == 7){
-			playerOnePosition = 12;
-		}else if(playerOnePosition == 22){
-			playerOnePosition = 28
-		}else{
-			playerOnePosition = 12;
-			playerOneBank += 200;
-		}
-	}else{
-		if(playerTwoPosition == 7){
-			playerTwoPosition = 12;
-		}else if(playerTwoPosition == 22){
-			playerTwoPosition = 28
-		}else{
-			playerTwoPosition = 12;
-			playerTwoBank += 200;
-		}
-	}
-}
 
 
 

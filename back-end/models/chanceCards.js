@@ -7,8 +7,7 @@ var chanceCards = [
 {name: "jailfree", message: 'Get Out of Jail Free!', image:'jailfree.png'},
 {name: "boardwalk", message: 'Advance to Boardwalk!', image:'boardwalk.png'},
 {name: "chairman", message: 'Elected Chairman of the Board! Pay each player $50', image:'chairman.png'},
-{name: "building", message: 'Building Loan matures! Collect $150!', image:'building.png'},
-{name: "utilities" , message: "Chance: Advanced to the nearest Utility. If owned, throw dice and pay owner a total ten times the amount thrown.", image:'utility.png'}
+{name: "building", message: 'Building Loan matures! Collect $150!', image:'building.png'}
 ];
 
 module.exports = chanceCards;
