@@ -54,29 +54,29 @@ playerOneWin = false;
 playerTwoWin = false;
 notEnough = false;
 numberOfConnections = 0;
-playerOneSocketID = '';
-playerTwoSocketID = '';
+// playerOneSocketID = '';
+// playerTwoSocketID = '';
 socketID = '';
 
 io.sockets.on('connect', function(socket){
 	numberOfConnections++;
 	console.log(numberOfConnections);
 	if(numberOfConnections == 1){
-		playerOneSocketID = socket.conn.id;
+		// playerOneSocketID = socket.conn.id;
 		socket.emit('playerNumber',{
 			pn: 1
 		});
 	}
 	if(numberOfConnections == 2){
-		playerTwoSocketID = socket.conn.id;
-	
+		// playerTwoSocketID = socket.conn.id;
+
 		socket.emit('playerNumber',{
 			pn: 2
 		});
 
 		io.sockets.emit('startingGame', {
-			playerOneSocket: playerOneSocketID,
-			playerTwoSocket: playerTwoSocketID,
+			// playerOneSocket: playerOneSocketID,
+			// playerTwoSocket: playerTwoSocketID,
 			playerOneTurn: playerOneTurn,
 			playerTwoTurn: playerTwoTurn
 		});	

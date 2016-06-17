@@ -200,11 +200,7 @@ socketio.on('dice_to_client', function(data){
 		playerOneWin = data.playerOneWin;
 		playerTwoWin = data.playerTwoWin;
 		socketID = data.socketID;
-		
-
-			console.log(socketID);
 	
-
 		updateView();
 	});
 });
