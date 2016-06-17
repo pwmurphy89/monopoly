@@ -10,11 +10,11 @@ console.log("Listening on 3001");
 var io = require('socket.io').listen(server);
 
 playerOneBank = 1000;
-playerTwoBank = 2000;
+playerTwoBank = 1000;
 playerOneTurn = true;
 playerTwoTurn = false;
-playerOnePosition = 5;
-playerTwoPosition = 5;
+playerOnePosition = 0;
+playerTwoPosition = 0;
 playerTwoOldPosition = 0;
 playerOneOldPosition = 0;
 playerOneInJail = false;
@@ -72,20 +72,16 @@ io.sockets.on('connect', function(socket){
 			pn: 2
 		});
 	}
-		io.sockets.emit('startingGame', {
-			playerOneTurn: playerOneTurn,
-			playerTwoTurn: playerTwoTurn
-		});
 
 	socket.on('numMachines', function (data){
 		console.log("number of machines", data.numMachines);
 		if(data.numMachines == 1){
 			io.sockets.emit('startingGame', {
-			playerOneTurn: playerOneTurn,
-			playerTwoTurn: playerTwoTurn
+				playerOneTurn: playerOneTurn,
+				playerTwoTurn: playerTwoTurn
 			});	
 		}
-		if(data.numMachines == 2){
+		if(data.numMachines == 2 && numberOfConnections == 2){
 			io.sockets.emit('startingGame', {
 				playerOneTurn: playerOneTurn,
 				playerTwoTurn: playerTwoTurn
@@ -104,8 +100,8 @@ socket.on('disconnect', function () {
 		imageName1 = "css/images/d" + dice1 + ".gif";
 		dice2 = Math.floor(Math.random() * 6 + 1);
 		imageName2 = "css/images/d" + dice2 + ".gif";
-		diceTotal = 10;
-		// diceTotal = dice1 + dice2;
+		// diceTotal = 10;
+		diceTotal = dice1 + dice2;
 		if((playerOneInJail && playerOneTurn) || (playerTwoInJail && playerTwoTurn)){
 			jailFunction();
 		}else{

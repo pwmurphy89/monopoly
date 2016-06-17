@@ -34,7 +34,7 @@ router.post('/register', function(req, res, next) {
 	var email = req.body.email;
 	var checkUserQuery = 'SELECT * FROM users WHERE username="' + username +'"';
 	var query = 'INSERT INTO users (username, password, email) VALUES ("' + username + '","' + password + '","' + email +'")'; 
-
+	var query1 = 'INSERT INTO games (username) VALUES ("' + username + '")';
 	connection.query(checkUserQuery, function(err, rows, fields){
 		if(rows[0] == undefined){
 			connection.query(query, function(err, rows, fields){
@@ -44,27 +44,36 @@ router.post('/register', function(req, res, next) {
 					res.json("added");
 				}
 			});
+			connection.query(query1, function(error, rows, fields){
+
+			});
 		}else{
 			res.json("userexists");
 		}
 	});
-});
-// router.post('/logout', function(req, res, next) {
-// 	var username = req.body.username;
-// 	var bank = req.body.bank;
-// 	var turn = req.body.turn;
-// 	var property = req.body.property;
-// 	var position = req.body.position;
-// 	var query = 'UPDATE users SET bank="' + bank + '"WHERE username="' + username +'"'; 
 
-// 	connection.query(query, function(err, rows, fields){
-// 		if(err){
-// 			res.json("error");
-// 		}else{
-// 			res.json("updated");
-// 		}
-// 	});
-// });
+});
+router.post('/logout', function(req, res, next) {
+	var username = req.body.username;
+	var turn = req.body.turn;
+	// var bank1 = req.body.bank1;
+	// var property1 = req.body.property1;
+	var position1 = req.body.position1;
+	// var bank2 = req.body.bank2;
+	// var property2 = req.body.property2;
+	var position2 = req.body.position2;
+
+	var query = 'UPDATE games SET turn = "' + turn + '", position1 = "' + position1 + '", position2 = "' + position2 + '" WHERE username = "' + username +'"'; 
+
+
+	connection.query(query, function(err, rows, fields){
+		if(err){
+			res.json("error");
+		}else{
+			res.json("updated");
+		}
+	});
+});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
