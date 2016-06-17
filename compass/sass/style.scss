@@ -1,0 +1,296 @@
+@import "backgrounds";
+
+#front-container{
+height: 1200px;
+    background-color: black;
+    h1{
+    	color: white;
+    }
+	#front-image {
+		background-color: black;
+	    width: 94%;
+	    height: 600px;
+	    background-image: url("images/monopbg.png");
+	    background-size: 60%;
+	    background-repeat: no-repeat;
+	    margin-left: 20%;
+	}
+}
+#startPage{
+	background-color: black;
+	color: white;
+	height: 1000px;
+	button{
+		margin-top: 20px;
+	}
+}
+#cantRollButton{
+	font-size: 20px;
+}
+	
+#view{
+	background-color: beige;
+}
+#gameOver{
+	font-size: 40px;
+	text-align: center;
+	font-weight: bold;
+	height: 100px;
+	background-color: gray;
+}
+#loginpage{
+	height: 800px;
+	background-color: black;
+	color:white;
+}
+#registerpage{
+	height: 800px;
+	background-color: black;
+	color:white;
+}
+
+#header{
+
+	height: 100px;
+	margin-bottom: 0px;
+	background-color:#5982A7;
+	#logo{
+		height: 100%;
+	}
+	#monopoly{
+	height: 100%;
+	}
+	img{
+		width: 100%;
+		height: 100%;
+	}
+	h1{
+		color: white;
+		font-size: 90px;
+	}
+	#action-bar{
+		margin-top: 50px;
+		h4{
+			color: white;
+		}
+	}
+}
+
+.cell{
+	font-size: 8px;
+	border: 1px solid black;
+	height: 75px;
+	/*width: 75px;*/
+	padding: 0px;
+}
+
+#row4{
+ 
+}
+.red{
+	border: 3px solid red;
+}
+.blue{
+	border: 3px solid blue;
+}
+.redText{
+	color: red;
+}
+.blueText{
+	color: blue;
+}
+#gameInfo{
+	h2{
+		display: inline;
+	}
+	div{
+		margin-top: 18px;
+	}
+}
+
+#playerOneInfo{
+	img{
+		height:70px;
+	}
+	h4{
+		margin-top: -15px;
+	}
+}
+#playerTwoInfo{
+	img{
+		height:50px;
+	}
+	h4{
+		margin-top: -5px;
+	}
+}
+#board{
+	img{
+		height: 44px;
+		display: inline-block;
+	}
+	button{
+		margin-bottom: -30px;
+	}
+	h1{
+		font-size: 10px;
+	}
+	#purchaseInfo{
+		margin-top: 20px;
+	}
+}
+.playerOneBorder{
+	border: 3px solid red;
+}
+.playerTwoBorder{
+	border: 3px solid blue;
+}
+.sameBorder{
+	border-width: 3px;
+	border-style: solid;
+	border-color: red blue;
+}
+#chanceCardSpot{
+	position: relative;
+	-webkit-transform: rotate(-38deg);
+	img{
+		position: absolute;
+	    height: 73px;
+	    width: 130px;
+	    top: -49px;
+	    left: -13px;
+	}
+}
+#chestCardSpot{
+	position: relative;
+	-webkit-transform: rotate(-38deg);
+	img{
+		position: absolute;
+		height: 73px;
+	    top: 27px;
+	    left: -35px
+	}
+}
+#freeParkingBank{
+	position: relative;
+	h6{
+		position: absolute;
+		top: 65px;
+		font-size: 17px;
+
+	}
+	img{
+		position: absolute;
+		height: 70px;
+
+
+	}
+}
+#jailFreeCard{
+	img{
+		height: 50px;
+	}
+	h5{
+		display: inline-block;
+	}
+}
+.Purpleone{
+	border-style: dotted dotted solid dotted;
+	border-width: 3px 3px 15px 3px;
+	border-color: red red #4d0066 red;
+}
+.Purpletwo{
+	border-style: dotted dotted solid dotted;
+	border-width: 3px 3px 15px 3px;
+	border-color: blue blue #4d0066 blue;
+}
+.Light-Greenone{
+	border-style: dotted dotted solid dotted;
+	border-width: 3px 3px 15px 3px;
+	border-color: red red #cce6ff red;
+}
+.Light-Greentwo{
+	border-style: dotted dotted solid dotted;
+	border-width: 3px 3px 15px 3px;
+	border-color: blue blue #cce6ff blue;
+}
+.Railroadone{
+	border-style: dotted dotted solid dotted;
+	border-width: 3px 3px 15px 3px;
+	border-color: red red black red;
+}
+.Railroadtwo{
+	border-style: dotted dotted solid dotted;
+	border-width: 3px 3px 15px 3px;
+	border-color: blue blue black blue;
+}
+.Violetone{
+	border-style: dotted dotted solid dotted;
+	border-width: 3px 3px 15px 3px;
+	border-color: red red #990099 red;
+}
+.Violettwo{
+	border-style: dotted dotted solid dotted;
+	border-width: 3px 3px 15px 3px;
+	border-color: blue blue #990099 blue;
+}
+.Orangeone{
+	border-style: dotted dotted solid dotted;
+	border-width: 3px 3px 15px 3px;
+	border-color: red red orange red;
+}
+.Orangetwo{
+	border-style: dotted dotted solid dotted;
+	border-width: 3px 3px 15px 3px;
+	border-color: blue blue orange blue;
+}
+.Redone{
+	border-style: dotted dotted solid dotted;
+	border-width: 3px 3px 15px 3px;
+	border-color: red red red red;
+}
+.Redtwo{
+	border-style: dotted dotted solid dotted;
+	border-width: 3px 3px 15px 3px;
+	border-color: blue blue red blue;
+}
+.Yellowone{
+	border-style: dotted dotted solid dotted;
+	border-width: 3px 3px 15px 3px;
+	border-color: red red yellow red;
+}
+.Yellowtwo{
+	border-style: dotted dotted solid dotted;
+	border-width: 3px 3px 15px 3px;
+	border-color: blue blue yellow blue;
+}
+.Dark-Greenone{
+	border-style: dotted dotted solid dotted;
+	border-width: 3px 3px 15px 3px;
+	border-color: red red #006600 red;
+}
+.Dark-Greentwo{
+	border-style: dotted dotted solid dotted;
+	border-width: 3px 3px 15px 3px;
+	border-color: blue blue #006600 blue;
+}
+.Blueone{
+	border-style: dotted dotted solid dotted;
+	border-width: 3px 3px 15px 3px;
+	border-color: red red blue red;
+}
+.Bluetwo{
+	border-style: dotted dotted solid dotted;
+	border-width: 3px 3px 15px 3px;
+	border-color: blue blue blue blue;
+}
+.Utilityone{
+	border-style: dotted dotted solid dotted;
+	border-width: 3px 3px 15px 3px;
+	border-color: red red gold red;
+}
+.Utilitytwo{
+	border-style: dotted dotted solid dotted;
+	border-width: 3px 3px 15px 3px;
+	border-color: blue blue gold blue;
+}

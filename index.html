@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<title>Digital Crafts Monopoly</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel='stylesheet' type='text/css' href="css/style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	<script type="text/javascript" src="js/angular-route.min.js"></script>
+	<script type="text/javascript" src="https://code.angularjs.org/1.5.5/angular-cookies.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> 
+	<script type="text/javascript" src="js/jquery.backstretch.min.js"></script>
+	<script type="text/javascript" src="js/chestCards.js"></script>
+	<script type="text/javascript" src="js/cellData.js"></script>
+	<script type="text/javascript" src="js/chanceCards.js"></script>
+	<script type="text/javascript" src="js/controller.js"></script>
+	<script type="text/javascript" src="http://127.0.0.1:3001/socket.io/socket.io.js"></script>
+
+</head>
+<body ng-controller="myController">
+	<div id="header" class="navbar navbar-default">
+			<div id="logo" class="col-sm-2 text-left">
+					<a ng-href='#/'>
+						<img src='css/images/logo1.png'>
+					</a>
+			</div>
+			<div id="monopoly" class="col-sm-5 text-center">
+				<img src='css/images/monopoly.png'>
+			</div>
+
+			<div ng-show="loggedOut" id="action-bar" class="col-sm-4 text-right">
+
+				<div class="col-sm-3 text-center info">
+					<a href="#/login"><h4>Login</h4></a>
+				</div>
+				<div class="col-sm-4 col-sm-offset-1 text-center info">
+					<a href="#/register"><h4>Register</h4></a>
+				</div>
+			</div>
+
+			<div ng-show="loggedIn" id="action-bar" class="col-sm-4 text-right">
+				<div id="username" class="col-sm-6 text-center">
+					<h4>Welcome {{username}} !</h4>
+				</div>
+				<div class="col-sm-4 col-sm-offset-1 text-center info">
+					<h4 ng-click="logout()" >Log Out</h4>
+				</div>
+			</div>
+	</div>
+	
+	<div id="view" ng-view>
+
+	</div>
+
+
+</body>
+</html>

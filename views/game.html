@@ -1,0 +1,179 @@
+<div class="container">
+<div ng-show="gameOver" id="gameOver" class="row">GAME OVER! {{gameOverMessage}}</div>
+	<div id="board" class="col-sm-8">
+		<div id="row1" class="row">
+			<div id="20" class="cell col-sm-1 twenty">
+			</div>
+			<div id="21" class="cell col-sm-1 twenty-one">
+			</div>
+			<div id="22" class="cell col-sm-1 twenty-two">
+			</div>
+			<div id="23" class="cell col-sm-1 twenty-three">
+			</div>
+			<div id="24" class="cell col-sm-1 twenty-four">
+			</div>
+			<div id="25" class="cell col-sm-1 twenty-five">
+			</div>
+			<div id="26" class="cell col-sm-1 twenty-six">
+			</div>
+			<div id="27" class="cell col-sm-1 twenty-seven">
+			</div>
+			<div id="28" class="cell col-sm-1 twenty-eight">
+			</div>
+			<div id="29" class="cell col-sm-1 twenty-nine">
+			</div>
+			<div id="30" class="cell col-sm-1 thirty">
+			</div>
+		</div>
+		<div id="row2" class="row">
+			<div id="19" class="cell col-sm-1 nineteen">
+			</div>
+			<div id="chestCardSpot" class="col-sm-2">
+				<img src = "css/images/chest/{{chestImage}}">
+			</div>
+			<div id="31" class="cell col-sm-1 col-sm-offset-7 thirty-one">
+			</div>
+		</div>
+		<div id="row3" class="row">
+			<div id="18" class="cell col-sm-1 eighteen">
+			</div>
+			<div class="col-sm-9">
+				<div id="rollInfo" class="text-center" ng-show="rollInfo">
+					Player {{whichPlayer}} landed on {{cell.name}}
+				</div>
+				<div id="chestInfo" class="text-center" ng-show="specialMessage"> 
+					{{message}}
+				</div>
+			</div>
+			<div id="32" class="cell col-sm-1 thirty-two">
+			</div>
+		</div>
+		<div id="row4" class="row">
+			<div id="17" class="cell col-sm-1 seventeen">
+			</div>
+			<div class="col-sm-3 col-sm-offset-3 text-center">
+				<button id="rollButton" class="btn btn-primary" ng-show="playersTurn" ng-click="rollDice()">Roll Dice</button>
+
+				<div id="cantRollButton" ng-show="!playersTurn">Other Player is Rolling Dice</div>
+
+			</div>
+			<div id="33" class="cell col-sm-1 col-sm-offset-3 thirty-three">
+			</div>
+		</div>
+		<div id="row5" class="row">
+			<div id="16" class="cell col-sm-1 sixteen">
+			</div>
+			<div class="col-sm-3 col-sm-offset-3 text-center">
+				<img src="css/images/d1.gif" name = "dieOne">
+				<img src="css/images/d1.gif" name = "dieTwo">
+			</div>
+			<div id="34" class="cell col-sm-1 col-sm-offset-3 thirty-four">
+			</div>
+		</div>
+		<div id="row6" class="row">
+			<div id="15" class="cell col-sm-1 fifteen">
+			</div>
+			<div class="col-sm-9">
+				<div id="purchaseInfo" class="text-center" ng-show="purchase">
+					Player {{whichPlayer}} {{purchaseMessage}} {{cell.name}} for ${{cell.price}}
+				</div>
+				<div id="rentInfo" class="text-center" ng-show="rentInfo">
+					Player {{whichPlayer}} must pay rent of ${{rent}}
+				</div>
+			</div>
+			<div id="35" class="cell col-sm-1 thirty-five">
+			</div>
+		</div>
+		<div id="row7" class="row">
+			<div id="14" class="cell col-sm-1 fourteen">
+			</div>
+
+			<div class="col-sm-5 col-sm-offset-2 text-center">
+				<div ng-show="purchaseButtons">
+					<button class="btn btn-success" ng-click="purchaseProperty()">Purchase</button>
+					<button class="btn btn-danger" ng-click="notPurchase()">Decline</button>
+				</div>
+			</div>
+			<div id="36" class="cell col-sm-1 col-sm-offset-2 thirty-six">
+			</div>
+		</div>
+		<div id="row8" class="row">
+			<div id="13" class="cell col-sm-1 thirteen">
+			</div>
+			<div id="freeParkingBank" class="col-sm-4 col-sm-offset-3">
+				<img src="css/images/money.png">
+				<h6>Free Parking: ${{freeParkingBank}}</h6>
+			</div>
+			<div id="37" class="cell col-sm-1 col-sm-offset-2 thirty-seven">
+			</div>
+		</div>
+		<div id="row9" class="row">
+			<div id="12" class="cell col-sm-1 twelve">
+			</div>
+
+			<div id="38" class="cell col-sm-1 col-sm-offset-9 thirty-eight">
+			</div>
+		</div>
+		<div id="row10" class="row">
+			<div id="11" class="cell col-sm-1 eleven">
+			</div>
+			<div id="chanceCardSpot" class="col-sm-2 col-sm-offset-7">
+				<img src="css/images/chance/{{chanceImage}}">
+			</div>
+			<div id="39" class="cell col-sm-1 thirty-nine">
+			</div>
+		</div>
+		<div id="row11" class="row">
+			<div id="10" class="cell col-sm-1 ten">
+			</div>
+			<div id="9" class="cell col-sm-1 nine">
+			</div>
+			<div id="8" class="cell col-sm-1 eight">
+			</div>
+			<div id="7" class="cell col-sm-1 seven">
+			</div>
+			<div id="6" class="cell col-sm-1 six">
+			</div>
+			<div id="5" class="cell col-sm-1 five">
+			</div>
+			<div id="4" class="cell col-sm-1 four">
+			</div>
+			<div id="3" class="cell col-sm-1 three">
+
+			</div>
+			<div id="2" class="cell col-sm-1 two">
+			</div>
+			<div id="1" class="cell col-sm-1 one">
+			</div>
+			<div id="0" class="cell col-sm-1 zero">x
+			</div>
+		</div>
+	</div>
+	<div id="gameInfo" class="col-sm-4">
+		<div class="text-center" id="playerOneInfo">
+			<img src="../css/images/token-ship.png">
+			<h2><span class="redText"> Player One </span>${{playerOneBank}}</h2>
+			<h4>Properties:</h4>
+			<div ng-repeat="property in playerOneProperties">
+				<h5>{{property.name}} -- Rent: ${{property.rent}}</h5>
+			</div>
+		</div>
+		<div class="text-center" id="playerTwoInfo">
+			<img src="../css/images/token-car.png">
+			<h2><span class="blueText"> Player Two </span> ${{playerTwoBank}}</h2>
+
+			<h4>Properties:</h4>
+			<div ng-repeat="property in playerTwoProperties">
+				<h5>{{property.name}} -- Rent: ${{property.rent}}</h5>
+			</div>
+		</div>
+		<div id="jailFreeCard" ng-show="jailFreeCardOne" class="col-sm-6 text-center">
+			<h5>Player One -- Get Out of Jail Free</h5>
+			<img src="../css/images/chest/jailfree.png">
+		</div>
+		<div id="jailFreeCard" ng-show="jailFreeCardTwo" class="col-sm-6 text-center">
+			<h5>Player Two -- Get Out of Jail Free</h5>
+			<img src="../css/images/chest/jailfree.png">
+		</div>
+	</div>
+</div>

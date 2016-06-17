@@ -1,0 +1,623 @@
+/* line 1, ../compass/sass/_backgrounds.scss */
+.zero {
+  background-image: url("images/backgrounds/zero.gif");
+  background-size: 115%;
+  background-position: -5px;
+}
+
+/* line 6, ../compass/sass/_backgrounds.scss */
+.one {
+  background-image: url("images/backgrounds/one.png");
+  background-size: 100%;
+}
+
+/* line 10, ../compass/sass/_backgrounds.scss */
+.two {
+  background-image: url("images/backgrounds/two.png");
+  background-size: 100%;
+}
+
+/* line 14, ../compass/sass/_backgrounds.scss */
+.three {
+  background-image: url("images/backgrounds/three.png");
+  background-size: 100%;
+}
+
+/* line 18, ../compass/sass/_backgrounds.scss */
+.four {
+  background-image: url("images/backgrounds/four.png");
+  background-size: 100%;
+}
+
+/* line 22, ../compass/sass/_backgrounds.scss */
+.five {
+  background-image: url("images/backgrounds/five.png");
+  background-size: 100%;
+}
+
+/* line 26, ../compass/sass/_backgrounds.scss */
+.six {
+  background-image: url("images/backgrounds/six.png");
+  background-size: 100%;
+}
+
+/* line 30, ../compass/sass/_backgrounds.scss */
+.seven {
+  background-image: url("images/backgrounds/seven.png");
+  background-size: 100%;
+}
+
+/* line 34, ../compass/sass/_backgrounds.scss */
+.eight {
+  background-image: url("images/backgrounds/eight.png");
+  background-size: 100%;
+}
+
+/* line 38, ../compass/sass/_backgrounds.scss */
+.nine {
+  background-image: url("images/backgrounds/nine.png");
+  background-size: 100%;
+}
+
+/* line 42, ../compass/sass/_backgrounds.scss */
+.ten {
+  background-image: url("images/jail.jpg");
+  background-size: 119%;
+  background-position: -4px;
+}
+
+/* line 47, ../compass/sass/_backgrounds.scss */
+.eleven {
+  background-image: url("images/backgrounds/eleven.png");
+  background-size: 100%;
+}
+
+/* line 51, ../compass/sass/_backgrounds.scss */
+.twelve {
+  background-image: url("images/backgrounds/twelve.png");
+  background-size: 100%;
+}
+
+/* line 55, ../compass/sass/_backgrounds.scss */
+.thirteen {
+  background-image: url("images/backgrounds/thirteen.png");
+  background-size: 100%;
+}
+
+/* line 59, ../compass/sass/_backgrounds.scss */
+.fourteen {
+  background-image: url("images/backgrounds/fourteen.png");
+  background-size: 100%;
+}
+
+/* line 63, ../compass/sass/_backgrounds.scss */
+.fifteen {
+  background-image: url("images/backgrounds/fifteen.png");
+  background-size: 100%;
+}
+
+/* line 67, ../compass/sass/_backgrounds.scss */
+.sixteen {
+  background-image: url("images/backgrounds/sixteen.png");
+  background-size: 100%;
+}
+
+/* line 71, ../compass/sass/_backgrounds.scss */
+.seventeen {
+  background-image: url("images/backgrounds/two.png");
+  background-size: 100%;
+}
+
+/* line 75, ../compass/sass/_backgrounds.scss */
+.eighteen {
+  background-image: url("images/backgrounds/eighteen.png");
+  background-size: 100%;
+}
+
+/* line 79, ../compass/sass/_backgrounds.scss */
+.nineteen {
+  background-image: url("images/backgrounds/nineteen.png");
+  background-size: 100%;
+}
+
+/* line 83, ../compass/sass/_backgrounds.scss */
+.twenty {
+  background-image: url("images/backgrounds/freeParking.jpg");
+  background-size: 100%;
+  background-position: 0px -5px;
+}
+
+/* line 88, ../compass/sass/_backgrounds.scss */
+.twenty-one {
+  background-image: url("images/backgrounds/twentyone.png");
+  background-size: 100%;
+}
+
+/* line 92, ../compass/sass/_backgrounds.scss */
+.twenty-two {
+  background-image: url("images/backgrounds/seven.png");
+  background-size: 100%;
+}
+
+/* line 96, ../compass/sass/_backgrounds.scss */
+.twenty-three {
+  background-image: url("images/backgrounds/twentythree.png");
+  background-size: 100%;
+}
+
+/* line 100, ../compass/sass/_backgrounds.scss */
+.twenty-four {
+  background-image: url("images/backgrounds/twentyfour.png");
+  background-size: 100%;
+}
+
+/* line 104, ../compass/sass/_backgrounds.scss */
+.twenty-five {
+  background-image: url("images/backgrounds/twentyfive.png");
+  background-size: 100%;
+}
+
+/* line 108, ../compass/sass/_backgrounds.scss */
+.twenty-six {
+  background-image: url("images/backgrounds/twentysix.png");
+  background-size: 100%;
+}
+
+/* line 112, ../compass/sass/_backgrounds.scss */
+.twenty-seven {
+  background-image: url("images/backgrounds/twentyseven.png");
+  background-size: 100%;
+}
+
+/* line 116, ../compass/sass/_backgrounds.scss */
+.twenty-eight {
+  background-image: url("images/backgrounds/twentyeight.png");
+  background-size: 100%;
+}
+
+/* line 120, ../compass/sass/_backgrounds.scss */
+.twenty-nine {
+  background-image: url("images/backgrounds/twentynine.png");
+  background-size: 100%;
+}
+
+/* line 124, ../compass/sass/_backgrounds.scss */
+.thirty {
+  background-image: url("images/backgrounds/thirty.png");
+  background-size: 121%;
+  background-position: -8px;
+}
+
+/* line 129, ../compass/sass/_backgrounds.scss */
+.thirty-one {
+  background-image: url("images/backgrounds/thirtyone.png");
+  background-size: 100%;
+}
+
+/* line 133, ../compass/sass/_backgrounds.scss */
+.thirty-two {
+  background-image: url("images/backgrounds/thirtytwo.png");
+  background-size: 100%;
+}
+
+/* line 137, ../compass/sass/_backgrounds.scss */
+.thirty-three {
+  background-image: url("images/backgrounds/two.png");
+  background-size: 100%;
+}
+
+/* line 141, ../compass/sass/_backgrounds.scss */
+.thirty-four {
+  background-image: url("images/backgrounds/thirtyfour.png");
+  background-size: 100%;
+}
+
+/* line 145, ../compass/sass/_backgrounds.scss */
+.thirty-five {
+  background-image: url("images/backgrounds/thirtyfive.png");
+  background-size: 100%;
+}
+
+/* line 149, ../compass/sass/_backgrounds.scss */
+.thirty-six {
+  background-image: url("images/backgrounds/seven.png");
+  background-size: 100%;
+}
+
+/* line 153, ../compass/sass/_backgrounds.scss */
+.thirty-seven {
+  background-image: url("images/backgrounds/thirtyseven.png");
+  background-size: 100%;
+}
+
+/* line 157, ../compass/sass/_backgrounds.scss */
+.thirty-eight {
+  background-image: url("images/backgrounds/luxury.jpg");
+  background-size: 100%;
+}
+
+/* line 161, ../compass/sass/_backgrounds.scss */
+.thirty-nine {
+  background-image: url("images/backgrounds/thirtynine.png");
+  background-size: 100%;
+}
+
+/* line 3, ../compass/sass/style.scss */
+#front-container {
+  height: 1200px;
+  background-color: black;
+}
+/* line 6, ../compass/sass/style.scss */
+#front-container h1 {
+  color: white;
+}
+/* line 9, ../compass/sass/style.scss */
+#front-container #front-image {
+  background-color: black;
+  width: 94%;
+  height: 600px;
+  background-image: url("images/monopbg.png");
+  background-size: 60%;
+  background-repeat: no-repeat;
+  margin-left: 20%;
+}
+
+/* line 19, ../compass/sass/style.scss */
+#startPage {
+  background-color: black;
+  color: white;
+  height: 1000px;
+}
+/* line 23, ../compass/sass/style.scss */
+#startPage button {
+  margin-top: 20px;
+}
+
+/* line 27, ../compass/sass/style.scss */
+#cantRollButton {
+  font-size: 20px;
+}
+
+/* line 31, ../compass/sass/style.scss */
+#view {
+  background-color: beige;
+}
+
+/* line 34, ../compass/sass/style.scss */
+#gameOver {
+  font-size: 40px;
+  text-align: center;
+  font-weight: bold;
+  height: 100px;
+  background-color: gray;
+}
+
+/* line 41, ../compass/sass/style.scss */
+#loginpage {
+  height: 800px;
+  background-color: black;
+  color: white;
+}
+
+/* line 46, ../compass/sass/style.scss */
+#registerpage {
+  height: 800px;
+  background-color: black;
+  color: white;
+}
+
+/* line 52, ../compass/sass/style.scss */
+#header {
+  height: 100px;
+  margin-bottom: 0px;
+  background-color: #5982A7;
+}
+/* line 57, ../compass/sass/style.scss */
+#header #logo {
+  height: 100%;
+}
+/* line 60, ../compass/sass/style.scss */
+#header #monopoly {
+  height: 100%;
+}
+/* line 63, ../compass/sass/style.scss */
+#header img {
+  width: 100%;
+  height: 100%;
+}
+/* line 67, ../compass/sass/style.scss */
+#header h1 {
+  color: white;
+  font-size: 90px;
+}
+/* line 71, ../compass/sass/style.scss */
+#header #action-bar {
+  margin-top: 50px;
+}
+/* line 73, ../compass/sass/style.scss */
+#header #action-bar h4 {
+  color: white;
+}
+
+/* line 79, ../compass/sass/style.scss */
+.cell {
+  font-size: 8px;
+  border: 1px solid black;
+  height: 75px;
+  /*width: 75px;*/
+  padding: 0px;
+}
+
+/* line 90, ../compass/sass/style.scss */
+.red {
+  border: 3px solid red;
+}
+
+/* line 93, ../compass/sass/style.scss */
+.blue {
+  border: 3px solid blue;
+}
+
+/* line 96, ../compass/sass/style.scss */
+.redText {
+  color: red;
+}
+
+/* line 99, ../compass/sass/style.scss */
+.blueText {
+  color: blue;
+}
+
+/* line 103, ../compass/sass/style.scss */
+#gameInfo h2 {
+  display: inline;
+}
+/* line 106, ../compass/sass/style.scss */
+#gameInfo div {
+  margin-top: 18px;
+}
+
+/* line 112, ../compass/sass/style.scss */
+#playerOneInfo img {
+  height: 70px;
+}
+/* line 115, ../compass/sass/style.scss */
+#playerOneInfo h4 {
+  margin-top: -15px;
+}
+
+/* line 120, ../compass/sass/style.scss */
+#playerTwoInfo img {
+  height: 50px;
+}
+/* line 123, ../compass/sass/style.scss */
+#playerTwoInfo h4 {
+  margin-top: -5px;
+}
+
+/* line 128, ../compass/sass/style.scss */
+#board img {
+  height: 44px;
+  display: inline-block;
+}
+/* line 132, ../compass/sass/style.scss */
+#board button {
+  margin-bottom: -30px;
+}
+/* line 135, ../compass/sass/style.scss */
+#board h1 {
+  font-size: 10px;
+}
+/* line 138, ../compass/sass/style.scss */
+#board #purchaseInfo {
+  margin-top: 20px;
+}
+
+/* line 142, ../compass/sass/style.scss */
+.playerOneBorder {
+  border: 3px solid red;
+}
+
+/* line 145, ../compass/sass/style.scss */
+.playerTwoBorder {
+  border: 3px solid blue;
+}
+
+/* line 148, ../compass/sass/style.scss */
+.sameBorder {
+  border-width: 3px;
+  border-style: solid;
+  border-color: red blue;
+}
+
+/* line 153, ../compass/sass/style.scss */
+#chanceCardSpot {
+  position: relative;
+  -webkit-transform: rotate(-38deg);
+}
+/* line 156, ../compass/sass/style.scss */
+#chanceCardSpot img {
+  position: absolute;
+  height: 73px;
+  width: 130px;
+  top: -49px;
+  left: -13px;
+}
+
+/* line 164, ../compass/sass/style.scss */
+#chestCardSpot {
+  position: relative;
+  -webkit-transform: rotate(-38deg);
+}
+/* line 167, ../compass/sass/style.scss */
+#chestCardSpot img {
+  position: absolute;
+  height: 73px;
+  top: 27px;
+  left: -35px;
+}
+
+/* line 174, ../compass/sass/style.scss */
+#freeParkingBank {
+  position: relative;
+}
+/* line 176, ../compass/sass/style.scss */
+#freeParkingBank h6 {
+  position: absolute;
+  top: 65px;
+  font-size: 17px;
+}
+/* line 182, ../compass/sass/style.scss */
+#freeParkingBank img {
+  position: absolute;
+  height: 70px;
+}
+
+/* line 190, ../compass/sass/style.scss */
+#jailFreeCard img {
+  height: 50px;
+}
+/* line 193, ../compass/sass/style.scss */
+#jailFreeCard h5 {
+  display: inline-block;
+}
+
+/* line 197, ../compass/sass/style.scss */
+.Purpleone {
+  border-style: dotted dotted solid dotted;
+  border-width: 3px 3px 15px 3px;
+  border-color: red red #4d0066 red;
+}
+
+/* line 202, ../compass/sass/style.scss */
+.Purpletwo {
+  border-style: dotted dotted solid dotted;
+  border-width: 3px 3px 15px 3px;
+  border-color: blue blue #4d0066 blue;
+}
+
+/* line 207, ../compass/sass/style.scss */
+.Light-Greenone {
+  border-style: dotted dotted solid dotted;
+  border-width: 3px 3px 15px 3px;
+  border-color: red red #cce6ff red;
+}
+
+/* line 212, ../compass/sass/style.scss */
+.Light-Greentwo {
+  border-style: dotted dotted solid dotted;
+  border-width: 3px 3px 15px 3px;
+  border-color: blue blue #cce6ff blue;
+}
+
+/* line 217, ../compass/sass/style.scss */
+.Railroadone {
+  border-style: dotted dotted solid dotted;
+  border-width: 3px 3px 15px 3px;
+  border-color: red red black red;
+}
+
+/* line 222, ../compass/sass/style.scss */
+.Railroadtwo {
+  border-style: dotted dotted solid dotted;
+  border-width: 3px 3px 15px 3px;
+  border-color: blue blue black blue;
+}
+
+/* line 227, ../compass/sass/style.scss */
+.Violetone {
+  border-style: dotted dotted solid dotted;
+  border-width: 3px 3px 15px 3px;
+  border-color: red red #990099 red;
+}
+
+/* line 232, ../compass/sass/style.scss */
+.Violettwo {
+  border-style: dotted dotted solid dotted;
+  border-width: 3px 3px 15px 3px;
+  border-color: blue blue #990099 blue;
+}
+
+/* line 237, ../compass/sass/style.scss */
+.Orangeone {
+  border-style: dotted dotted solid dotted;
+  border-width: 3px 3px 15px 3px;
+  border-color: red red orange red;
+}
+
+/* line 242, ../compass/sass/style.scss */
+.Orangetwo {
+  border-style: dotted dotted solid dotted;
+  border-width: 3px 3px 15px 3px;
+  border-color: blue blue orange blue;
+}
+
+/* line 247, ../compass/sass/style.scss */
+.Redone {
+  border-style: dotted dotted solid dotted;
+  border-width: 3px 3px 15px 3px;
+  border-color: red red red red;
+}
+
+/* line 252, ../compass/sass/style.scss */
+.Redtwo {
+  border-style: dotted dotted solid dotted;
+  border-width: 3px 3px 15px 3px;
+  border-color: blue blue red blue;
+}
+
+/* line 257, ../compass/sass/style.scss */
+.Yellowone {
+  border-style: dotted dotted solid dotted;
+  border-width: 3px 3px 15px 3px;
+  border-color: red red yellow red;
+}
+
+/* line 262, ../compass/sass/style.scss */
+.Yellowtwo {
+  border-style: dotted dotted solid dotted;
+  border-width: 3px 3px 15px 3px;
+  border-color: blue blue yellow blue;
+}
+
+/* line 267, ../compass/sass/style.scss */
+.Dark-Greenone {
+  border-style: dotted dotted solid dotted;
+  border-width: 3px 3px 15px 3px;
+  border-color: red red #006600 red;
+}
+
+/* line 272, ../compass/sass/style.scss */
+.Dark-Greentwo {
+  border-style: dotted dotted solid dotted;
+  border-width: 3px 3px 15px 3px;
+  border-color: blue blue #006600 blue;
+}
+
+/* line 277, ../compass/sass/style.scss */
+.Blueone {
+  border-style: dotted dotted solid dotted;
+  border-width: 3px 3px 15px 3px;
+  border-color: red red blue red;
+}
+
+/* line 282, ../compass/sass/style.scss */
+.Bluetwo {
+  border-style: dotted dotted solid dotted;
+  border-width: 3px 3px 15px 3px;
+  border-color: blue blue blue blue;
+}
+
+/* line 287, ../compass/sass/style.scss */
+.Utilityone {
+  border-style: dotted dotted solid dotted;
+  border-width: 3px 3px 15px 3px;
+  border-color: red red gold red;
+}
+
+/* line 292, ../compass/sass/style.scss */
+.Utilitytwo {
+  border-style: dotted dotted solid dotted;
+  border-width: 3px 3px 15px 3px;
+  border-color: blue blue gold blue;
+}
