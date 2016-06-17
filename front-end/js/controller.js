@@ -41,7 +41,7 @@ $scope.$watch(function() {
 	});
 
 $scope.loginForm = function(){
-	$http.post('http://localhost:3002/login', {
+	$http.post('http://localhost:3000/login', {
 		username: $scope.username,
 		password: $scope.password
 	}).then(function successCallback(response){
@@ -60,7 +60,7 @@ $scope.loginForm = function(){
 
 $scope.registerForm = function(){
 	if($scope.password == $scope.password2){
-		$http.post('http://localhost:3002/register', {
+		$http.post('http://localhost:3000/register', {
 			username: $scope.username,
 			password: $scope.password,
 			email: $scope.email
@@ -127,7 +127,7 @@ $scope.logout = function(){
 	$cookies.remove('username');
     $location.path('/');
 
-    $http.post('http://localhost:3002/logout', {
+    $http.post('http://localhost:3000/logout', {
     	username: $scope.username,
     	turn: turn,
     	bank1: bank1,
