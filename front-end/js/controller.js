@@ -41,7 +41,7 @@ $scope.$watch(function() {
 	});
 
 $scope.loginForm = function(){
-	$http.post('http://www.pwmurphy.com:3002/login', {
+	$http.post('http://localhost:3002/login', {
 		username: $scope.username,
 		password: $scope.password
 	}).then(function successCallback(response){
@@ -127,7 +127,7 @@ $scope.logout = function(){
 	$cookies.remove('username');
     $location.path('/');
 
-    $http.post('http://www.pwmurphy.com:3002/logout', {
+    $http.post('http://localhost:3002/logout', {
     	username: $scope.username,
     	turn: turn,
     	bank1: bank1,
