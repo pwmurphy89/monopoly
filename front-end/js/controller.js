@@ -23,7 +23,8 @@ myApp.config(function($routeProvider, $locationProvider){
 });
 
 myApp.controller('myController',function($scope, $http,$location, $cookies, $sce){
-	
+	window.oneMachine = false;
+	window.twoMachine = false;
 $scope.$watch(function() { 
     return $location.path(); 
     },
@@ -49,7 +50,7 @@ $scope.loginForm = function(){
 			$scope.message = "Please re-enter password.";
 		}else{
 			$cookies.put('username', $scope.username);
-			$location.path('/game')
+			$location.path('/start');
 		}
 	},function errorCallback(response){
 		console.log("error");
@@ -69,7 +70,7 @@ $scope.registerForm = function(){
 				$scope.message = "Username already in use.  Please choose another username.";
 			}else{
 				$cookies.put('username', username);
-				$location.path('/game');
+				$location.path('/start');
 			}
 		},function errorCallback(response){
 			console.log("error");
@@ -124,6 +125,7 @@ $scope.logOut = function(){
 }
 });
 
+
 myApp.controller('gameController',function($scope, $http,$location){
 
 var socketio = io.connect('http://127.0.0.1:3001');
@@ -132,13 +134,15 @@ var playerOnePosition = 0;
 var playerTwoPosition = 0;
 var imageName1;
 var imageName2;
-var playerOneTurn;
-var playerTwoTurn;
+var playerOneTurn = false;
+var playerTwoTurn = false;
 var playerOneProperties = [];
 var playerTwoProperties = [];
 var purchaseOption = false;
 var playerOneMonopoly = false;
 var playerTwoMonopoly = false;
+$scope.playerOneBank = 2000;
+$scope.playerTwoBank = 2000;
 $scope.freeParkingBank = 200;
 $scope.chanceImage = "chance-back.png";
 $scope.chestImage = "chest-back.png";
@@ -150,20 +154,43 @@ var notEnough = false;
 var playerOneSocket = '';
 var playerTwoSocket = '';
 var playerIAm = 0;
+var oneMachine;
+var twoMachine;
+
+
+$scope.oneMachineGame = function(){
+	window.oneMachine= true;
+	window.twoMachine = false;
+	socketio.emit('numMachines',{
+		numMachines: 1
+	});
+	$location.path('/game');
+}
+
+$scope.twoMachineGame = function(){
+	window.oneMachine = false;
+	window.twoMachine = true;
+		socketio.emit('numMachines',{
+		numMachines: 2
+	});
+		$location.path('/game');
+}
 
 
 socketio.on('playerNumber', function(data){
 	$scope.$apply(function(){
 		playerIAm = data.pn;
-		console.log(playerIAm);
 	});
 });
 
 socketio.on('startingGame', function(data){
-	$scope.$apply(function(){;
+	console.log(data.playerOneTurn);
+	$scope.$apply(function(){
 		playerOneTurn = data.playerOneTurn;
 		playerTwoTurn = data.playerTwoTurn;
+		console.log(data.playerOneTurn);
 		if(playerOneTurn && playerIAm == 1){
+			console.log("hello");
 			$scope.playersTurn = true;
 		}
 	})
@@ -200,27 +227,40 @@ socketio.on('dice_to_client', function(data){
 		playerOneWin = data.playerOneWin;
 		playerTwoWin = data.playerTwoWin;
 		socketID = data.socketID;
-	
+			
+
 		updateView();
 	});
 });
 
 socketio.on('changePlayer',function(data){
 	$scope.$apply(function(){
+		if(oneMachine){
+			if(playerIAm == 1){
+				playerIAm = 2;
+			}else{
+				playerIAm = 1;
+			}
+		} 
+
 		playerOneTurn = data.playerOneTurn;
 		playerTwoTurn = data.playerTwoTurn;
 		if(playerIAm == 1 && playerOneTurn){
-			$scope.playersTurn = true
-		}else{
+			$scope.playersTurn = true;
+		}
+		if(playerIAm == 1 && playerTwoTurn){
 			$scope.playersTurn = false;
+			$scope.purchaseButtons = false;
 		}
 		if(playerIAm == 2 && playerTwoTurn){
 			$scope.playersTurn = true;
-		}else{
+		}
+		if(playerIAm == 2 && playerOneTurn){
 			$scope.playersTurn = false;
+			$scope.purchaseButtons = false;
 		}
 	})
-		console.log("I am" , playerIAm, "poneTURN: ", playerOneTurn, 'pTWO', playerTwoTurn);
+		console.log("I am player" , playerIAm, "playerOneTurn: ", playerOneTurn, 'playerTwoTurn', playerTwoTurn);
 })
 
 socketio.on('purchase_to_client', function(data){
@@ -241,6 +281,8 @@ socketio.on('purchase_to_client', function(data){
 		notEnough = data.notEnough;
 		updatePurchase();
 	});
+	console.log(playerOneTurn);
+	console.log(playerTwoTurn);
 });
 
 socketio.on('notPurchase_to_client', function(data){
@@ -279,9 +321,14 @@ var updateView = function(){
 		if(purchaseOption){	
 			$scope.purchaseMessage = " has the option to purchase ";
 			$scope.purchase = true;
-			$scope.purchaseButtons = true;
 			$scope.rent = false;
 			document.getElementById("rollButton").disabled = true;
+		}
+		if(purchaseOption && playerIAm == 1 && playerOneTurn){
+			$scope.purchaseButtons = true;
+		}
+		if(purchaseOption && playerIAm == 2 && playerTwoTurn){
+			$scope.purchaseButtons = true;
 		}
 }
 var endGame = function(){
@@ -323,19 +370,7 @@ var updatePurchase = function(){
 	}	
 }
 
-$scope.onePlayerGame = function(){
-	onePlayer = true;
-	twoPlayer = false;
-	$scope.whoRollsFirst = "Please roll to see who's first";
-	whosFirst();
-	console.log("playing with the computer");
-}
 
-$scope.twoPlayerGame = function(){
-	onePlayer = false;
-	twoPlayer = true;
-	$scope.roll = true;
-}
 
 $scope.whosFirst = function(){
 	var playerOneTotal =  Math.floor(Math.random() * 6 + 1) + Math.floor(Math.random() * 6 + 1);

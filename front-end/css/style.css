@@ -244,13 +244,14 @@
 
 /* line 3, ../compass/sass/style.scss */
 #front-container {
+  height: 1200px;
   background-color: black;
 }
-/* line 5, ../compass/sass/style.scss */
+/* line 6, ../compass/sass/style.scss */
 #front-container h1 {
   color: white;
 }
-/* line 8, ../compass/sass/style.scss */
+/* line 9, ../compass/sass/style.scss */
 #front-container #front-image {
   background-color: black;
   width: 94%;
@@ -261,12 +262,28 @@
   margin-left: 20%;
 }
 
-/* line 18, ../compass/sass/style.scss */
+/* line 19, ../compass/sass/style.scss */
+#startPage {
+  background-color: black;
+  color: white;
+  height: 1000px;
+}
+/* line 23, ../compass/sass/style.scss */
+#startPage button {
+  margin-top: 20px;
+}
+
+/* line 27, ../compass/sass/style.scss */
+#cantRollButton {
+  font-size: 20px;
+}
+
+/* line 31, ../compass/sass/style.scss */
 #view {
   background-color: beige;
 }
 
-/* line 21, ../compass/sass/style.scss */
+/* line 34, ../compass/sass/style.scss */
 #gameOver {
   font-size: 40px;
   text-align: center;
@@ -275,54 +292,54 @@
   background-color: gray;
 }
 
-/* line 28, ../compass/sass/style.scss */
+/* line 41, ../compass/sass/style.scss */
 #loginpage {
   height: 800px;
   background-color: black;
   color: white;
 }
 
-/* line 33, ../compass/sass/style.scss */
+/* line 46, ../compass/sass/style.scss */
 #registerpage {
   height: 800px;
   background-color: black;
   color: white;
 }
 
-/* line 39, ../compass/sass/style.scss */
+/* line 52, ../compass/sass/style.scss */
 #header {
   height: 100px;
   margin-bottom: 0px;
   background-color: #5982A7;
 }
-/* line 44, ../compass/sass/style.scss */
+/* line 57, ../compass/sass/style.scss */
 #header #logo {
   height: 100%;
 }
-/* line 47, ../compass/sass/style.scss */
+/* line 60, ../compass/sass/style.scss */
 #header #monopoly {
   height: 100%;
 }
-/* line 50, ../compass/sass/style.scss */
+/* line 63, ../compass/sass/style.scss */
 #header img {
   width: 100%;
   height: 100%;
 }
-/* line 54, ../compass/sass/style.scss */
+/* line 67, ../compass/sass/style.scss */
 #header h1 {
   color: white;
   font-size: 90px;
 }
-/* line 58, ../compass/sass/style.scss */
+/* line 71, ../compass/sass/style.scss */
 #header #action-bar {
   margin-top: 50px;
 }
-/* line 60, ../compass/sass/style.scss */
+/* line 73, ../compass/sass/style.scss */
 #header #action-bar h4 {
   color: white;
 }
 
-/* line 66, ../compass/sass/style.scss */
+/* line 79, ../compass/sass/style.scss */
 .cell {
   font-size: 8px;
   border: 1px solid black;
@@ -331,94 +348,94 @@
   padding: 0px;
 }
 
-/* line 77, ../compass/sass/style.scss */
+/* line 90, ../compass/sass/style.scss */
 .red {
   border: 3px solid red;
 }
 
-/* line 80, ../compass/sass/style.scss */
+/* line 93, ../compass/sass/style.scss */
 .blue {
   border: 3px solid blue;
 }
 
-/* line 83, ../compass/sass/style.scss */
+/* line 96, ../compass/sass/style.scss */
 .redText {
   color: red;
 }
 
-/* line 86, ../compass/sass/style.scss */
+/* line 99, ../compass/sass/style.scss */
 .blueText {
   color: blue;
 }
 
-/* line 90, ../compass/sass/style.scss */
+/* line 103, ../compass/sass/style.scss */
 #gameInfo h2 {
   display: inline;
 }
-/* line 93, ../compass/sass/style.scss */
+/* line 106, ../compass/sass/style.scss */
 #gameInfo div {
   margin-top: 18px;
 }
 
-/* line 99, ../compass/sass/style.scss */
+/* line 112, ../compass/sass/style.scss */
 #playerOneInfo img {
   height: 70px;
 }
-/* line 102, ../compass/sass/style.scss */
+/* line 115, ../compass/sass/style.scss */
 #playerOneInfo h4 {
   margin-top: -15px;
 }
 
-/* line 107, ../compass/sass/style.scss */
+/* line 120, ../compass/sass/style.scss */
 #playerTwoInfo img {
   height: 50px;
 }
-/* line 110, ../compass/sass/style.scss */
+/* line 123, ../compass/sass/style.scss */
 #playerTwoInfo h4 {
   margin-top: -5px;
 }
 
-/* line 115, ../compass/sass/style.scss */
+/* line 128, ../compass/sass/style.scss */
 #board img {
   height: 44px;
   display: inline-block;
 }
-/* line 119, ../compass/sass/style.scss */
+/* line 132, ../compass/sass/style.scss */
 #board button {
   margin-bottom: -30px;
 }
-/* line 122, ../compass/sass/style.scss */
+/* line 135, ../compass/sass/style.scss */
 #board h1 {
   font-size: 10px;
 }
-/* line 125, ../compass/sass/style.scss */
+/* line 138, ../compass/sass/style.scss */
 #board #purchaseInfo {
   margin-top: 20px;
 }
 
-/* line 129, ../compass/sass/style.scss */
+/* line 142, ../compass/sass/style.scss */
 .playerOneBorder {
   border: 3px solid red;
 }
 
-/* line 132, ../compass/sass/style.scss */
+/* line 145, ../compass/sass/style.scss */
 .playerTwoBorder {
   border: 3px solid blue;
 }
 
-/* line 135, ../compass/sass/style.scss */
+/* line 148, ../compass/sass/style.scss */
 .sameBorder {
   border-width: 3px;
   border-style: solid;
   border-color: red blue;
 }
 
-/* line 140, ../compass/sass/style.scss */
+/* line 153, ../compass/sass/style.scss */
 #chanceCardSpot {
   position: relative;
   -webkit-transform: rotate(-38deg);
 }
-/* line 143, ../compass/sass/style.scss */
+/* line 156, ../compass/sass/style.scss */
 #chanceCardSpot img {
   position: absolute;
   height: 73px;
@@ -427,12 +444,12 @@
   left: -13px;
 }
 
-/* line 151, ../compass/sass/style.scss */
+/* line 164, ../compass/sass/style.scss */
 #chestCardSpot {
   position: relative;
   -webkit-transform: rotate(-38deg);
 }
-/* line 154, ../compass/sass/style.scss */
+/* line 167, ../compass/sass/style.scss */
 #chestCardSpot img {
   position: absolute;
   height: 73px;
@@ -440,165 +457,165 @@
   left: -35px;
 }
 
-/* line 161, ../compass/sass/style.scss */
+/* line 174, ../compass/sass/style.scss */
 #freeParkingBank {
   position: relative;
 }
-/* line 163, ../compass/sass/style.scss */
+/* line 176, ../compass/sass/style.scss */
 #freeParkingBank h6 {
   position: absolute;
   top: 65px;
   font-size: 17px;
 }
-/* line 169, ../compass/sass/style.scss */
+/* line 182, ../compass/sass/style.scss */
 #freeParkingBank img {
   position: absolute;
   height: 70px;
 }
 
-/* line 177, ../compass/sass/style.scss */
+/* line 190, ../compass/sass/style.scss */
 #jailFreeCard img {
   height: 50px;
 }
-/* line 180, ../compass/sass/style.scss */
+/* line 193, ../compass/sass/style.scss */
 #jailFreeCard h5 {
   display: inline-block;
 }
 
-/* line 184, ../compass/sass/style.scss */
+/* line 197, ../compass/sass/style.scss */
 .Purpleone {
   border-style: dotted dotted solid dotted;
   border-width: 3px 3px 15px 3px;
   border-color: red red #4d0066 red;
 }
 
-/* line 189, ../compass/sass/style.scss */
+/* line 202, ../compass/sass/style.scss */
 .Purpletwo {
   border-style: dotted dotted solid dotted;
   border-width: 3px 3px 15px 3px;
   border-color: blue blue #4d0066 blue;
 }
 
-/* line 194, ../compass/sass/style.scss */
+/* line 207, ../compass/sass/style.scss */
 .Light-Greenone {
   border-style: dotted dotted solid dotted;
   border-width: 3px 3px 15px 3px;
   border-color: red red #cce6ff red;
 }
 
-/* line 199, ../compass/sass/style.scss */
+/* line 212, ../compass/sass/style.scss */
 .Light-Greentwo {
   border-style: dotted dotted solid dotted;
   border-width: 3px 3px 15px 3px;
   border-color: blue blue #cce6ff blue;
 }
 
-/* line 204, ../compass/sass/style.scss */
+/* line 217, ../compass/sass/style.scss */
 .Railroadone {
   border-style: dotted dotted solid dotted;
   border-width: 3px 3px 15px 3px;
   border-color: red red black red;
 }
 
-/* line 209, ../compass/sass/style.scss */
+/* line 222, ../compass/sass/style.scss */
 .Railroadtwo {
   border-style: dotted dotted solid dotted;
   border-width: 3px 3px 15px 3px;
   border-color: blue blue black blue;
 }
 
-/* line 214, ../compass/sass/style.scss */
+/* line 227, ../compass/sass/style.scss */
 .Violetone {
   border-style: dotted dotted solid dotted;
   border-width: 3px 3px 15px 3px;
   border-color: red red #990099 red;
 }
 
-/* line 219, ../compass/sass/style.scss */
+/* line 232, ../compass/sass/style.scss */
 .Violettwo {
   border-style: dotted dotted solid dotted;
   border-width: 3px 3px 15px 3px;
   border-color: blue blue #990099 blue;
 }
 
-/* line 224, ../compass/sass/style.scss */
+/* line 237, ../compass/sass/style.scss */
 .Orangeone {
   border-style: dotted dotted solid dotted;
   border-width: 3px 3px 15px 3px;
   border-color: red red orange red;
 }
 
-/* line 229, ../compass/sass/style.scss */
+/* line 242, ../compass/sass/style.scss */
 .Orangetwo {
   border-style: dotted dotted solid dotted;
   border-width: 3px 3px 15px 3px;
   border-color: blue blue orange blue;
 }
 
-/* line 234, ../compass/sass/style.scss */
+/* line 247, ../compass/sass/style.scss */
 .Redone {
   border-style: dotted dotted solid dotted;
   border-width: 3px 3px 15px 3px;
   border-color: red red red red;
 }
 
-/* line 239, ../compass/sass/style.scss */
+/* line 252, ../compass/sass/style.scss */
 .Redtwo {
   border-style: dotted dotted solid dotted;
   border-width: 3px 3px 15px 3px;
   border-color: blue blue red blue;
 }
 
-/* line 244, ../compass/sass/style.scss */
+/* line 257, ../compass/sass/style.scss */
 .Yellowone {
   border-style: dotted dotted solid dotted;
   border-width: 3px 3px 15px 3px;
   border-color: red red yellow red;
 }
 
-/* line 249, ../compass/sass/style.scss */
+/* line 262, ../compass/sass/style.scss */
 .Yellowtwo {
   border-style: dotted dotted solid dotted;
   border-width: 3px 3px 15px 3px;
   border-color: blue blue yellow blue;
 }
 
-/* line 254, ../compass/sass/style.scss */
+/* line 267, ../compass/sass/style.scss */
 .Dark-Greenone {
   border-style: dotted dotted solid dotted;
   border-width: 3px 3px 15px 3px;
   border-color: red red #006600 red;
 }
 
-/* line 259, ../compass/sass/style.scss */
+/* line 272, ../compass/sass/style.scss */
 .Dark-Greentwo {
   border-style: dotted dotted solid dotted;
   border-width: 3px 3px 15px 3px;
   border-color: blue blue #006600 blue;
 }
 
-/* line 264, ../compass/sass/style.scss */
+/* line 277, ../compass/sass/style.scss */
 .Blueone {
   border-style: dotted dotted solid dotted;
   border-width: 3px 3px 15px 3px;
   border-color: red red blue red;
 }
 
-/* line 269, ../compass/sass/style.scss */
+/* line 282, ../compass/sass/style.scss */
 .Bluetwo {
   border-style: dotted dotted solid dotted;
   border-width: 3px 3px 15px 3px;
   border-color: blue blue blue blue;
 }
 
-/* line 274, ../compass/sass/style.scss */
+/* line 287, ../compass/sass/style.scss */
 .Utilityone {
   border-style: dotted dotted solid dotted;
   border-width: 3px 3px 15px 3px;
   border-color: red red gold red;
 }
 
-/* line 279, ../compass/sass/style.scss */
+/* line 292, ../compass/sass/style.scss */
 .Utilitytwo {
   border-style: dotted dotted solid dotted;
   border-width: 3px 3px 15px 3px;

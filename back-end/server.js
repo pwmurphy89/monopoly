@@ -10,11 +10,11 @@ console.log("Listening on 3001");
 var io = require('socket.io').listen(server);
 
 playerOneBank = 1000;
-playerTwoBank = 0;
+playerTwoBank = 2000;
 playerOneTurn = true;
 playerTwoTurn = false;
-playerOnePosition = 0;
-playerTwoPosition = 0;
+playerOnePosition = 5;
+playerTwoPosition = 5;
 playerTwoOldPosition = 0;
 playerOneOldPosition = 0;
 playerOneInJail = false;
@@ -54,33 +54,44 @@ playerOneWin = false;
 playerTwoWin = false;
 notEnough = false;
 numberOfConnections = 0;
-// playerOneSocketID = '';
-// playerTwoSocketID = '';
 socketID = '';
 
 io.sockets.on('connect', function(socket){
+	
 	numberOfConnections++;
 	console.log(numberOfConnections);
+
 	if(numberOfConnections == 1){
-		// playerOneSocketID = socket.conn.id;
 		socket.emit('playerNumber',{
 			pn: 1
 		});
 	}
-	if(numberOfConnections == 2){
-		// playerTwoSocketID = socket.conn.id;
 
+	if(numberOfConnections == 2){
 		socket.emit('playerNumber',{
 			pn: 2
 		});
-
+	}
 		io.sockets.emit('startingGame', {
-			// playerOneSocket: playerOneSocketID,
-			// playerTwoSocket: playerTwoSocketID,
 			playerOneTurn: playerOneTurn,
 			playerTwoTurn: playerTwoTurn
-		});	
-	}
+		});
+
+	socket.on('numMachines', function (data){
+		console.log("number of machines", data.numMachines);
+		if(data.numMachines == 1){
+			io.sockets.emit('startingGame', {
+			playerOneTurn: playerOneTurn,
+			playerTwoTurn: playerTwoTurn
+			});	
+		}
+		if(data.numMachines == 2){
+			io.sockets.emit('startingGame', {
+				playerOneTurn: playerOneTurn,
+				playerTwoTurn: playerTwoTurn
+			});	
+		}
+	});
 
 socket.on('disconnect', function () {
    io.sockets.emit('userDisconnected');
@@ -93,7 +104,7 @@ socket.on('disconnect', function () {
 		imageName1 = "css/images/d" + dice1 + ".gif";
 		dice2 = Math.floor(Math.random() * 6 + 1);
 		imageName2 = "css/images/d" + dice2 + ".gif";
-		diceTotal = 1;
+		diceTotal = 10;
 		// diceTotal = dice1 + dice2;
 		if((playerOneInJail && playerOneTurn) || (playerTwoInJail && playerTwoTurn)){
 			jailFunction();
@@ -242,7 +253,8 @@ function checkMonopoly(){
 	       	propertyOneGroup[groupOne]++;
 		    
 		    if(groupOne == "Railroad"){
-	    		playerOneProperties[i].rent = playerOneProperties[i].rent * Math.pow(2, propertyOneGroup[groupOne] -1);
+	    		var newRent = 25 * Math.pow(2, (propertyOneGroup[groupOne] -1));
+	    		playerOneProperties[i].rent = newRent;
 	    		railUtil = true;
                 message = "Player 1 will collect $" + playerOneProperties[i].rent + " on all owned Railroads";
 		    }
@@ -276,7 +288,8 @@ function checkMonopoly(){
 	       	propertyTwoGroup[groupTwo]++;
 
 		    if(groupTwo == "Railroad"){
-	    		playerTwoProperties[i].rent = playerTwoProperties[i].rent * Math.pow(2, propertyTwoGroup[groupTwo] -1);
+	    		var newRent = 25 * Math.pow(2, propertyTwoGroup[groupTwo] -1);
+	    		playerTwoProperties[i].rent = newRent;
 	    		railUtil = true;
                 message = "Player 2 will collect $" + playerTwoProperties[i].rent + " on all owned Railroads";
 		    }
@@ -452,14 +465,36 @@ var gotojail = function(){
 }
 
 var payRent = function(position){
+	var counter = 0;
 	if(playerOneTurn){
-		playerTwoBank += cells[position].rent;
-		playerOneBank -= cells[position].rent;
+		for (var i =0; i < playerOneProperties.length;i++){
+			if(playerOneProperties[i] == cells[position]){
+				counter++;
+			}
+		}
+		if(counter == 0){
+			playerTwoBank += cells[position].rent;
+	 		playerOneBank -= cells[position].rent;
+	 		rent = cells[position].rent;
+
+		}else{
+			rent = 0;
+		}
 	}else{
-		playerOneBank += cells[position].rent;
-		playerTwoBank -= cells[position].rent;
+		for (var i =0; i < playerTwoProperties.length;i++){
+			if(playerTwoProperties[i] == cells[position]){
+				counter++;
+			}
+		}
+		if(counter == 0){
+			playerTwoBank -= cells[position].rent;
+	 		playerOneBank += cells[position].rent;
+	 		rent = cells[position].rent;
+
+		}else{
+			rent = 0;
+		}
 	}
-	rent = cells[position].rent;
 	showRent = true;
 }
 

@@ -54,7 +54,7 @@
 			<div class="col-sm-3 col-sm-offset-3 text-center">
 				<button id="rollButton" class="btn btn-primary" ng-show="playersTurn" ng-click="rollDice()">Roll Dice</button>
 
-				<button id="cantRollButton" class="btn btn-primary" ng-show="!playersTurn">Other Player is Rolling Dice</button>
+				<div id="cantRollButton" ng-show="!playersTurn">Other Player is Rolling Dice</div>
 
 			</div>
 			<div id="33" class="cell col-sm-1 col-sm-offset-3 thirty-three">

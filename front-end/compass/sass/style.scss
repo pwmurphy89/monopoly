@@ -1,6 +1,7 @@
 @import "backgrounds";
 
 #front-container{
+height: 1200px;
     background-color: black;
     h1{
     	color: white;
@@ -15,6 +16,18 @@
 	    margin-left: 20%;
 	}
 }
+#startPage{
+	background-color: black;
+	color: white;
+	height: 1000px;
+	button{
+		margin-top: 20px;
+	}
+}
+#cantRollButton{
+	font-size: 20px;
+}
+	
 #view{
 	background-color: beige;
 }
