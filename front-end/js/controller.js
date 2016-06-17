@@ -153,7 +153,7 @@ $scope.logout = function(){
 
 myApp.controller('gameController',function($scope, $http,$location, $rootScope){
 
-var socketio = io.connect('http://127.0.0.1:3002');
+var socketio = io.connect('http://127.0.0.1:3001');
 
 	if(window.oneMachine == true){
 		socketio.emit('numMachines',{
