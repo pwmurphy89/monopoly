@@ -317,8 +317,8 @@ var updateView = function(){
 		$scope.whichPlayer = 2;
 	}
 		$scope.purchase=false;
-		document.getElementById(playerOnePosition).innerHTML += "<img src='../css/images/token-ship.png'>";
-		document.getElementById(playerTwoPosition).innerHTML +="<img src='../css/images/token-car.png'>";
+		document.getElementById(playerOnePosition).innerHTML += "<img src='css/images/token-ship.png'>";
+		document.getElementById(playerTwoPosition).innerHTML +="<img src='css/images/token-car.png'>";
 		document.images['dieOne'].src = imageName1;
 		document.images['dieTwo'].src = imageName2;
 		$scope.rollInfo =true;
