@@ -117,15 +117,11 @@ $scope.logout = function(){
 	}
 
 	bank1 = $rootScope.playerOneBank;
-
 	bank2 = $rootScope.playerTwoBank;
 	position1 = playerOnePosition;
 	position2 = playerTwoPosition;
 	property1 = oneProperty;
 	property2 = twoProperty;
-
-	$cookies.remove('username');
-    $location.path('/');
 
     $http.post('http://www.pwmurphy.com:3002/logout', {
     	username: $scope.username,
@@ -146,6 +142,16 @@ $scope.logout = function(){
     }, function errorCallback(response){
     	console.log("ERRORCALLBACK");
     });
+
+    window.playerOneProperties = [];
+	window.playerTwoProperties = [];
+	window.playerOnePosition = 0;
+	window.playerTwoPosition = 0;
+	window.playerOneTurn = false;
+	window.playerTwoTurn = false;
+
+	$cookies.remove('username');
+    $location.path('/');
 }
 
 });
@@ -251,7 +257,6 @@ socketio.on('changePlayer',function(data){
 				playerIAm = 1;
 			}
 		} 
-
 		playerOneTurn = data.playerOneTurn;
 		playerTwoTurn = data.playerTwoTurn;
 		if(playerIAm == 1 && playerOneTurn){
@@ -269,7 +274,6 @@ socketio.on('changePlayer',function(data){
 			$scope.purchaseButtons = false;
 		}
 	})
-		console.log("I am player" , playerIAm, "playerOneTurn: ", playerOneTurn, 'playerTwoTurn', playerTwoTurn);
 })
 
 socketio.on('purchase_to_client', function(data){
@@ -297,16 +301,6 @@ socketio.on('notPurchase_to_client', function(data){
 		$scope.purchase = false;
 		$scope.purchaseButtons = false;
 		document.getElementById("rollButton").disabled = false;
-	});
-});
-
-socketio.on('rent_to_client', function(data){
-	$scope.$apply(function(){
-		$scope.purchase = false;
-		$scope.purchaseButtons = false;
-		$scope.playerOneBank = data.playerOneBank;
-		$scope.playerTwoBank = data.playerTwoBank;
-		$scope.rent = data.rent;
 	});
 });
 
@@ -378,23 +372,6 @@ var updatePurchase = function(){
 }
 
 
-
-$scope.whosFirst = function(){
-	var playerOneTotal =  Math.floor(Math.random() * 6 + 1) + Math.floor(Math.random() * 6 + 1);
-	var playerTwoTotal =  Math.floor(Math.random() * 6 + 1) + Math.floor(Math.random() * 6 + 1);
-	$scope.total = true;
-	$scope.playerOneTotal = playerOneTotal;
-	$scope.playerTwoTotal = playerTwoTotal;
-	if(playerOneTotal > playerTwoTotal){
-		playerOneTurn = true;
-		playerTwoTurn = false;
-	}else{
-		playerOneTurn = false;
-		playerTwoTurn = true;
-	}
-	$scope.play = true;
-}
-
 $scope.playNow = function(){
 	$location.path('/game');
 }
@@ -415,6 +392,8 @@ $scope.notPurchase = function(){
 }
 
 });
+
+
 
 myApp.controller('infoController',function($scope, $http,$location){
 	$scope.message = "HELLOOOOO";

@@ -3,7 +3,6 @@ var cells = require('./models/cellData');
 var chestCards = require('./models/chestCards');
 var chanceCards = require('./models/chanceCards');
 var server = http.createServer(function(req,res){
-
 });
 server.listen(3001);
 console.log("Listening on 3001");
@@ -92,7 +91,7 @@ io.sockets.on('connect', function(socket){
 socket.on('disconnect', function () {
    io.sockets.emit('userDisconnected');
    console.log('user disconnected');
-  numberOfConnections--;
+  numberOfConnections = 0;
  });
 
 	socket.on('dice_to_server', function(data){
@@ -178,16 +177,6 @@ socket.on('disconnect', function () {
 
 	socket.on('notPurchase_to_server', function(data){
 		io.sockets.emit('notPurchase_to_client',{
-		});
-		changePlayer();
-	});
-
-	socket.on('rent_to_server', function(data){
-
-		io.sockets.emit('rent_to_client',{
-			playerOneBank: playerOneBank,
-			playerTwoBank: playerTwoBank,
-			rent: data.property.rent,
 		});
 		changePlayer();
 	});
