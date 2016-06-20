@@ -41,7 +41,7 @@ $scope.$watch(function() {
 	});
 
 $scope.loginForm = function(){
-	$http.post('http://localhost:3000/login', {
+	$http.post('http://www.pwmurphy.com:3002/login', {
 		username: $scope.username,
 		password: $scope.password
 	}).then(function successCallback(response){
@@ -60,7 +60,7 @@ $scope.loginForm = function(){
 
 $scope.registerForm = function(){
 	if($scope.password == $scope.password2){
-		$http.post('http://localhost:3000/register', {
+		$http.post('http://www.pwmurphy.com:3002/register', {
 			username: $scope.username,
 			password: $scope.password,
 			email: $scope.email
@@ -127,7 +127,7 @@ $scope.logout = function(){
 	$cookies.remove('username');
     $location.path('/');
 
-    $http.post('http://localhost:3000/logout', {
+    $http.post('http://www.pwmurphy.com:3002/logout', {
     	username: $scope.username,
     	turn: turn,
     	bank1: bank1,
@@ -153,7 +153,7 @@ $scope.logout = function(){
 
 myApp.controller('gameController',function($scope, $http,$location, $rootScope){
 
-var socketio = io.connect('http://127.0.0.1:3001');
+var socketio = io.connect('http://www.pwmurphy.com:3001');
 
 	if(window.oneMachine == true){
 		socketio.emit('numMachines',{
