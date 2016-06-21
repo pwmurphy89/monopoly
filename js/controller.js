@@ -216,6 +216,14 @@ socketio.on('startingGame', function(data){
 	})
 });
 
+  socketio.on('userDisconnected',function(data){
+  		$scope.$apply(function(){
+		playerOneTurn = true;
+		playerTwoTurn = false;
+	});
+  });
+
+
 socketio.on('dice_to_client', function(data){
 	document.getElementById(playerOnePosition).innerHTML = "";
 	document.getElementById(playerTwoPosition).innerHTML = "";
