@@ -86,6 +86,12 @@ io.sockets.on('connect', function(socket){
 				playerTwoTurn: playerTwoTurn
 			});	
 		}
+		if(numberOfConnections > 2){
+			io.sockets.emit('startingGame', {
+				playerOneTurn: playerOneTurn,
+				playerTwoTurn: playerTwoTurn
+			});	
+		}
 	});
 
 socket.on('disconnect', function () {
