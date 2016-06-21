@@ -78,7 +78,7 @@ io.sockets.on('connect', function(socket){
 		if(data.numMachines == 1){
 			io.sockets.emit('startingGame', {
 				playerOneTurn: playerOneTurn,
-				playerTwoTurn: playerTwoTurn.
+				playerTwoTurn: playerTwoTurn,
 				playerOneBank: 1000,
 				playerTwoBank: 1000
 			});	
