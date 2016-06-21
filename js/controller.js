@@ -230,7 +230,7 @@ socketio.on('startingGame', function(data){
 
   socketio.on('restart',function(data){
   		$scope.$apply(function(){
-  			document.write("Sorry, more than two players are connected.  Our game currently only supports two players at a time. Please refresh the page and start over from the beginning. Or wait a few minutes and play later.  Thanks!");
+  			$scope.warningMessage = "Sorry, more than two players are connected.  Our game currently only supports two players at a time. Please refresh the page and start over from the beginning. Or wait a few minutes and play later.  Thanks!");
 	});
   });
 
