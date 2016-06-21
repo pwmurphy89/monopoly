@@ -75,18 +75,24 @@ io.sockets.on('connect', function(socket){
 	socket.on('numMachines', function (data){
 		console.log("number of machines", data.numMachines);
 		if(data.numMachines == 1){
+			playerOneBank = 1000;
+			playerTwoBank = 1000;
 			io.sockets.emit('startingGame', {
 				playerOneTurn: playerOneTurn,
 				playerTwoTurn: playerTwoTurn
 			});	
 		}
 		if(data.numMachines == 2 && numberOfConnections == 2){
+			playerOneBank = 1000;
+			playerTwoBank = 1000;
 			io.sockets.emit('startingGame', {
 				playerOneTurn: playerOneTurn,
 				playerTwoTurn: playerTwoTurn
 			});	
 		}
 		if(numberOfConnections > 2){
+			playerOneBank = 1000;
+			playerTwoBank = 1000;
 			io.sockets.emit('restart', {
 			});	
 		}
