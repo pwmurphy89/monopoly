@@ -8,53 +8,56 @@ server.listen(3001);
 console.log("Listening on 3001");
 var io = require('socket.io').listen(server);
 
-playerOneBank = 1000;
-playerTwoBank = 1000;
-playerOneTurn = true;
-playerTwoTurn = false;
-playerOnePosition = 0;
-playerTwoPosition = 0;
-playerTwoOldPosition = 0;
-playerOneOldPosition = 0;
-playerOneInJail = false;
-playerTwoInJail = false;
-jailFreeOne = false;
-jailFreeTwo = false;
-price = 0;
-purchaseOption = false;
-position = 0;
-purchaseMessage = '';
-playerOneProperties = [];
-playerTwoProperties = [];
-rent = 0;
-showRent = false;
-showSpecialMessage = false;
-freeParkingBank = 200;
-message = '';
-playerOneCounter = 1;
-playerTwoCounter = 1;
-chestImage = "chest-back.png";
-chanceImage = "chance-back.png";
-byGroup = [];
-thisGroup = '';
-propertyOneGroup = [];
-groupOne = '';
-playerOneMonopoly = false;
-color = '';
-propertyTwoGroup = [];
-groupTwo = '';
-playerTwoMonopoly = false;
-playerOneRailroad = false;
-playerTwoRailroad = false;
-playerOneUtility = false;
-playerTwoUtility = false;
-railUtil = false;
-playerOneWin = false;
-playerTwoWin = false;
-notEnough = false;
-numberOfConnections = 0;
-socketID = '';
+function setData(){
+	playerOneBank = 1000;
+	playerTwoBank = 1000;
+	playerOneTurn = true;
+	playerTwoTurn = false;
+	playerOnePosition = 0;
+	playerTwoPosition = 0;
+	playerTwoOldPosition = 0;
+	playerOneOldPosition = 0;
+	playerOneInJail = false;
+	playerTwoInJail = false;
+	jailFreeOne = false;
+	jailFreeTwo = false;
+	price = 0;
+	purchaseOption = false;
+	position = 0;
+	purchaseMessage = '';
+	playerOneProperties = [];
+	playerTwoProperties = [];
+	rent = 0;
+	showRent = false;
+	showSpecialMessage = false;
+	freeParkingBank = 200;
+	message = '';
+	playerOneCounter = 1;
+	playerTwoCounter = 1;
+	chestImage = "chest-back.png";
+	chanceImage = "chance-back.png";
+	byGroup = [];
+	thisGroup = '';
+	propertyOneGroup = [];
+	groupOne = '';
+	playerOneMonopoly = false;
+	color = '';
+	propertyTwoGroup = [];
+	groupTwo = '';
+	playerTwoMonopoly = false;
+	playerOneRailroad = false;
+	playerTwoRailroad = false;
+	playerOneUtility = false;
+	playerTwoUtility = false;
+	railUtil = false;
+	playerOneWin = false;
+	playerTwoWin = false;
+	notEnough = false;
+	numberOfConnections = 0;
+	socketID = '';
+};
 
+setData();
 io.sockets.on('connect', function(socket){
 	
 	numberOfConnections++;
@@ -73,8 +76,7 @@ io.sockets.on('connect', function(socket){
 	}
 
 	socket.on('numMachines', function (data){
-			playerOneBank = 1000;
-			playerTwoBank = 1000;
+		setData();
 		if(data.numMachines == 1){
 			io.sockets.emit('startingGame', {
 				playerOneTurn: playerOneTurn,
