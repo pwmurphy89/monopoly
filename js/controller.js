@@ -209,6 +209,9 @@ socketio.on('startingGame', function(data){
 	$scope.$apply(function(){
 		playerOneTurn = data.playerOneTurn;
 		playerTwoTurn = data.playerTwoTurn;
+		if(window.oneMachine == true){
+			$scope.playersTurn = true;
+		}
 		if(playerOneTurn && playerIAm == 1){
 			$scope.playersTurn = true;
 		}
