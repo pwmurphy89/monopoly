@@ -182,8 +182,8 @@ window.playerTwoProperties = [];
 var purchaseOption = false;
 var playerOneMonopoly = false;
 var playerTwoMonopoly = false;
-$scope.playerOneBank = 2000;
-$scope.playerTwoBank = 2000;
+$scope.playerOneBank = 1000;
+$scope.playerTwoBank = 1000;
 $scope.freeParkingBank = 200;
 $scope.chanceImage = "chance-back.png";
 $scope.chestImage = "chest-back.png";
@@ -207,8 +207,8 @@ socketio.on('startingGame', function(data){
 	$scope.$apply(function(){
 		playerOneTurn = data.playerOneTurn;
 		playerTwoTurn = data.playerTwoTurn;
-		playerOneBank = data.playerOneBank;
-		playerTwoBank = data.playerTwoBank;
+		playerOneBank = 1000;
+		playerTwoBank = 1000;
 		if(window.oneMachine == true){
 			$scope.playersTurn = true;
 		}else{
