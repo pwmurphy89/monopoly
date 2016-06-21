@@ -219,6 +219,7 @@ socketio.on('startingGame', function(data){
   socketio.on('userDisconnected',function(data){
   		$scope.$apply(function(){
 		playerOneTurn = true;
+		playerIAm = 1;
 		playerTwoTurn = false;
 	});
   });

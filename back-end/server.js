@@ -96,8 +96,6 @@ io.sockets.on('connect', function(socket){
 
 socket.on('disconnect', function () {
    io.sockets.emit('userDisconnected',{
-   		playerOneTurn: true,
-		playerTwoTurn: false
 	});
    console.log('user disconnected');
  	numberOfConnections = 0;
