@@ -209,21 +209,24 @@ socketio.on('startingGame', function(data){
 		playerTwoTurn = data.playerTwoTurn;
 		if(window.oneMachine == true){
 			$scope.playersTurn = true;
-		}
-		if(playerOneTurn && playerIAm == 1){
-			$scope.playersTurn = true;
+		}else{
+			if(playerIAm == 1 && playerOneTurn){
+				$scope.playersTurn = true;
+			}
+			if(playerIAm == 1 && playerTwoTurn){
+				$scope.playersTurn = false;
+				$scope.purchaseButtons = false;
+			}
+			if(playerIAm == 2 && playerTwoTurn){
+				$scope.playersTurn = true;
+			}
+			if(playerIAm == 2 && playerOneTurn){
+				$scope.playersTurn = false;
+				$scope.purchaseButtons = false;
+			}
 		}
 	})
 });
-
-  socketio.on('userDisconnected',function(data){
-  		$scope.$apply(function(){
-		playerOneTurn = true;
-		playerIAm = 1;
-		playerTwoTurn = false;
-	});
-  });
-
 
 socketio.on('dice_to_client', function(data){
 	document.getElementById(playerOnePosition).innerHTML = "";
