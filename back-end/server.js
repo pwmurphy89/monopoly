@@ -87,9 +87,7 @@ io.sockets.on('connect', function(socket){
 			});	
 		}
 		if(numberOfConnections > 2){
-			io.sockets.emit('startingGame', {
-				playerOneTurn: playerOneTurn,
-				playerTwoTurn: playerTwoTurn
+			io.sockets.emit('restart', {
 			});	
 		}
 	});
