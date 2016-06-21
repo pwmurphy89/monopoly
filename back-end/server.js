@@ -97,7 +97,9 @@ io.sockets.on('connect', function(socket){
 socket.on('disconnect', function () {
    io.sockets.emit('userDisconnected');
    console.log('user disconnected');
-  numberOfConnections = 0;
+ 	numberOfConnections = 0;
+  	playerOneTurn = true;
+	playerTwoTurn = false;
  });
 
 	socket.on('dice_to_server', function(data){
