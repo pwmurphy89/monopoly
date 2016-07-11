@@ -169,6 +169,7 @@ socket.on('disconnect', function () {
 	socket.on('purchase_to_server', function(data){
 		purchaseProperty();
 		io.sockets.emit('purchase_to_client',{
+			cells: cells,
 			playerOneProperties: playerOneProperties,
 			playerTwoProperties: playerTwoProperties,
 			playerOneBank: playerOneBank,
