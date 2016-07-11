@@ -238,8 +238,6 @@ socketio.on('startingGame', function(data){
 
 
 socketio.on('dice_to_client', function(data){
-	console.log(data.playerOneBank);
-	console.log(data.playerTwoBank);
 	document.getElementById(playerOnePosition).innerHTML = "";
 	document.getElementById(playerTwoPosition).innerHTML = "";
 	$scope.$apply(function(){

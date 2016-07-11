@@ -104,16 +104,16 @@ socket.on('disconnect', function () {
 	});
    console.log('user disconnected');
  	numberOfConnections = 0;
-  	playerOneTurn = true;
-	playerTwoTurn = false;
+  	setData();
  });
 
 	socket.on('dice_to_server', function(data){
+		console.log(playerOneProperties);
+		console.log(playerTwoProperties);
 		dice1 = Math.floor(Math.random() * 6 + 1);
 		imageName1 = "css/images/d" + dice1 + ".gif";
 		dice2 = Math.floor(Math.random() * 6 + 1);
 		imageName2 = "css/images/d" + dice2 + ".gif";
-		// diceTotal = 10;
 		diceTotal = dice1 + dice2;
 		if((playerOneInJail && playerOneTurn) || (playerTwoInJail && playerTwoTurn)){
 			jailFunction();
