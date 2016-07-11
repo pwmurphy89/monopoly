@@ -65,9 +65,7 @@ function setData(){
 	socketID = '';
 };
 
-setData();
 io.sockets.on('connect', function(socket){
-	
 	numberOfConnections++;
 	console.log(numberOfConnections);
 
@@ -76,13 +74,11 @@ io.sockets.on('connect', function(socket){
 			pn: 1
 		});
 	}
-
 	if(numberOfConnections == 2){
 		socket.emit('playerNumber',{
 			pn: 2
 		});
 	}
-
 	socket.on('numMachines', function (data){
 		setData();
 		resetCells();
@@ -118,8 +114,6 @@ socket.on('disconnect', function () {
  });
 
 	socket.on('dice_to_server', function(data){
-		console.log(playerOneProperties);
-		console.log(playerTwoProperties);
 		dice1 = Math.floor(Math.random() * 6 + 1);
 		imageName1 = "css/images/d" + dice1 + ".gif";
 		dice2 = Math.floor(Math.random() * 6 + 1);
@@ -179,7 +173,6 @@ socket.on('disconnect', function () {
 	socket.on('purchase_to_server', function(data){
 		purchaseProperty();
 		io.sockets.emit('purchase_to_client',{
-			cells: cells,
 			playerOneProperties: playerOneProperties,
 			playerTwoProperties: playerTwoProperties,
 			playerOneBank: playerOneBank,
@@ -206,7 +199,6 @@ socket.on('disconnect', function () {
 		changePlayer();
 	});
 });
-
 
 var checkWin = function(){
 	if(playerOneBank < 0){
