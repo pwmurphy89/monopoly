@@ -8,6 +8,14 @@ server.listen(3001);
 console.log("Listening on 3001");
 var io = require('socket.io').listen(server);
 
+function resetCells(){
+	for(var i=0;i<cells.length;i++){
+		if(cells[i].status == "owned"){
+			cells[i].status == "vacant";
+		}
+	}
+}
+
 function setData(){
 	playerOneBank = 1000;
 	playerTwoBank = 1000;
@@ -77,6 +85,7 @@ io.sockets.on('connect', function(socket){
 
 	socket.on('numMachines', function (data){
 		setData();
+		resetCells();
 		if(data.numMachines == 1){
 			io.sockets.emit('startingGame', {
 				playerOneTurn: playerOneTurn,
@@ -105,6 +114,7 @@ socket.on('disconnect', function () {
    console.log('user disconnected');
  	numberOfConnections = 0;
   	setData();
+	resetCells();
  });
 
 	socket.on('dice_to_server', function(data){
