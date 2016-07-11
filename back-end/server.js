@@ -66,7 +66,6 @@ function setData(){
 };
 
 io.sockets.on('connect', function(socket){
-	
 	numberOfConnections++;
 	console.log(numberOfConnections);
 
@@ -75,13 +74,11 @@ io.sockets.on('connect', function(socket){
 			pn: 1
 		});
 	}
-
 	if(numberOfConnections == 2){
 		socket.emit('playerNumber',{
 			pn: 2
 		});
 	}
-
 	socket.on('numMachines', function (data){
 		setData();
 		resetCells();
@@ -113,6 +110,7 @@ socket.on('disconnect', function () {
    console.log('user disconnected');
  	numberOfConnections = 0;
   	setData();
+  	resetCells();
  });
 
 	socket.on('dice_to_server', function(data){
