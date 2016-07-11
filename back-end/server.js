@@ -8,6 +8,14 @@ server.listen(3001);
 console.log("Listening on 3001");
 var io = require('socket.io').listen(server);
 
+function resetCells(){
+	for(var i=0;i<cells.length;i++){
+		if(cells[i].status == "owned"){
+			cells[i].status == "vacant";
+		}
+	}
+}
+
 function setData(){
 	playerOneBank = 1000;
 	playerTwoBank = 1000;
@@ -57,7 +65,6 @@ function setData(){
 	socketID = '';
 };
 
-setData();
 io.sockets.on('connect', function(socket){
 	
 	numberOfConnections++;
@@ -77,6 +84,7 @@ io.sockets.on('connect', function(socket){
 
 	socket.on('numMachines', function (data){
 		setData();
+		resetCells();
 		if(data.numMachines == 1){
 			io.sockets.emit('startingGame', {
 				playerOneTurn: playerOneTurn,
@@ -108,8 +116,6 @@ socket.on('disconnect', function () {
  });
 
 	socket.on('dice_to_server', function(data){
-		console.log(playerOneProperties);
-		console.log(playerTwoProperties);
 		dice1 = Math.floor(Math.random() * 6 + 1);
 		imageName1 = "css/images/d" + dice1 + ".gif";
 		dice2 = Math.floor(Math.random() * 6 + 1);
@@ -169,7 +175,6 @@ socket.on('disconnect', function () {
 	socket.on('purchase_to_server', function(data){
 		purchaseProperty();
 		io.sockets.emit('purchase_to_client',{
-			cells: cells,
 			playerOneProperties: playerOneProperties,
 			playerTwoProperties: playerTwoProperties,
 			playerOneBank: playerOneBank,
@@ -196,7 +201,6 @@ socket.on('disconnect', function () {
 		changePlayer();
 	});
 });
-
 
 var checkWin = function(){
 	if(playerOneBank < 0){

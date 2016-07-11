@@ -272,7 +272,6 @@ socketio.on('dice_to_client', function(data){
 
 socketio.on('changePlayer',function(data){
 	$scope.$apply(function(){
-		console.log(window.oneMachine);
 		if(window.oneMachine ==  true){
 			if(playerIAm == 1){
 				playerIAm = 2;
@@ -300,7 +299,6 @@ socketio.on('changePlayer',function(data){
 })
 
 socketio.on('purchase_to_client', function(data){
-	console.log(data.cells);
 	$scope.$apply(function(){
 		$scope.playerOneBank =  data.playerOneBank;
 		$scope.playerTwoBank = data.playerTwoBank;
