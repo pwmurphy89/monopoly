@@ -68,7 +68,6 @@ var setData = function(){
 io.sockets.on('connect', function(socket){
 	numberOfConnections++;
 	console.log(numberOfConnections);
-
 	if(numberOfConnections == 1){
 		socket.emit('playerNumber',{
 			pn: 1
