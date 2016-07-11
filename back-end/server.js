@@ -8,7 +8,7 @@ server.listen(3001);
 console.log("Listening on 3001");
 var io = require('socket.io').listen(server);
 
-function resetCells(){
+var resetCells = function(){
 	for(var i=0;i<cells.length;i++){
 		if(cells[i].status == "owned"){
 			cells[i].status == "vacant";
@@ -16,7 +16,7 @@ function resetCells(){
 	}
 }
 
-function setData(){
+var setData = function(){
 	playerOneBank = 1000;
 	playerTwoBank = 1000;
 	playerOneTurn = true;
