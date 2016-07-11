@@ -86,6 +86,8 @@ io.sockets.on('connect', function(socket){
 			io.sockets.emit('startingGame', {
 				playerOneTurn: playerOneTurn,
 				playerTwoTurn: playerTwoTurn,
+				playerOneProperties: playerOneProperties,
+				playerTwoProperties: playerTwoProperties,
 				playerOneBank: 1000,
 				playerTwoBank: 1000
 			});	

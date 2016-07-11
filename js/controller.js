@@ -204,6 +204,7 @@ socketio.on('playerNumber', function(data){
 });
 
 socketio.on('startingGame', function(data){
+	console.log(data.playerOneProperties, data.playerTwoProperties);
 	$scope.$apply(function(){
 		playerOneTurn = data.playerOneTurn;
 		playerTwoTurn = data.playerTwoTurn;
