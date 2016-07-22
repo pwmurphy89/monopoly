@@ -159,7 +159,6 @@ $scope.logout = function(){
 
 myApp.controller('gameController',function($scope, $http,$location, $rootScope){
 var socketio = io.connect('http://www.pwmurphy.com:3001');
-
 	if(window.oneMachine == true){
 		socketio.emit('numMachines',{
 			numMachines: 1
@@ -170,7 +169,6 @@ var socketio = io.connect('http://www.pwmurphy.com:3001');
 			numMachines: 2
 		});
 	}
-
 window.playerOnePosition = 0;
 window.playerTwoPosition = 0;
 var imageName1;
@@ -196,7 +194,6 @@ var playerOneSocket = '';
 var playerTwoSocket = '';
 var playerIAm = 0;
 
-
 socketio.on('playerNumber', function(data){
 	$scope.$apply(function(){
 		playerIAm = data.pn;
@@ -205,7 +202,6 @@ socketio.on('playerNumber', function(data){
 
 socketio.on('startingGame', function(data){
 	$scope.$apply(function(){
-		console.log(data);
 		playerOneTurn = data.playerOneTurn;
 		playerTwoTurn = data.playerTwoTurn;
 		playerOneBank = 1000;
@@ -236,7 +232,6 @@ socketio.on('startingGame', function(data){
   			$scope.warningMessage = "Sorry, more than two players are connected.  Our game currently only supports two players at a time. Please refresh the page and start over from the beginning. Or wait a few minutes and play later.  Thanks!";
 	});
   });
-
 
 socketio.on('dice_to_client', function(data){
 	document.getElementById(playerOnePosition).innerHTML = "";

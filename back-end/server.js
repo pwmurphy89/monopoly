@@ -78,7 +78,7 @@ io.sockets.on('connect', function(socket){
 			pn: 2
 		});
 	}
-	socket.on('numMachines', function (data){
+	socket.on('numMachines', function(data){
 		setData();
 		resetCells();
 		if(data.numMachines == 1){
