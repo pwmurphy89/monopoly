@@ -333,27 +333,27 @@ var updateView = function(){
 	}else{
 		$scope.whichPlayer = 2;
 	}
-		$scope.purchase=false;
-		document.getElementById(playerOnePosition).innerHTML += "<img src='css/images/token-ship.png'>";
-		document.getElementById(playerTwoPosition).innerHTML +="<img src='css/images/token-car.png'>";
-		document.images['dieOne'].src = imageName1;
-		document.images['dieTwo'].src = imageName2;
-		$scope.rollInfo =true;
-		if(playerOneWin || playerTwoWin){
-			endGame();
-		}
-		if(purchaseOption){	
-			$scope.purchaseMessage = " has the option to purchase ";
-			$scope.purchase = true;
-			$scope.rent = false;
-			document.getElementById("rollButton").disabled = true;
-		}
-		if(purchaseOption && playerIAm == 1 && playerOneTurn){
-			$scope.purchaseButtons = true;
-		}
-		if(purchaseOption && playerIAm == 2 && playerTwoTurn){
-			$scope.purchaseButtons = true;
-		}
+	$scope.purchase=false;
+	document.getElementById(playerOnePosition).innerHTML += "<img src='css/images/token-ship.png'>";
+	document.getElementById(playerTwoPosition).innerHTML +="<img src='css/images/token-car.png'>";
+	document.images['dieOne'].src = imageName1;
+	document.images['dieTwo'].src = imageName2;
+	$scope.rollInfo =true;
+	if(playerOneWin || playerTwoWin){
+		endGame();
+	}
+	if(purchaseOption){	
+		$scope.purchaseMessage = " has the option to purchase ";
+		$scope.purchase = true;
+		$scope.rent = false;
+		document.getElementById("rollButton").disabled = true;
+	}
+	if(purchaseOption && playerIAm == 1 && playerOneTurn){
+		$scope.purchaseButtons = true;
+	}
+	if(purchaseOption && playerIAm == 2 && playerTwoTurn){
+		$scope.purchaseButtons = true;
+	}
 }
 var endGame = function(){
 	$scope.gameOver = true;
@@ -393,31 +393,22 @@ var updatePurchase = function(){
 		$scope.specialMessage = true;
 	}	
 }
-
-
 $scope.playNow = function(){
 	$location.path('/game');
 }
-
 $scope.rollDice = function(){
 	socketio.emit('dice_to_server',{
 	});
 }
-
 $scope.purchaseProperty = function(){
 	socketio.emit('purchase_to_server',{
 	});
 }
-
 $scope.notPurchase = function(){
 	socketio.emit('notPurchase_to_server',{
 	});
 }
-
 });
-
-
-
 myApp.controller('infoController',function($scope, $http,$location){
 	$scope.message = "HELLOOOOO";
 });
